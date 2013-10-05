@@ -2,7 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Client;
+package Client.Thread;
+
+import Client.Form.SignIn;
 
 /**
  *
@@ -35,8 +37,13 @@ public class Start{
 
         /* Create and display the form */
         SignIn signIn = new SignIn();
-        GUIThread gui = new GUIThread();
-        gui.setSignIn(signIn);
-        java.awt.EventQueue.invokeLater(gui);
+        ServerConnection connection = new ServerConnection();
+        signIn.setConnection(connection);
+        ListeningThread listen = new ListeningThread();
+        SendingThread send = new SendingThread();
+        ServerConnection.setListen(listen);
+        ServerConnection.setSend(send);
+        connection.connect();
+        java.awt.EventQueue.invokeLater(signIn);
     }
 }
