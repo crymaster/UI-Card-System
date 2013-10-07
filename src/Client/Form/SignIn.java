@@ -4,7 +4,8 @@
  */
 package Client.Form;
 
-import Client.Thread.ServerConnection;
+import Client.Connection.ServerConnection;
+import Client.Controller.SignInController;
 
 /**
  *
@@ -115,11 +116,19 @@ public class SignIn extends javax.swing.JFrame implements Runnable{
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        ServerConnection.getSend().send("EXIT");
-        //connection.disconnect();
-        System.exit(0);
+        this.controller.close();
+        //this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    public SignInController getController() {
+        return controller;
+    }
+
+    public void setController(SignInController controller) {
+        this.controller = controller;
+    }
+
+    
     @Override
     public void run() {
         this.setVisible(true);
@@ -134,9 +143,5 @@ public class SignIn extends javax.swing.JFrame implements Runnable{
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
-    private ServerConnection connection;
-
-    public void setConnection(ServerConnection connection) {
-        this.connection = connection;
-    }
+    private SignInController controller;
 }

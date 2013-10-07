@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Client.Thread;
+package Client.Connection;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -25,8 +25,8 @@ public class ServerConnection {
     private static final int portNumber = 2222;
     //hostname
     private static final String host = "localhost";
-    private static ListeningThread listen = null;
-    private static SendingThread send = null;
+    private ListeningThread listen = null;
+    private Sending send = null;
     //Close signal
     private static Boolean closed = false;
 
@@ -38,20 +38,20 @@ public class ServerConnection {
         ServerConnection.clientSocket = socket;
     }
 
-    public static ListeningThread getListen() {
+    public ListeningThread getListen() {
         return listen;
     }
 
-    public static void setListen(ListeningThread listen) {
-        ServerConnection.listen = listen;
+    public void setListen(ListeningThread listen) {
+        this.listen = listen;
     }
 
-    public static SendingThread getSend() {
+    public Sending getSend() {
         return send;
     }
 
-    public static void setSend(SendingThread send) {
-        ServerConnection.send = send;
+    public void setSend(Sending send) {
+        this.send = send;
     }
 
     public void connect() {

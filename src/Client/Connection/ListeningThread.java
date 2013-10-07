@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Client.Thread;
+package Client.Connection;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -15,7 +15,16 @@ import java.util.logging.Logger;
  */
 public class ListeningThread implements Runnable{
     private ObjectInputStream input;
+    private ServerConnection connection;
 
+    public ServerConnection getConnection() {
+        return connection;
+    }
+
+    public void setConnection(ServerConnection connection) {
+        this.connection = connection;
+    }
+    
     public ObjectInputStream getInput() {
         return input;
     }
@@ -28,7 +37,6 @@ public class ListeningThread implements Runnable{
         if(input!= null){
             try {
                 input.close();
-                input = null;
             } catch (IOException ex) {
                 Logger.getLogger(ListeningThread.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -39,14 +47,21 @@ public class ListeningThread implements Runnable{
     public void run() {
         while(true){
             try {
-                if(input == null)   break;
-                input.readObject();
+                Object data = input.readObject();
+                if(data instanceof String){
+                    String msg = (String) data;
+                    if(msg.equals("CLOSE")){
+                       connection.disconnect();
+                       break;
+                    }
+                }
                 
             } catch (IOException ex) {
-                //Logger.getLogger(ListeningThread.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ListeningThread.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ListeningThread.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        System.exit(0);
     }
 }

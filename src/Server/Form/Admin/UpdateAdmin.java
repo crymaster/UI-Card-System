@@ -2,8 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package AdminManage;
+package Server.Form.Admin;
 
+import Server.Connection.DBConnect;
+import Server.Form.MainMenu;
+import Server.Form.MainMenu;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -145,7 +148,7 @@ public class UpdateAdmin extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // 
-        int id = AdminManage.id;
+        int id = MainMenu.id;
         String tempAccName = txtAccName.getText();
         String tempPassword = txtPass.getText();
         String tempEmail = txtEmail.getText();
@@ -174,7 +177,7 @@ public class UpdateAdmin extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public void init(){
-        int id = AdminManage.id;
+        int id = MainMenu.id;
         con = DBConnect.connect();
         String selectQuery = "select * from tblAdminAccount where accID = "+id;
         Statement stm;

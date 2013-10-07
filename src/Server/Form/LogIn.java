@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package AdminManage;
+package Server.Form;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
+import Server.Controller.LogInController;
+import Server.Entity.Admin;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -18,29 +18,15 @@ import javax.swing.UnsupportedLookAndFeelException;
  *
  * @author QUANGHUY
  */
-public class Login extends javax.swing.JFrame {
-
+public class LogIn extends javax.swing.JFrame{
+    /*Properties*/
+    private LogInController controller;
     /**
      * Creates new form Login
      */
     
-    Connection con;
-    ResultSet rs;
-    
-    public Login() {
-//        try {
-//            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (UnsupportedLookAndFeelException ex) {
-//            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+    public LogIn() {
         initComponents();
-        setTitle("Admin Login");
         setLocationRelativeTo(this);
     }
 
@@ -62,6 +48,7 @@ public class Login extends javax.swing.JFrame {
         txtPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Admin Login");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Admin Account:");
@@ -72,7 +59,7 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel3.setText("Admin Login");
 
-        btnLogin.setText("OK");
+        btnLogin.setText("Log In");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
@@ -136,18 +123,10 @@ public class Login extends javax.swing.JFrame {
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // disconnect to database and exit program
-        if(con != null){
-            DBConnect.disconnect(con);
-        }
-        System.exit(0);
+        
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        /* 
-         * create a connectin to database
-         */
-        con = DBConnect.connect();
-        
         /*
          * retrieve entry values
          */
@@ -155,67 +134,22 @@ public class Login extends javax.swing.JFrame {
         String tempPassword =new String(txtPassword.getPassword());
         
         /*
-         * 
+         * Authenticate
          */
-        Statement stm;
-        try {
-            stm = con.createStatement();
-            String selectQuery = "select accName, Password from tblAdminAccount";
-            rs = stm.executeQuery(selectQuery);
-            
-            while(rs.next()){
-                if(rs.getString(1).equals(tempAccount) && rs.getString(2).equals(tempPassword)){
-                    JOptionPane.showMessageDialog(this, "Login successfully !", "Message", 1);
-                    new AdminManage().setVisible(true);
-                    dispose();
-                    return;
-                }
-                else{
-                    JOptionPane.showMessageDialog(this,
-                            "Login fail !\nAccount name or password is incorrect.", "Message", 0);
-                    txtPassword.setText("");
-                    txtPassword.requestFocusInWindow();
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Admin account = new Admin();
+        account.setAdminName(tempAccount);
+        account.setPassword(tempPassword);
+        this.controller.logIn(account);
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });
+    void showMessage(String message,int messageType){
+        JOptionPane.showMessageDialog(this,message,"Message", messageType);
     }
+    
+    public void setController(LogInController controller) {
+        this.controller = controller;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnLogin;
@@ -225,4 +159,5 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField txtAccount;
     private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
+    
 }

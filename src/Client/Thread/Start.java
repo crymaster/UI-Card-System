@@ -4,7 +4,13 @@
  */
 package Client.Thread;
 
+import Client.Connection.ListeningThread;
+import Client.Connection.Sending;
+import Client.Connection.ServerConnection;
+import Client.Controller.SignInController;
 import Client.Form.SignIn;
+import Client.Service.ServerCommunicationService;
+import Client.Service.ServiceManager;
 
 /**
  *
@@ -35,15 +41,25 @@ public class Start{
         }
         //</editor-fold>
 
+        /*Instantiate ServerConnection, Listening Thread, Sending*/
+        ServerConnection connection = new ServerConnection();
+        ListeningThread listen = new ListeningThread();
+        Sending send = new Sending();
+        connection.setListen(listen);
+        connection.setSend(send);
+        connection.connect();
+        listen.setConnection(connection);
+        /*Instantiate ServiceManager, ServerCommunication Service*/
+        ServiceManager serviceManager = new ServiceManager();
+        ServerCommunicationService serverCom = new ServerCommunicationService();
+        serviceManager.setServerCommunicationService(serverCom);
+        serverCom.setConnection(connection);
+        /*Controller*/
+        SignInController signInCtrl = new SignInController();
+        signInCtrl.setServiceManager(serviceManager);
         /* Create and display the form */
         SignIn signIn = new SignIn();
-        ServerConnection connection = new ServerConnection();
-        signIn.setConnection(connection);
-        ListeningThread listen = new ListeningThread();
-        SendingThread send = new SendingThread();
-        ServerConnection.setListen(listen);
-        ServerConnection.setSend(send);
-        connection.connect();
+        signIn.setController(signInCtrl);
         java.awt.EventQueue.invokeLater(signIn);
     }
 }

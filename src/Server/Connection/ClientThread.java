@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Server.Thread;
+package Server.Connection;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -17,9 +17,9 @@ import java.util.logging.Logger;
  */
 public class ClientThread extends Thread {
 
-    Socket socket = null;
-    ObjectInputStream input = null;
-    ObjectOutputStream output = null;
+    private Socket socket = null;
+    private ObjectInputStream input = null;
+    private ObjectOutputStream output = null;
 
     public ClientThread(Socket socket) {
         this.socket = socket;
@@ -38,7 +38,8 @@ public class ClientThread extends Thread {
                 Object data = input.readObject();
                 if (data instanceof String) {
                     String msg = (String) data;
-                    if (msg.equals("EXIT")) {
+                    if (msg.equals("CLOSE")) {
+                        output.writeObject("CLOSE");
                         this.close();
                         break;
                     }

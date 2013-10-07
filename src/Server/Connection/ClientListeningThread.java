@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Server.Thread;
+package Server.Connection;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -14,24 +14,21 @@ import java.util.logging.Logger;
  *
  * @author Son
  */
-public class Server {
+public class ClientListeningThread extends Thread{
     private static final int port = 2222;
-    
-    public void start(){
+    ServerSocket serverSocket;
+    @Override
+    public void run() {
         try {
-            ServerSocket serverSocket = new ServerSocket(port);
+            serverSocket= new ServerSocket(port);
             while(true){
                 Socket socket = serverSocket.accept();
                 ClientThread t = new ClientThread(socket);
                 t.start();
             }
+            
         } catch (IOException ex) {
-            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClientListeningThread.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    public static void main(String[] args) {
-        Server server = new Server();
-        server.start();
     }
 }

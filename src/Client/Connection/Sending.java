@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Client.Thread;
+package Client.Connection;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -13,8 +13,8 @@ import java.util.logging.Logger;
  *
  * @author Son
  */
-public class SendingThread{
-    ObjectOutputStream output;
+public class Sending {
+     ObjectOutputStream output;
 
     public ObjectOutputStream getOutput() {
         return output;
@@ -28,7 +28,7 @@ public class SendingThread{
         try {
             output.writeObject(data);
         } catch (IOException ex) {
-            Logger.getLogger(SendingThread.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Sending.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -37,9 +37,8 @@ public class SendingThread{
             try {
                 output.close();
             } catch (IOException ex) {
-                Logger.getLogger(SendingThread.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Sending.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-    
 }
