@@ -7,6 +7,7 @@ package Server.Form;
 import Server.Form.Admin.UpdateAdmin;
 import Server.Form.Admin.AddAdmin;
 import Server.Controller.AdminController;
+import Server.Controller.BaseController;
 import Server.Entity.Admin;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -29,8 +30,7 @@ public class MainMenu extends javax.swing.JFrame {
     
     public MainMenu() {
         initComponents();
-        btnUpdate.setEnabled(false);
-        btnDelete.setEnabled(false);
+        btnDeleteAdmin.setEnabled(false);
         setLocationRelativeTo(this);
     }
 
@@ -57,12 +57,12 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblAdminList = new javax.swing.JTable();
-        btnUpdate = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
-        btnAdd = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnDeleteAdmin = new javax.swing.JButton();
+        btnAddAdmin = new javax.swing.JButton();
+        btnReloadAdmin = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        btnExit = new javax.swing.JButton();
+        btnLogOut = new javax.swing.JButton();
+        btnEditProfile = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -104,28 +104,21 @@ public class MainMenu extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tblAdminList);
 
-        btnUpdate.setText("Update");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+        btnDeleteAdmin.setText("Delete");
+        btnDeleteAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
+                btnDeleteAdminActionPerformed(evt);
             }
         });
 
-        btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+        btnAddAdmin.setText("Add");
+        btnAddAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
+                btnAddAdminActionPerformed(evt);
             }
         });
 
-        btnAdd.setText("Add");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Reload");
+        btnReloadAdmin.setText("Reload");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -134,13 +127,11 @@ public class MainMenu extends javax.swing.JFrame {
             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnUpdate)
-                .addGap(18, 18, 18)
-                .addComponent(btnDelete)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnAddAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63)
+                .addComponent(btnDeleteAdmin)
+                .addGap(58, 58, 58)
+                .addComponent(btnReloadAdmin)
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -149,19 +140,25 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd)
-                    .addComponent(btnUpdate)
-                    .addComponent(btnDelete)
-                    .addComponent(jButton1))
+                    .addComponent(btnAddAdmin)
+                    .addComponent(btnDeleteAdmin)
+                    .addComponent(btnReloadAdmin))
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Admin", jPanel1);
 
-        btnExit.setText("Exit");
-        btnExit.addActionListener(new java.awt.event.ActionListener() {
+        btnLogOut.setText("Log Out");
+        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExitActionPerformed(evt);
+                btnLogOutActionPerformed(evt);
+            }
+        });
+
+        btnEditProfile.setText("Edit Profile");
+        btnEditProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditProfileActionPerformed(evt);
             }
         });
 
@@ -170,15 +167,19 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEditProfile)
+                    .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(btnExit)
+                .addGap(80, 80, 80)
+                .addComponent(btnEditProfile)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnLogOut)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -202,8 +203,8 @@ public class MainMenu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    void render(ArrayList<Admin> admins){
+    /*Functional method*/
+    void renderAdmin(ArrayList<Admin> admins){
         /*Add information to table model*/
         DefaultTableModel model = (DefaultTableModel) tblAdminList.getModel();
         Vector row;
@@ -225,69 +226,59 @@ public class MainMenu extends javax.swing.JFrame {
         /*Load data to table model*/
         this.adminController.load();
         if(tblAdminList.getSelectedRow() == -1){
-            btnUpdate.setEnabled(false);
-            btnDelete.setEnabled(false);
+            btnDeleteAdmin.setEnabled(false);
         }
     }
     
     void showMessage(String message,int messageType){
         JOptionPane.showMessageDialog(this,message,"Message", messageType);
     }
-    
+////////////////////////////////////////////////////////////////////////////////
+                /*Event handling method*/
+                   /*Admin Tab event*/
     private void tblAdminListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAdminListMouseClicked
         // 
-        btnUpdate.setEnabled(true);
-        btnDelete.setEnabled(true);
+        btnDeleteAdmin.setEnabled(true);
     }//GEN-LAST:event_tblAdminListMouseClicked
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+    private void btnEditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProfileActionPerformed
         // 
-        DefaultTableModel model = (DefaultTableModel) tblAdminList.getModel();
-        id = Integer.parseInt(model.getValueAt(tblAdminList.getSelectedRow(), 0).toString());
-        new UpdateAdmin(this, true).setVisible(true);
-        refresh();
-    }//GEN-LAST:event_btnUpdateActionPerformed
+        UpdateAdmin editProfile = new UpdateAdmin(this, true);
+        editProfile.setAdmin(BaseController.getSession().getCurrentAdmin());
+        editProfile.refresh();
+        editProfile.setVisible(true);
+    }//GEN-LAST:event_btnEditProfileActionPerformed
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        /*
-        DefaultTableModel model = (DefaultTableModel) tblAdminList.getModel();
-        Integer deleteID = Integer.parseInt(model.getValueAt(tblAdminList.getSelectedRow(), 0).toString());
-        
-        //con = DBConnect.connect();
-        String deleteQuery = "delete tblAdminAccount where accID = "+deleteID;
-        
-        int i = JOptionPane.showConfirmDialog(this, "Are you sure?", "Mesage", 0, 3);
-        
-        
-        if(i==0){
-            Statement stm;
-            try {
-                stm = con.createStatement();
-                stm.executeUpdate(deleteQuery);
-                JOptionPane.showMessageDialog(this, "Done !", "Message", 1);
-                refresh();
-            } catch (SQLException ex) {
-                Logger.getLogger(MainMenu.class.getName()).log(Level.SEVERE, null, ex);
-            }
+    private void btnDeleteAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAdminActionPerformed
+        int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm Message", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        //Admin choose "Yes" = 0
+        if(result == 0){
+            //Get amdinName from table to delete
+            DefaultTableModel model = (DefaultTableModel) tblAdminList.getModel();
+            String adminName = (String)model.getValueAt(tblAdminList.getSelectedRow(), 0);
+            this.getAdminController().delete(adminName);
+            this.refresh();
         }
-        */
-    }//GEN-LAST:event_btnDeleteActionPerformed
+    }//GEN-LAST:event_btnDeleteAdminActionPerformed
 
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
        
-    }//GEN-LAST:event_btnExitActionPerformed
+    }//GEN-LAST:event_btnLogOutActionPerformed
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+    private void btnAddAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAdminActionPerformed
         /*Create AddAdmin dialog*/
         new AddAdmin(this, true).setVisible(true);
-    }//GEN-LAST:event_btnAddActionPerformed
-
+    }//GEN-LAST:event_btnAddAdminActionPerformed
+            /*End of Admin Tab event*/
+//////////////////////////////////////////////////////////////////////////////////
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnExit;
-    private javax.swing.JButton btnUpdate;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAddAdmin;
+    private javax.swing.JButton btnDeleteAdmin;
+    private javax.swing.JButton btnEditProfile;
+    private javax.swing.JButton btnLogOut;
+    private javax.swing.JButton btnReloadAdmin;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

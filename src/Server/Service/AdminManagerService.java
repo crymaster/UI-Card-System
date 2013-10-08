@@ -27,14 +27,14 @@ public class AdminManagerService {
         dbConnection = new DBConnection();
     }
 
-    public Admin getAdminByName(String adminName) {
+    public Admin get(String adminName) {
         dbConnection.connect();
         Connection connection = dbConnection.getConnection();
         PreparedStatement stm;
         ResultSet rs;
         Admin admin = new Admin();
         try {
-            String query = "SELECT adminName, password FROM Admin WHERE adminName = ?";
+            String query = "SELECT * FROM Admin WHERE adminName = ?";
             stm = connection.prepareStatement(query);
             stm.setString(1, adminName);
             rs = stm.executeQuery();
@@ -43,6 +43,7 @@ public class AdminManagerService {
             }
             admin.setAdminName(adminName);
             admin.setPassword(rs.getString(2));
+            admin.setEmail(rs.getString(3));
         } catch (SQLException ex) {
             Logger.getLogger(AdminManagerService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -80,6 +81,27 @@ public class AdminManagerService {
         PreparedStatement stm;
         int result = 0;
         try {
+            String updateQuery = "UPDATE Admin SET password = ?, email = ? WHERE adminName = ? ";
+            stm = connection.prepareStatement(updateQuery);
+            stm.setString(1, admin.getPassword());
+            stm.setString(2, admin.getEmail());
+            stm.setString(3, admin.getAdminName());
+            result = stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminManagerService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(result == 0){
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean insert(Admin admin){
+        dbConnection.connect();
+        Connection connection = dbConnection.getConnection();
+        PreparedStatement stm;
+        int result = 0;
+        try {
             String insertQuery = "INSERT INTO Admin VALUES(?,?,?)";
             stm = connection.prepareStatement(insertQuery);
             stm.setString(1, admin.getAdminName());
@@ -95,11 +117,30 @@ public class AdminManagerService {
         return true;
     }
     
-    public boolean authenticate(Admin account) {
-        Admin admin = this.getAdminByName(account.getAdminName());
-        if(admin == null || !admin.getPassword().equals(account.getPassword())){
+    public boolean delete(String adminName){
+        dbConnection.connect();
+        Connection connection = dbConnection.getConnection();
+        PreparedStatement stm;
+        int result = 0;
+        try {
+            String deleteQuery = "DELETE FROM Admin WHERE adminName = ?";
+            stm = connection.prepareStatement(deleteQuery);
+            stm.setString(1, adminName);
+            result = stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminManagerService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(result == 0){
             return false;
         }
         return true;
+    }
+    
+    public Admin authenticate(Admin account) {
+        Admin admin = this.get(account.getAdminName());
+        if(admin == null || !admin.getPassword().equals(account.getPassword())){
+            return null;
+        }
+        return admin;
     }
 }

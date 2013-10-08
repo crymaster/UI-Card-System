@@ -6,6 +6,7 @@ package Server.Form;
 
 import java.util.ArrayList;
 import Server.Entity.Admin;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -37,32 +38,27 @@ public class FormManager implements Runnable {
         this.mainMenu = mainMenu;
     }
 
-    public void logInSuccess() {
-        logIn.showMessage("Login successfully !", 1);
+    public void showMessageOnMainMenu(String message, int messageType){
+        JOptionPane.showMessageDialog(this.mainMenu, message,"Message",messageType);
+    }
+    
+    public void showMessageOnLogIn(String message, int messageType){
+        JOptionPane.showMessageDialog(this.logIn, message,"Message",messageType);
+    }
+    
+    public void disposeLogIn(){
         logIn.dispose();
-        showMainMenu();
     }
 
-    private void showMainMenu() {
+    public void showMainMenu() {
         mainMenu.setVisible(true);
         mainMenu.refresh();
     }
     
-    public void logInFail() {
-        logIn.showMessage("Login fail !\\nAccount name or password is incorrect.", 0);
-    }
-
     public void loadAdmins(ArrayList<Admin> admins) {
-        mainMenu.render(admins);
-    }
-
-    public void addAdminSuccess(){
-        mainMenu.showMessage("Add successfully !", 1);
+        mainMenu.renderAdmin(admins);
     }
     
-    public void addAdminFail(){
-        mainMenu.showMessage("Admin name has existed or saving error !", 0);
-    }
     @Override
     public void run() {
         this.logIn.setVisible(true);

@@ -4,15 +4,11 @@
  */
 package Server.Form.Admin;
 
-import Server.Connection.DBConnect;
+import Server.Entity.Admin;
 import Server.Form.MainMenu;
-import Server.Form.MainMenu;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,19 +17,22 @@ import javax.swing.JOptionPane;
  */
 public class UpdateAdmin extends javax.swing.JDialog {
 
+    private static final String EMAIL_PATTERN =
+            "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+    private Admin admin;
+
     /**
-     * Creates new form UpdateAdmin
+     * Creates new form AddDialog
      */
-    
-    Connection con;
-    ResultSet rs;
-    
     public UpdateAdmin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        init();
-        setTitle("Update Amin Dialog");
         setLocationRelativeTo(parent);
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
     }
 
     /**
@@ -46,207 +45,203 @@ public class UpdateAdmin extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        txtAccName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        txtAccName = new javax.swing.JTextField();
-        txtPass = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
-        txtPhone = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnUpdate = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtPasswordConfirm = new javax.swing.JPasswordField();
+        txtPassword = new javax.swing.JPasswordField();
+        jLabel4 = new javax.swing.JLabel();
+        txtOldPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Add New Admin");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 153, 0));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Update Admin");
+        jLabel1.setText("Admin Name:");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
 
-        jLabel2.setText("Account Name:");
+        txtAccName.setEnabled(false);
 
-        jLabel3.setText("Password:");
+        jLabel2.setText("New Password:");
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabel4.setText("Email:");
+        jLabel3.setText("Email:");
 
-        jLabel5.setText("Phone:");
-
-        jButton1.setText("OK");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Cancel");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 153, 0));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Update Admin");
+
+        jLabel6.setText("New Password Confirmation:");
+
+        jLabel4.setText("Old Password:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtPhone)
-                            .addComponent(txtEmail)
-                            .addComponent(txtPass)
-                            .addComponent(txtAccName)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 51, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtAccName, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                    .addComponent(txtPassword)
+                    .addComponent(txtPasswordConfirm)
+                    .addComponent(txtEmail)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtOldPassword))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(91, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
                     .addComponent(txtAccName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtPasswordConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(36, 36, 36))
+                    .addComponent(btnUpdate)
+                    .addComponent(btnCancel))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // 
-        int id = MainMenu.id;
-        String tempAccName = txtAccName.getText();
-        String tempPassword = txtPass.getText();
+    public void refresh() {
+        txtAccName.setText(admin.getAdminName());
+        txtEmail.setText(admin.getEmail());
+    }
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // Get text form textfield
+        String tempOldPassword = new String(txtOldPassword.getPassword());
+        String tempPassword = new String(txtPassword.getPassword());
+        String tempPasswordConfirm = new String(txtPasswordConfirm.getPassword());
         String tempEmail = txtEmail.getText();
-        String tempPhone = txtPhone.getText();
-        
-        con = DBConnect.connect();
-        String updateQuery = "update tblAdminAccount set accName = '"+tempAccName
-                +"', password = '"+tempPassword+"', accEmail = '"+tempEmail
-                +"', accPhone = "+tempPhone+" where accID = "+id;
-        
-        Statement stm;
-        try {
-            stm = con.createStatement();
-            stm.executeUpdate(updateQuery);
-            JOptionPane.showMessageDialog(this, "Done !", "Message", 1);
-            dispose();
-        } catch (SQLException ex) {
-            Logger.getLogger(UpdateAdmin.class.getName()).log(Level.SEVERE, null, ex);
+
+        //Check email format
+        if (!tempEmail.isEmpty()) {
+            Pattern pattern = Pattern.compile(UpdateAdmin.EMAIL_PATTERN);
+            Matcher matcher = pattern.matcher(tempEmail);
+            if (!matcher.matches()) {
+                JOptionPane.showMessageDialog(this, "Email is not in valid form (Eg: abc@gmail.com)", "Message", JOptionPane.ERROR_MESSAGE);
+                txtEmail.requestFocus();
+                return;
+            }
+        }
+        //Check old password field empty state
+        if (!tempOldPassword.isEmpty()) {
+            if (tempPassword.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter new password", "Message", JOptionPane.ERROR_MESSAGE);
+                txtPassword.requestFocus();
+                return;
+            }
+            if (tempPasswordConfirm.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter new password confirmation", "Message", JOptionPane.ERROR_MESSAGE);
+                txtPasswordConfirm.requestFocus();
+                return;
+            }
+            // Check that pw and pw confirmation match
+            if (!tempPassword.equals(tempPasswordConfirm)) {
+                JOptionPane.showMessageDialog(this, "New Password and New Password Confirmation do not match", "Message", JOptionPane.ERROR_MESSAGE);
+                txtPasswordConfirm.requestFocus();
+                return;
+            }
+            // Check that old password is correct
+            if (!admin.getPassword().equals(tempOldPassword)){
+                JOptionPane.showMessageDialog(this, "Old Password is not correct", "Message", JOptionPane.ERROR_MESSAGE);
+                txtOldPassword.requestFocus();
+                return;
+            }
+            admin.setPassword(tempPassword);
+        }else{
+            if (!tempPasswordConfirm.isEmpty() || !tempPassword.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter old password", "Message", JOptionPane.ERROR_MESSAGE);
+                txtOldPassword.requestFocus();
+                return;
+            }
         }
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+        /*Add new admin*/
+        admin.setEmail(tempEmail);
+        MainMenu mainMenu = (MainMenu) this.getParent();
+        mainMenu.getAdminController().update(admin);
+        /*Reload main menu*/
+        mainMenu.refresh();
+        dispose();
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // 
         dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    public void init(){
-        int id = MainMenu.id;
-        con = DBConnect.connect();
-        String selectQuery = "select * from tblAdminAccount where accID = "+id;
-        Statement stm;
-        try {
-            stm = con.createStatement();
-            rs = stm.executeQuery(selectQuery);
-            rs.next();
-            txtAccName.setText(rs.getString("accName"));
-            txtPass.setText(rs.getString("password"));
-            txtEmail.setText(rs.getString("accEmail"));
-            txtPhone.setText(rs.getString("accPhone"));
-        } catch (SQLException ex) {
-            Logger.getLogger(UpdateAdmin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UpdateAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UpdateAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UpdateAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UpdateAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                UpdateAdmin dialog = new UpdateAdmin(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+    }//GEN-LAST:event_btnCancelActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JTextField txtAccName;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtPass;
-    private javax.swing.JTextField txtPhone;
+    private javax.swing.JPasswordField txtOldPassword;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JPasswordField txtPasswordConfirm;
     // End of variables declaration//GEN-END:variables
 }

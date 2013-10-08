@@ -13,12 +13,15 @@ import Server.Entity.Admin;
 public class LogInController extends BaseController {
 
     public void logIn(Admin account) {
-        if (this.getServiceManager().getAdminManagerService().authenticate(account)) {
-            BaseController.getSession().setCurrentAdmin(account);
-            this.getFormManager().logInSuccess();
+        Admin admin = this.getServiceManager().getAdminManagerService().authenticate(account);
+        if (admin!=null) {
+            BaseController.getSession().setCurrentAdmin(admin);
+            this.getFormManager().showMessageOnLogIn("Log in successfully!", 1);
+            this.getFormManager().disposeLogIn();
+            this.getFormManager().showMainMenu();
         }
         else{
-            this.getFormManager().logInFail();
+            this.getFormManager().showMessageOnLogIn("Login fail !\\nAccount name or password is incorrect.", 0);
         }
     }
 }

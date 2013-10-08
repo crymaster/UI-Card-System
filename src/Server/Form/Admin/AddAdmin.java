@@ -6,6 +6,8 @@ package Server.Form.Admin;
 
 import Server.Entity.Admin;
 import Server.Form.MainMenu;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -14,10 +16,14 @@ import javax.swing.JOptionPane;
  * @author QUANGHUY
  */
 public class AddAdmin extends javax.swing.JDialog {
+
+    private static final String EMAIL_PATTERN =
+            "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
     /**
      * Creates new form AddDialog
      */
-    
     public AddAdmin(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -147,12 +153,44 @@ public class AddAdmin extends javax.swing.JDialog {
         String tempPassword = new String(txtPassword.getPassword());
         String tempPasswordConfirm = new String(txtPasswordConfirm.getPassword());
         String tempEmail = txtEmail.getText();
+
+        // Check that name and password are not empty
+        if (tempAccName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Admin Name cannot be empty", "Message", JOptionPane.ERROR_MESSAGE);
+            txtAccName.requestFocus();
+            return;
+        }
+        if (tempPassword.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Password cannot be empty", "Message", JOptionPane.ERROR_MESSAGE);
+            txtPassword.requestFocus();
+            return;
+        }
+        if (tempPasswordConfirm.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Password Confirmation cannot be empty", "Message", JOptionPane.ERROR_MESSAGE);
+            txtPasswordConfirm.requestFocus();
+            return;
+        }
+        // Check that pw and pw confirmation match
+        if (!tempPassword.equals(tempPasswordConfirm)) {
+            JOptionPane.showMessageDialog(this, "Password and Password Confirmation do not match", "Message", JOptionPane.ERROR_MESSAGE);
+            txtPasswordConfirm.requestFocus();
+            return;
+        }
+        if (!tempEmail.isEmpty()) {
+            Pattern pattern = Pattern.compile(AddAdmin.EMAIL_PATTERN);
+            Matcher matcher = pattern.matcher(tempEmail);
+            if (!matcher.matches()) {
+                JOptionPane.showMessageDialog(this, "Email is not in valid form (Eg: abc@gmail.com)", "Message", JOptionPane.ERROR_MESSAGE);
+                txtEmail.requestFocus();
+                return;
+            }
+        }
         /*Add new admin*/
         Admin admin = new Admin();
         admin.setAdminName(tempAccName);
         admin.setPassword(tempPassword);
         admin.setEmail(tempEmail);
-        MainMenu mainMenu = (MainMenu)this.getParent();
+        MainMenu mainMenu = (MainMenu) this.getParent();
         mainMenu.getAdminController().add(admin);
         /*Reload main menu*/
         mainMenu.refresh();
@@ -164,47 +202,7 @@ public class AddAdmin extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                AddAdmin dialog = new AddAdmin(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
