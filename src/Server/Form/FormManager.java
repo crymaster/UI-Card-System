@@ -6,6 +6,10 @@ package Server.Form;
 
 import java.util.ArrayList;
 import Server.Entity.Admin;
+import Server.Entity.Centre;
+import Server.Entity.Customer;
+import Server.Entity.Employee;
+import Server.Entity.Zone;
 import javax.swing.JOptionPane;
 
 /**
@@ -57,6 +61,22 @@ public class FormManager implements Runnable {
     
     public void loadAdmins(ArrayList<Admin> admins) {
         mainMenu.renderAdmin(admins);
+    }
+    
+    public void loadCentres(ArrayList<Centre> centres) {
+        mainMenu.renderCentre(centres);
+    }
+    
+    public void loadEmps(ArrayList<Employee> emps) {
+        mainMenu.renderEmp(emps);
+    }
+    
+    public void loadZones(ArrayList<Zone> zones){
+        mainMenu.renderZone(zones);
+    }
+    
+    public void loadCusts(ArrayList<Customer> custs) {
+        mainMenu.renderCust(custs);
     }
     
     @Override

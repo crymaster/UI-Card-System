@@ -184,7 +184,7 @@ CREATE TABLE [dbo].[Customer](
 	[first_name] [varchar](50) NOT NULL,
 	[middle_name] [varchar](50) NULL,
 	[last_name] [varchar](50) NOT NULL,
-	[dob] [date] NOT NULL,
+	[dob] [datetime] NOT NULL,
 	[gender] [bit] NOT NULL,
 	[contact_detail] [varchar](100) NULL,
 	[email] [varchar](50) NULL,

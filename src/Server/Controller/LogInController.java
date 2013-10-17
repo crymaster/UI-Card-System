@@ -21,7 +21,7 @@ public class LogInController extends BaseController {
             this.getFormManager().showMainMenu();
         }
         else{
-            this.getFormManager().showMessageOnLogIn("Login fail !\\nAccount name or password is incorrect.", 0);
+            this.getFormManager().showMessageOnLogIn("Login fail !\nAccount name or password is incorrect.", 0);
         }
     }
 }
