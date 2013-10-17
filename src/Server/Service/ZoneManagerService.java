@@ -5,7 +5,7 @@
 package Server.Service;
 
 import Server.Connection.DBConnection;
-import Server.Entity.Admin;
+import Server.Entity.Zone;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,75 +16,72 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Son
+ * @author QUANGHUY
  */
-public class AdminManagerService {
-
+public class ZoneManagerService {
+    
     private DBConnection dbConnection;
 
-    public AdminManagerService() {
+    public ZoneManagerService() {
         dbConnection = new DBConnection();
     }
-
-    public Admin get(String adminName) {
+    
+    public Zone get(String pin_Code) {
         dbConnection.connect();
         Connection connection = dbConnection.getConnection();
         PreparedStatement stm;
         ResultSet rs;
-        Admin admin = new Admin();
+        Zone zone = new Zone();
         try {
-            String query = "SELECT * FROM Admin WHERE adminName = ?";
+            String query = "SELECT * FROM Zone WHERE pin_Code = ?";
             stm = connection.prepareStatement(query);
-            stm.setString(1, adminName);
+            stm.setString(1, pin_Code);
             rs = stm.executeQuery();
-            if (!rs.next()) {
+            if(!rs.next()) {
                 return null;
             }
-            admin.setAdminName(adminName);
-            admin.setPassword(rs.getString(2));
-            admin.setEmail(rs.getString(3));
+            zone.setPin_Code(pin_Code);
+            zone.setZone_Name(rs.getString(2));
         } catch (SQLException ex) {
-            Logger.getLogger(AdminManagerService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ZoneManagerService.class.getName()).log(Level.SEVERE, null, ex);
         }
         dbConnection.disconnect();
-        return admin;
+        return zone;
     }
-
-    public ArrayList<Admin> getAll(){
+    
+    public ArrayList<Zone> getAll(){
         dbConnection.connect();
         Connection connection  = dbConnection.getConnection();
         PreparedStatement stm;
         ResultSet rs;
-        ArrayList<Admin> admins = new ArrayList();
+        ArrayList<Zone> zones = new ArrayList();
         try {
-            String query = "SELECT * FROM Admin";
+            String query = "SELECT * FROM Zone";
             stm = connection.prepareStatement(query);
             rs = stm.executeQuery();
-            while(rs.next()){
-                Admin admin = new Admin();
-                admin.setAdminName(rs.getString(1));
-                admin.setPassword(rs.getString(2));
-                admin.setEmail(rs.getString(3));
-                admins.add(admin);
+            while(rs.next()) {
+                Zone zone = new Zone();
+                zone.setPin_Code(rs.getString(1));
+                zone.setZone_Name(rs.getString(2));
+                zones.add(zone);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AdminManagerService.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ZoneManagerService.class.getName()).log(Level.SEVERE, null, ex);
         }
         dbConnection.disconnect();
-        return admins;
+        return zones;
     }
     
-    public boolean save(Admin admin){
+    public boolean save(Zone zone){
         dbConnection.connect();
         Connection connection = dbConnection.getConnection();
         PreparedStatement stm;
         int result = 0;
         try {
-            String updateQuery = "UPDATE Admin SET password = ?, email = ? WHERE adminName = ? ";
+            String updateQuery = "UPDATE Zone SET zone_Name = ? WHERE pin_Code = ? ";
             stm = connection.prepareStatement(updateQuery);
-            stm.setString(1, admin.getPassword());
-            stm.setString(2, admin.getEmail());
-            stm.setString(3, admin.getAdminName());
+            stm.setString(1, zone.getZone_Name());
+            stm.setString(2, zone.getPin_Code());            
             result = stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AdminManagerService.class.getName()).log(Level.SEVERE, null, ex);
@@ -95,17 +92,16 @@ public class AdminManagerService {
         return true;
     }
     
-    public boolean insert(Admin admin){
+    public boolean insert(Zone zone){
         dbConnection.connect();
         Connection connection = dbConnection.getConnection();
         PreparedStatement stm;
         int result = 0;
         try {
-            String insertQuery = "INSERT INTO Admin VALUES(?,?,?)";
+            String insertQuery = "INSERT INTO Zone VALUES(?,?)";
             stm = connection.prepareStatement(insertQuery);
-            stm.setString(1, admin.getAdminName());
-            stm.setString(2, admin.getPassword());
-            stm.setString(3, admin.getEmail());
+            stm.setString(1, zone.getPin_Code());
+            stm.setString(2, zone.getZone_Name());
             result = stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AdminManagerService.class.getName()).log(Level.SEVERE, null, ex);
@@ -116,15 +112,15 @@ public class AdminManagerService {
         return true;
     }
     
-    public boolean delete(String adminName){
+    public boolean delete(String pin_Code){
         dbConnection.connect();
         Connection connection = dbConnection.getConnection();
         PreparedStatement stm;
         int result = 0;
         try {
-            String deleteQuery = "DELETE FROM Admin WHERE adminName = ?";
+            String deleteQuery = "DELETE FROM Zone WHERE pin_Code = ?";
             stm = connection.prepareStatement(deleteQuery);
-            stm.setString(1, adminName);
+            stm.setString(1, pin_Code);
             result = stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AdminManagerService.class.getName()).log(Level.SEVERE, null, ex);
@@ -133,13 +129,5 @@ public class AdminManagerService {
             return false;
         }
         return true;
-    }
-    
-    public Admin authenticate(Admin account) {
-        Admin admin = this.get(account.getAdminName());
-        if(admin == null || !admin.getPassword().equals(account.getPassword())){
-            return null;
-        }
-        return admin;
     }
 }

@@ -8,8 +8,23 @@ import Server.Form.Admin.UpdateAdmin;
 import Server.Form.Admin.AddAdmin;
 import Server.Controller.AdminController;
 import Server.Controller.BaseController;
+import Server.Controller.CentreController;
+import Server.Controller.CustomerController;
+import Server.Controller.EmpController;
+import Server.Controller.ZoneController;
 import Server.Entity.Admin;
+import Server.Entity.Centre;
+import Server.Entity.Customer;
+import Server.Entity.Employee;
+import Server.Entity.Zone;
+import Server.Form.Centre.AddCentre;
+import Server.Form.Centre.UpdateCentre;
+import Server.Form.Employee.AddEmp;
+import Server.Form.Employee.UpdateEmp;
+import Server.Form.Zone.AddZone;
+import Server.Form.Zone.UpdateZone;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +38,11 @@ import javax.swing.table.DefaultTableModel;
 public class MainMenu extends javax.swing.JFrame {
     /*Properties*/
     private AdminController adminController;
+    private CentreController centreController;
+    private EmpController empController;
+    private ZoneController zoneController;
+    private CustomerController custController;
+    
     /**
      * Creates new form AdminManage
      */
@@ -31,6 +51,12 @@ public class MainMenu extends javax.swing.JFrame {
     public MainMenu() {
         initComponents();
         btnDeleteAdmin.setEnabled(false);
+        btnDeleteCentre.setEnabled(false);
+        btnDeleteEmp.setEnabled(false);
+        btnDeleteZone.setEnabled(false);
+        btnUpdateCentre.setEnabled(false);
+        btnUpdateEmp.setEnabled(false);
+        btnUpdateZone.setEnabled(false);
         setLocationRelativeTo(this);
     }
 
@@ -41,6 +67,39 @@ public class MainMenu extends javax.swing.JFrame {
     public AdminController getAdminController() {
         return adminController;
     }
+
+    public void setCentreController(CentreController centreController) {
+        this.centreController = centreController;
+    }
+
+    public CentreController getCentreController() {
+        return centreController;
+    }
+
+    public void setEmpController(EmpController empController) {
+        this.empController = empController;
+    }
+
+    public EmpController getEmpController() {
+        return empController;
+    }
+
+    public void setZoneController(ZoneController zoneController) {
+        this.zoneController = zoneController;
+    }
+
+    public ZoneController getZoneController() {
+        return zoneController;
+    }
+
+    public void setCustController(CustomerController custController) {
+        this.custController = custController;
+    }
+
+    public CustomerController getCustController() {
+        return custController;
+    }
+        
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -60,6 +119,46 @@ public class MainMenu extends javax.swing.JFrame {
         btnDeleteAdmin = new javax.swing.JButton();
         btnAddAdmin = new javax.swing.JButton();
         btnReloadAdmin = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        tblCentreList = new javax.swing.JTable();
+        btnDeleteCentre = new javax.swing.JButton();
+        btnAddCentre = new javax.swing.JButton();
+        btnReloadCentre = new javax.swing.JButton();
+        btnUpdateCentre = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tblEmpList = new javax.swing.JTable();
+        btnDeleteEmp = new javax.swing.JButton();
+        btnAddEmp = new javax.swing.JButton();
+        btnReloadEmp = new javax.swing.JButton();
+        btnUpdateEmp = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblZoneList = new javax.swing.JTable();
+        btnDeleteZone = new javax.swing.JButton();
+        btnAddZone = new javax.swing.JButton();
+        btnReloadZone = new javax.swing.JButton();
+        btnUpdateZone = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tblCustList = new javax.swing.JTable();
+        btnDeleteCust = new javax.swing.JButton();
+        btnAddCust = new javax.swing.JButton();
+        btnReloadCust = new javax.swing.JButton();
+        btnUpdateCust = new javax.swing.JButton();
+        pnlSearch = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtFirstName = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txtUICode = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtMiddleName = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtDate = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtLastName = new javax.swing.JTextField();
+        btnResult = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnLogOut = new javax.swing.JButton();
         btnEditProfile = new javax.swing.JButton();
@@ -126,18 +225,18 @@ public class MainMenu extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnAddAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63)
-                .addComponent(btnDeleteAdmin)
-                .addGap(58, 58, 58)
-                .addComponent(btnReloadAdmin)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addComponent(btnAddAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(btnDeleteAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(btnReloadAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(121, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddAdmin)
@@ -147,6 +246,385 @@ public class MainMenu extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Admin", jPanel1);
+
+        tblCentreList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Zone Name", "Name", "Code", "Location", "IP Address"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, false, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblCentreList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCentreListMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(tblCentreList);
+
+        btnDeleteCentre.setText("Delete");
+        btnDeleteCentre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteCentreActionPerformed(evt);
+            }
+        });
+
+        btnAddCentre.setText("Add");
+        btnAddCentre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddCentreActionPerformed(evt);
+            }
+        });
+
+        btnReloadCentre.setText("Reload");
+
+        btnUpdateCentre.setText("Edit");
+        btnUpdateCentre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateCentreActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAddCentre, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnUpdateCentre, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnDeleteCentre, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnReloadCentre, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddCentre)
+                    .addComponent(btnDeleteCentre)
+                    .addComponent(btnReloadCentre)
+                    .addComponent(btnUpdateCentre))
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Centre", jPanel3);
+
+        tblEmpList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Name", "Email", "Centre Name"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblEmpList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblEmpListMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(tblEmpList);
+
+        btnDeleteEmp.setText("Delete");
+        btnDeleteEmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteEmpActionPerformed(evt);
+            }
+        });
+
+        btnAddEmp.setText("Add");
+        btnAddEmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddEmpActionPerformed(evt);
+            }
+        });
+
+        btnReloadEmp.setText("Reload");
+
+        btnUpdateEmp.setText("Edit");
+        btnUpdateEmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateEmpActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAddEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnUpdateEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnDeleteEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnReloadEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddEmp)
+                    .addComponent(btnDeleteEmp)
+                    .addComponent(btnReloadEmp)
+                    .addComponent(btnUpdateEmp))
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Employee", jPanel4);
+
+        tblZoneList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "pin_Code", "Zone Name"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblZoneList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblZoneListMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tblZoneList);
+
+        btnDeleteZone.setText("Delete");
+        btnDeleteZone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteZoneActionPerformed(evt);
+            }
+        });
+
+        btnAddZone.setText("Add");
+        btnAddZone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddZoneActionPerformed(evt);
+            }
+        });
+
+        btnReloadZone.setText("Reload");
+
+        btnUpdateZone.setText("Edit");
+        btnUpdateZone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateZoneActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAddZone, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnUpdateZone, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnDeleteZone, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnReloadZone, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddZone)
+                    .addComponent(btnDeleteZone)
+                    .addComponent(btnReloadZone)
+                    .addComponent(btnUpdateZone))
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Zone", jPanel5);
+
+        tblCustList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "First Name", "Middle Name", "Last Name", "UI Code", "Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, false, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblCustList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCustListMouseClicked(evt);
+            }
+        });
+        jScrollPane8.setViewportView(tblCustList);
+
+        btnDeleteCust.setText("Delete");
+        btnDeleteCust.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteCustActionPerformed(evt);
+            }
+        });
+
+        btnAddCust.setText("Add");
+        btnAddCust.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddCustActionPerformed(evt);
+            }
+        });
+
+        btnReloadCust.setText("Reload");
+
+        btnUpdateCust.setText("Edit");
+        btnUpdateCust.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateCustActionPerformed(evt);
+            }
+        });
+
+        pnlSearch.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Aharoni", 0, 14), new java.awt.Color(0, 255, 0))); // NOI18N
+
+        jLabel1.setText("First Name:");
+
+        jLabel2.setText("UI Code:");
+
+        jLabel3.setText("Middle Name:");
+
+        jLabel4.setText("Date Created:");
+
+        jLabel5.setText("Last Name:");
+
+        btnResult.setText("Result");
+        btnResult.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResultActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlSearchLayout = new javax.swing.GroupLayout(pnlSearch);
+        pnlSearch.setLayout(pnlSearchLayout);
+        pnlSearchLayout.setHorizontalGroup(
+            pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSearchLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtMiddleName)
+                        .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnResult, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDate, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                    .addComponent(txtUICode))
+                .addContainerGap())
+        );
+        pnlSearchLayout.setVerticalGroup(
+            pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSearchLayout.createSequentialGroup()
+                .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtUICode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtMiddleName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnResult))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+            .addComponent(pnlSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(btnAddCust, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnUpdateCust, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnDeleteCust, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnReloadCust, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnlSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddCust)
+                    .addComponent(btnDeleteCust)
+                    .addComponent(btnReloadCust)
+                    .addComponent(btnUpdateCust))
+                .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Customer", jPanel6);
 
         btnLogOut.setText("Log Out");
         btnLogOut.addActionListener(new java.awt.event.ActionListener() {
@@ -167,11 +645,11 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnEditProfile)
-                    .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnEditProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLogOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,9 +666,9 @@ public class MainMenu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,9 +695,76 @@ public class MainMenu extends javax.swing.JFrame {
         tblAdminList.setModel(model);
     }
     
+    void renderCentre(ArrayList<Centre> centres){
+        /*Add information to table model*/
+        DefaultTableModel model = (DefaultTableModel) tblCentreList.getModel();
+        Vector row;
+        for(int i = 0; i< centres.size(); i++){
+            row = new Vector();
+            row.add(centres.get(i).getCentreID());
+            row.add(centres.get(i).getZoneName());
+            row.add(centres.get(i).getCentreName());
+            row.add(centres.get(i).getCentreCode());
+            row.add(centres.get(i).getLocation());
+            row.add(centres.get(i).getIp());
+            model.addRow(row);
+        }
+        tblCentreList.setModel(model);
+    }
+    
+    void renderEmp(ArrayList<Employee> emps){
+        /*Add information to table model*/
+        DefaultTableModel model = (DefaultTableModel) tblEmpList.getModel();
+        Vector row;
+        for(int i = 0; i< emps.size(); i++){
+            row = new Vector();
+            row.add(emps.get(i).getEmpID());
+            row.add(emps.get(i).getEmpName());
+            row.add(emps.get(i).getEmail());
+            row.add(emps.get(i).getCentreName());
+            model.addRow(row);
+        }
+        tblEmpList.setModel(model);
+    }
+    
+    void renderZone(ArrayList<Zone> zones){
+        /*Add information to table model*/
+        DefaultTableModel model = (DefaultTableModel) tblZoneList.getModel();
+        Vector row;
+        for(int i = 0; i< zones.size(); i++){
+            row = new Vector();
+            row.add(zones.get(i).getPin_Code());
+            row.add(zones.get(i).getZone_Name());
+            model.addRow(row);
+        }
+        tblZoneList.setModel(model);
+    }
+    
+    void renderCust(ArrayList<Customer> custs) {
+        /*Add information to table model*/
+        DefaultTableModel model = (DefaultTableModel) tblCustList.getModel();
+        Vector row;
+        for(int i = 0; i< custs.size(); i++){
+            row = new Vector();
+            row.add(custs.get(i).getCustID());
+            row.add(custs.get(i).getFirstName());
+            row.add(custs.get(i).getMiddleName());
+            row.add(custs.get(i).getLastName());
+            row.add(custs.get(i).getUICode());
+            row.add(custs.get(i).getCustStatus());
+            model.addRow(row);
+        }
+        tblCustList.setModel(model);
+    }
+        
     public void refresh(){
         /*Clear table model*/
         DefaultTableModel model = (DefaultTableModel) tblAdminList.getModel();
+        DefaultTableModel centreModel = (DefaultTableModel) tblCentreList.getModel();
+        DefaultTableModel empModel = (DefaultTableModel) tblEmpList.getModel();
+        DefaultTableModel zoneModel = (DefaultTableModel) tblZoneList.getModel();
+        DefaultTableModel custModel = (DefaultTableModel) tblCustList.getModel();
+        
         while(model.getRowCount() > 0){
             model.removeRow(0);
         }
@@ -228,19 +773,51 @@ public class MainMenu extends javax.swing.JFrame {
         if(tblAdminList.getSelectedRow() == -1){
             btnDeleteAdmin.setEnabled(false);
         }
+        
+        while(centreModel.getRowCount() > 0){
+            centreModel.removeRow(0);
+        }
+        /*Load data to table model*/
+        this.centreController.load();
+        if(tblCentreList.getSelectedRow() == -1){
+            btnDeleteCentre.setEnabled(false);
+            btnUpdateCentre.setEnabled(false);
+        }
+        
+        while(empModel.getRowCount() > 0){
+            empModel.removeRow(0);
+        }
+        /*Load data to table model*/
+        this.empController.load();
+        if(tblEmpList.getSelectedRow() == -1){
+            btnDeleteEmp.setEnabled(false);
+            btnDeleteEmp.setEnabled(false);
+        }
+        
+        while(zoneModel.getRowCount() > 0){
+            zoneModel.removeRow(0);
+        }
+        /*Load data to table model*/
+        this.zoneController.load();
+        if(tblZoneList.getSelectedRow() == -1){
+            btnDeleteZone.setEnabled(false);
+            btnDeleteZone.setEnabled(false);
+        }
+        
+        while(custModel.getRowCount() >0) {
+            custModel.removeRow(0);
+        }
+        /*Load data to model*/
+        this.custController.load();
+        if(tblCustList.getSelectedRow() == -1) {
+            btnDeleteCust.setEnabled(false);
+            btnDeleteCust.setEnabled(false);
+        }
     }
     
     void showMessage(String message,int messageType){
         JOptionPane.showMessageDialog(this,message,"Message", messageType);
     }
-////////////////////////////////////////////////////////////////////////////////
-                /*Event handling method*/
-                   /*Admin Tab event*/
-    private void tblAdminListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAdminListMouseClicked
-        // 
-        btnDeleteAdmin.setEnabled(true);
-    }//GEN-LAST:event_tblAdminListMouseClicked
-
     private void btnEditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProfileActionPerformed
         // 
         UpdateAdmin editProfile = new UpdateAdmin(this, true);
@@ -248,6 +825,15 @@ public class MainMenu extends javax.swing.JFrame {
         editProfile.refresh();
         editProfile.setVisible(true);
     }//GEN-LAST:event_btnEditProfileActionPerformed
+
+    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
+       
+    }//GEN-LAST:event_btnLogOutActionPerformed
+
+    private void btnAddAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAdminActionPerformed
+        /*Create AddAdmin dialog*/
+        new AddAdmin(this, true).setVisible(true);
+    }//GEN-LAST:event_btnAddAdminActionPerformed
 
     private void btnDeleteAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAdminActionPerformed
         int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm Message", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -261,30 +847,210 @@ public class MainMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDeleteAdminActionPerformed
 
-    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
-       
-    }//GEN-LAST:event_btnLogOutActionPerformed
+////////////////////////////////////////////////////////////////////////////////
+                /*Event handling method*/
+                   /*Admin Tab event*/
+    private void tblAdminListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAdminListMouseClicked
+        //
+        btnDeleteAdmin.setEnabled(true);
+    }//GEN-LAST:event_tblAdminListMouseClicked
 
-    private void btnAddAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAdminActionPerformed
-        /*Create AddAdmin dialog*/
-        new AddAdmin(this, true).setVisible(true);
-    }//GEN-LAST:event_btnAddAdminActionPerformed
-            /*End of Admin Tab event*/
+    private void tblCentreListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCentreListMouseClicked
+        // 
+        btnDeleteCentre.setEnabled(true);
+        btnUpdateCentre.setEnabled(true);
+    }//GEN-LAST:event_tblCentreListMouseClicked
+
+    private void btnDeleteCentreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCentreActionPerformed
+        // 
+        int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm Message", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        //Admin choose "Yes" = 0
+        if(result == 0){
+            //Get amdinName from table to delete
+            DefaultTableModel model = (DefaultTableModel) tblCentreList.getModel();
+            int centreID = (int)model.getValueAt(tblCentreList.getSelectedRow(), 0);
+            this.getCentreController().delete(centreID);
+            this.refresh();
+        }
+    }//GEN-LAST:event_btnDeleteCentreActionPerformed
+
+    private void btnAddCentreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCentreActionPerformed
+        // 
+        new AddCentre(this, true).setVisible(true);
+    }//GEN-LAST:event_btnAddCentreActionPerformed
+
+    private void tblEmpListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpListMouseClicked
+        // 
+        btnDeleteEmp.setEnabled(true);
+        btnUpdateEmp.setEnabled(true);
+    }//GEN-LAST:event_tblEmpListMouseClicked
+
+    private void btnDeleteEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteEmpActionPerformed
+        // 
+        int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm Message", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        //Admin choose "Yes" = 0
+        if(result == 0){
+            //Get amdinName from table to delete
+            DefaultTableModel model = (DefaultTableModel) tblEmpList.getModel();
+            int empID = (int)model.getValueAt(tblEmpList.getSelectedRow(), 0);
+            this.getEmpController().delete(empID);
+            this.refresh();
+        }
+    }//GEN-LAST:event_btnDeleteEmpActionPerformed
+
+    private void btnAddEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEmpActionPerformed
+        // 
+        new AddEmp(this, true).setVisible(true);
+    }//GEN-LAST:event_btnAddEmpActionPerformed
+
+    private void tblZoneListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblZoneListMouseClicked
+        // 
+        btnDeleteZone.setEnabled(true);
+        btnUpdateZone.setEnabled(true);
+    }//GEN-LAST:event_tblZoneListMouseClicked
+
+    private void btnDeleteZoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteZoneActionPerformed
+        // 
+        int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm Message", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        //Admin choose "Yes" = 0
+        if(result == 0){
+            //Get amdinName from table to delete
+            DefaultTableModel model = (DefaultTableModel) tblZoneList.getModel();
+            String pin_Code = model.getValueAt(tblZoneList.getSelectedRow(), 0).toString();
+            this.getZoneController().delete(pin_Code);
+            this.refresh();
+        }
+    }//GEN-LAST:event_btnDeleteZoneActionPerformed
+
+    private void btnAddZoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddZoneActionPerformed
+        // TODO 
+        new AddZone(this, true).setVisible(true);
+    }//GEN-LAST:event_btnAddZoneActionPerformed
+
+    private void btnUpdateCentreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateCentreActionPerformed
+        // 
+        UpdateCentre updateCentre = new UpdateCentre(this, true);
+        int id = Integer.parseInt(tblCentreList.getValueAt(tblCentreList.getSelectedRow(), 0).toString());
+        updateCentre.setCentre(centreController.getServiceManager().getCentreManagerService().get(id) );
+        updateCentre.refresh();
+        updateCentre.setVisible(true);
+    }//GEN-LAST:event_btnUpdateCentreActionPerformed
+
+    private void btnUpdateEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateEmpActionPerformed
+        // 
+        new UpdateEmp(this, true).setVisible(true);
+    }//GEN-LAST:event_btnUpdateEmpActionPerformed
+
+    private void btnUpdateZoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateZoneActionPerformed
+        // 
+        UpdateZone updateZone = new UpdateZone(this, true);
+        String pinCode = tblZoneList.getValueAt(tblZoneList.getSelectedRow(), 0).toString();
+        updateZone.setZone(zoneController.getServiceManager().getZoneManagerService().get(pinCode));
+        updateZone.refresh();
+        updateZone.setVisible(true);
+    }//GEN-LAST:event_btnUpdateZoneActionPerformed
+
+    private void tblCustListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustListMouseClicked
+        // 
+        
+    }//GEN-LAST:event_tblCustListMouseClicked
+
+    private void btnDeleteCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCustActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDeleteCustActionPerformed
+
+    private void btnAddCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCustActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddCustActionPerformed
+
+    private void btnUpdateCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateCustActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnUpdateCustActionPerformed
+
+    private void btnResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResultActionPerformed
+        // 
+        String firstName = null;
+        String middleName = null;
+        String lastName = null;
+        String uicode = null;
+        Date date = null;
+        
+        if(!txtFirstName.getText().isEmpty()) {
+            firstName = txtFirstName.getText();
+        }
+        if(!txtMiddleName.getText().isEmpty()) {
+            middleName = txtMiddleName.getText();
+        }
+        if(!txtLastName.getText().isEmpty()) {
+            lastName = txtLastName.getText();
+        }
+        if(!txtUICode.getText().isEmpty()) {
+            uicode = txtUICode.getText();
+        }
+        
+        DefaultTableModel custModel = (DefaultTableModel) tblCustList.getModel();
+        while(custModel.getRowCount() >0) {
+            custModel.removeRow(0);
+        }
+        this.getCustController().search(firstName, middleName, lastName, uicode, uicode);
+//        this.refresh();
+    }//GEN-LAST:event_btnResultActionPerformed
+            
 //////////////////////////////////////////////////////////////////////////////////
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddAdmin;
+    private javax.swing.JButton btnAddCentre;
+    private javax.swing.JButton btnAddCust;
+    private javax.swing.JButton btnAddEmp;
+    private javax.swing.JButton btnAddZone;
     private javax.swing.JButton btnDeleteAdmin;
+    private javax.swing.JButton btnDeleteCentre;
+    private javax.swing.JButton btnDeleteCust;
+    private javax.swing.JButton btnDeleteEmp;
+    private javax.swing.JButton btnDeleteZone;
     private javax.swing.JButton btnEditProfile;
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnReloadAdmin;
+    private javax.swing.JButton btnReloadCentre;
+    private javax.swing.JButton btnReloadCust;
+    private javax.swing.JButton btnReloadEmp;
+    private javax.swing.JButton btnReloadZone;
+    private javax.swing.JButton btnResult;
+    private javax.swing.JButton btnUpdateCentre;
+    private javax.swing.JButton btnUpdateCust;
+    private javax.swing.JButton btnUpdateEmp;
+    private javax.swing.JButton btnUpdateZone;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JPanel pnlSearch;
     private javax.swing.JTable tblAdminList;
+    private javax.swing.JTable tblCentreList;
+    private javax.swing.JTable tblCustList;
+    private javax.swing.JTable tblEmpList;
+    private javax.swing.JTable tblZoneList;
+    private javax.swing.JTextField txtDate;
+    private javax.swing.JTextField txtFirstName;
+    private javax.swing.JTextField txtLastName;
+    private javax.swing.JTextField txtMiddleName;
+    private javax.swing.JTextField txtUICode;
     // End of variables declaration//GEN-END:variables
 }
