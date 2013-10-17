@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Server.Connection;
+package Server.Thread;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -15,19 +15,19 @@ import java.util.logging.Logger;
  *
  * @author Son
  */
-public class ClientThread extends Thread {
+public class ClientHandlingThread extends Thread {
 
     private Socket socket = null;
     private ObjectInputStream input = null;
     private ObjectOutputStream output = null;
 
-    public ClientThread(Socket socket) {
+    public ClientHandlingThread(Socket socket) {
         this.socket = socket;
         try {
             output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
         } catch (IOException ex) {
-            Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClientHandlingThread.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -45,9 +45,9 @@ public class ClientThread extends Thread {
                     }
                 }
             } catch (IOException ex) {
-                Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ClientHandlingThread.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ClientHandlingThread.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         close();

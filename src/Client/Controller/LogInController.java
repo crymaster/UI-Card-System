@@ -8,7 +8,7 @@ package Client.Controller;
  *
  * @author Son
  */
-public class SignInController extends BaseController{
+public class LogInController extends BaseController{
     public void close(){
         this.getServiceManager().getServerCommunicationService().send("CLOSE");
     }

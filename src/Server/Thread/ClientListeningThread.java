@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Server.Connection;
+package Server.Thread;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -23,7 +23,7 @@ public class ClientListeningThread extends Thread{
             serverSocket= new ServerSocket(port);
             while(true){
                 Socket socket = serverSocket.accept();
-                ClientThread t = new ClientThread(socket);
+                ClientHandlingThread t = new ClientHandlingThread(socket);
                 t.start();
             }
             

@@ -7,8 +7,8 @@ package Client.Thread;
 import Client.Connection.ListeningThread;
 import Client.Connection.Sending;
 import Client.Connection.ServerConnection;
-import Client.Controller.SignInController;
-import Client.Form.SignIn;
+import Client.Controller.LogInController;
+import Client.Form.LogIn;
 import Client.Service.ServerCommunicationService;
 import Client.Service.ServiceManager;
 
@@ -31,13 +31,13 @@ public class Start{
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SignIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SignIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SignIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SignIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LogIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -55,10 +55,10 @@ public class Start{
         serviceManager.setServerCommunicationService(serverCom);
         serverCom.setConnection(connection);
         /*Controller*/
-        SignInController signInCtrl = new SignInController();
-        signInCtrl.setServiceManager(serviceManager);
+        LogInController signInCtrl = new LogInController();
+        signInCtrl.setServiceManager(serviceManager);   
         /* Create and display the form */
-        SignIn signIn = new SignIn();
+        LogIn signIn = new LogIn();
         signIn.setController(signInCtrl);
         java.awt.EventQueue.invokeLater(signIn);
     }
