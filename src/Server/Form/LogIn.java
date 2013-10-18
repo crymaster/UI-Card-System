@@ -4,7 +4,7 @@
  */
 package Server.Form;
 
-import Server.Controller.LogInController;
+import Server.Controller.LoggingController;
 import Server.Entity.Admin;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,7 +20,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class LogIn extends javax.swing.JFrame{
     /*Properties*/
-    private LogInController controller;
+    private LoggingController controller;
     /**
      * Creates new form Login
      */
@@ -30,6 +30,10 @@ public class LogIn extends javax.swing.JFrame{
         setLocationRelativeTo(this);
     }
 
+    public void clear(){
+        txtAccount.setText("");
+        txtPassword.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -146,7 +150,7 @@ public class LogIn extends javax.swing.JFrame{
         JOptionPane.showMessageDialog(this,message,"Message", messageType);
     }
     
-    public void setController(LogInController controller) {
+    public void setController(LoggingController controller) {
         this.controller = controller;
     }
 

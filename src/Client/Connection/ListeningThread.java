@@ -7,6 +7,7 @@ package Client.Connection;
 import Client.Controller.ControllerManager;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.net.SocketException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,14 +17,16 @@ import java.util.logging.Logger;
  * @author Son
  */
 public class ListeningThread implements Runnable {
-
+    public static final int LOGGING_PHASE = 0;
+    public static final int ENTRY_PHASE = 1;
+    public static final int UI_PHASE = 2;
     private ObjectInputStream input;
     private ServerConnection connection;
     private ControllerManager controllerManager;
-    private int step;
+    private static int step;
 
     public ListeningThread() {
-        step = 0;
+        step = LOGGING_PHASE;
     }
 
     public ServerConnection getConnection() {
@@ -50,6 +53,10 @@ public class ListeningThread implements Runnable {
         this.input = input;
     }
 
+    public static void setStep(int step) {
+        ListeningThread.step = step;
+    }
+
     public void close() {
         if (input != null) {
             try {
@@ -62,37 +69,27 @@ public class ListeningThread implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (!ServerConnection.closed) {
             try {
                 Object data = input.readObject();
-                if (data instanceof String) {
-                    String msg = (String) data;
-                    if (msg.equals("CLOSE")) {
-                        connection.disconnect();
-                        break;
-                    }
-                }
                 switch (step) {
                     case 0: {
                         if (data instanceof String) {
                             String msg = (String) data;
                             if (msg.equals("ERROR")) {
-                                this.getControllerManager().getLogInController().logInFail();
+                                this.getControllerManager().getLogInController().logIn(null);
                             }
                         } else{
                             HashMap employee = (HashMap) data;
-                            this.getControllerManager().getLogInController().logInSuccess(employee);
+                            this.getControllerManager().getLogInController().logIn(employee);
+                            step = ENTRY_PHASE;
                         }
                     }
                     break;
                 }
-
-            } catch (IOException ex) {
-                Logger.getLogger(ListeningThread.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ListeningThread.class.getName()).log(Level.SEVERE, null, ex);
+            }catch (    IOException | ClassNotFoundException ex) {
+                break;
             }
         }
-        System.exit(0);
     }
 }

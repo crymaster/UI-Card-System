@@ -9,17 +9,17 @@ package Client.Controller;
  * @author Son
  */
 public class ControllerManager {
-    private LogInController logInController;
+    private LoggingController logInController;
 
     public ControllerManager() {
-        logInController = new LogInController();
+        logInController = new LoggingController();
     }
 
-    public LogInController getLogInController() {
+    public LoggingController getLogInController() {
         return logInController;
     }
 
-    public void setLogInController(LogInController logInController) {
+    public void setLogInController(LoggingController logInController) {
         this.logInController = logInController;
     }
     

@@ -28,7 +28,7 @@ public class ServerConnection {
     private ListeningThread listen = null;
     private Sending send = null;
     //Close signal
-    private static Boolean closed = false;
+    static Boolean closed = false;
 
     public static Socket getSocket() {
         return clientSocket;
@@ -82,6 +82,6 @@ public class ServerConnection {
         } catch (IOException ex) {
             Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        closed = true;
     }
 }

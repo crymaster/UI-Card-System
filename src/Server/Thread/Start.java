@@ -7,7 +7,7 @@ import Server.Controller.AdminController;
 import Server.Controller.CentreController;
 import Server.Controller.CustomerController;
 import Server.Controller.EmpController;
-import Server.Controller.LogInController;
+import Server.Controller.LoggingController;
 import Server.Controller.ZoneController;
 import Server.Form.FormManager;
 import Server.Form.LogIn;
@@ -29,7 +29,7 @@ public class Start {
         LogIn logIn = formManager.getLogIn();
         MainMenu mainMenu = formManager.getMainMenu();
         //Controller
-        LogInController logInCtrl = new LogInController();
+        LoggingController logInCtrl = new LoggingController();
         AdminController adminCtrl = new AdminController();
         CentreController centreCtrl = new CentreController();
         EmpController empCtrl = new EmpController();
@@ -37,6 +37,7 @@ public class Start {
         CustomerController custCtrl = new CustomerController();
         //Set Controller for Form
         logIn.setController(logInCtrl);
+        mainMenu.setLogController(logInCtrl);
         mainMenu.setAdminController(adminCtrl);
         mainMenu.setCentreController(centreCtrl);
         mainMenu.setEmpController(empCtrl);

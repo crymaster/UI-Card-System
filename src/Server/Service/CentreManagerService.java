@@ -26,26 +26,51 @@ public class CentreManagerService {
         dbConnection = new DBConnection();
     }
     
-    public Centre get(int centreID) {
+    public Centre get(String centreCode) {
         dbConnection.connect();
         Connection connection = dbConnection.getConnection();
         PreparedStatement stm;
         ResultSet rs;
         Centre centre = new Centre();
         try {
-            String query = "SELECT * FROM Centre WHERE centreID = ?";
+            String query = "SELECT * FROM Centre WHERE centreCode = ?";
             stm = connection.prepareStatement(query);
-            stm.setInt(1, centreID);
+            stm.setString(1, centreCode);
             rs = stm.executeQuery();
             if(!rs.next()) {
                 return null;
             }
-            centre.setCentreID(centreID);
+            centre.setCentreCode(rs.getString(1));
             centre.setPin_Code(rs.getString(2));
             centre.setCentreName(rs.getString(3));
-            centre.setCentreCode(rs.getString(4));
-            centre.setLocation(rs.getString(5));
-            centre.setIp(rs.getString(6));
+            centre.setLocation(rs.getString(4));
+            centre.setIp(rs.getString(5));
+        } catch (SQLException ex) {
+            Logger.getLogger(CentreManagerService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dbConnection.disconnect();
+        return centre;
+    }
+    
+    public Centre getByIp(String ip){
+        dbConnection.connect();
+        Connection connection = dbConnection.getConnection();
+        PreparedStatement stm;
+        ResultSet rs;
+        Centre centre = new Centre();
+        try {
+            String query = "SELECT * FROM Centre WHERE ip = ?";
+            stm = connection.prepareStatement(query);
+            stm.setString(1, ip);
+            rs = stm.executeQuery();
+            if(!rs.next()) {
+                return null;
+            }
+            centre.setCentreCode(rs.getString(1));
+            centre.setPin_Code(rs.getString(2));
+            centre.setCentreName(rs.getString(3));
+            centre.setLocation(rs.getString(4));
+            centre.setIp(rs.getString(5));
         } catch (SQLException ex) {
             Logger.getLogger(CentreManagerService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -65,13 +90,12 @@ public class CentreManagerService {
             rs = stm.executeQuery();
             while(rs.next()) {
                 Centre centre = new Centre();
-                centre.setCentreID(rs.getInt(1));
+                centre.setCentreCode(rs.getString(1));
                 centre.setPin_Code(rs.getString(2));
                 centre.setCentreName(rs.getString(3));
-                centre.setCentreCode(rs.getString(4));
-                centre.setLocation(rs.getString(5));
-                centre.setIp(rs.getString(6));
-                centre.setZoneName(rs.getString(7));
+                centre.setLocation(rs.getString(4));
+                centre.setIp(rs.getString(5));
+                centre.setZoneName(rs.getString(6));
                 centres.add(centre);
             }
         } catch (SQLException ex) {
@@ -87,16 +111,14 @@ public class CentreManagerService {
         PreparedStatement stm;
         int result = 0;
         try {
-            String updateQuery = "UPDATE Centre SET centreID = ?, pin_Code = ?, centreName = ?,"
-                    + " centreCode = ?, location = ?, ip = ? WHERE centreID = ? ";
+            String updateQuery = "UPDATE Centre SET pin_Code = ?, centreName = ?,"
+                    + " location = ?, ip = ? WHERE centreCode = ? ";
             stm = connection.prepareStatement(updateQuery);
-            stm.setInt(1, centre.getCentreID());
-            stm.setString(2, centre.getPin_Code());
-            stm.setString(3, centre.getCentreName());
-            stm.setString(4, centre.getCentreCode());
-            stm.setString(5, centre.getLocation());
-            stm.setString(6, centre.getIp());
-            stm.setInt(7, centre.getCentreID());
+            stm.setString(1, centre.getPin_Code());
+            stm.setString(2, centre.getCentreName());
+            stm.setString(3, centre.getLocation());
+            stm.setString(4, centre.getIp());
+            stm.setString(5, centre.getCentreCode());
             result = stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CentreManagerService.class.getName()).log(Level.SEVERE, null, ex);
@@ -113,14 +135,13 @@ public class CentreManagerService {
         PreparedStatement stm;
         int result = 0;
         try {
-            String insertQuery = "INSERT INTO Centre VALUES(?,?,?,?,?,?)";
+            String insertQuery = "INSERT INTO Centre VALUES(?,?,?,?,?)";
             stm = connection.prepareStatement(insertQuery);
-            stm.setInt(1, centre.getCentreID());
+            stm.setString(1, centre.getCentreCode());
             stm.setString(2, centre.getPin_Code());
             stm.setString(3, centre.getCentreName());
-            stm.setString(4, centre.getCentreCode());
-            stm.setString(5, centre.getLocation());
-            stm.setString(6, centre.getIp());
+            stm.setString(4, centre.getLocation());
+            stm.setString(5, centre.getIp());
             result = stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CentreManagerService.class.getName()).log(Level.SEVERE, null, ex);
@@ -131,15 +152,15 @@ public class CentreManagerService {
         return true;
     }
     
-    public boolean delete(int centreID) {
+    public boolean delete(String centreCode) {
         dbConnection.connect();
         Connection connection = dbConnection.getConnection();
         PreparedStatement stm;
         int result = 0;
         try {
-            String deleteQuery = "DELETE FROM Centre WHERE centreID = ?";
+            String deleteQuery = "DELETE FROM Centre WHERE centreCode = ?";
             stm = connection.prepareStatement(deleteQuery);
-            stm.setInt(1, centreID);
+            stm.setString(1, centreCode);
             result = stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CentreManagerService.class.getName()).log(Level.SEVERE, null, ex);

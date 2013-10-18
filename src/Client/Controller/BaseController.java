@@ -6,6 +6,7 @@ package Client.Controller;
 
 import Client.Form.FormManager;
 import Client.Service.ServiceManager;
+import Client.Util.Session;
 
 /**
  *
@@ -15,6 +16,7 @@ public class BaseController {
 
     private ServiceManager serviceManager;
     private FormManager formManager;
+    private static Session session = new Session();
 
     public ServiceManager getServiceManager() {
         return serviceManager;
@@ -30,5 +32,9 @@ public class BaseController {
 
     public void setFormManager(FormManager formManager) {
         this.formManager = formManager;
+    }
+
+    public static Session getSession() {
+        return session;
     }
 }

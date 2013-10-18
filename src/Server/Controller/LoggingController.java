@@ -10,7 +10,7 @@ import Server.Entity.Admin;
  *
  * @author Son
  */
-public class LogInController extends BaseController {
+public class LoggingController extends BaseController {
 
     public void logIn(Admin account) {
         Admin admin = this.getServiceManager().getAdminManagerService().authenticate(account);
@@ -23,5 +23,11 @@ public class LogInController extends BaseController {
         else{
             this.getFormManager().showMessageOnLogIn("Login fail !\nAccount name or password is incorrect.", 0);
         }
+    }
+    
+    public void logOut(){
+        BaseController.getSession().setCurrentAdmin(null);
+        this.getFormManager().disposeMainMenu();
+        this.getFormManager().showLogIn();
     }
 }

@@ -24,4 +24,8 @@ public class ServerCommunicationService {
     public void send(Object data){
         this.connection.getSend().send(data);
     }
+    
+    public void close(){
+        this.connection.disconnect();
+    }
 }

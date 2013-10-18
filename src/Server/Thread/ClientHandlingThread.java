@@ -4,11 +4,13 @@
  */
 package Server.Thread;
 
+import Server.Entity.Centre;
 import Server.Entity.Employee;
 import Server.Service.ServiceManager;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -19,17 +21,23 @@ import java.util.logging.Logger;
  * @author Son
  */
 public class ClientHandlingThread extends Thread {
-
+    public static final int LOGGING_PHASE = 0;
+    public static final int ENTRY_PHASE = 1;
+    public static final int UI_PHASE = 2;
     private Socket socket = null;
     private ObjectInputStream input = null;
     private ObjectOutputStream output = null;
     private ServiceManager serviceManager;
+    private Centre centre;
     private int step;
 
     public ClientHandlingThread(Socket socket) {
         this.socket = socket;
-        step = 0;
+        step = LOGGING_PHASE;
         serviceManager = new ServiceManager();
+        InetAddress ia = socket.getInetAddress();
+        String ip = ia.getHostAddress();
+        centre = this.serviceManager.getCentreManagerService().getByIp(ip);
         try {
             output = new ObjectOutputStream(socket.getOutputStream());
             input = new ObjectInputStream(socket.getInputStream());
@@ -46,26 +54,33 @@ public class ClientHandlingThread extends Thread {
                 if (data instanceof String) {
                     String msg = (String) data;
                     if (msg.equals("CLOSE")) {
-                        output.writeObject("CLOSE");
                         this.close();
                         break;
+                    }
+                    if (msg.equals("LOGOUT")){
+                        step = LOGGING_PHASE;
+                        continue;
                     }
                 }
                 switch (step) {
                     case 0: {
                         HashMap empData = (HashMap) data;
                         Employee employee = new Employee();
-                        employee.setEmpName((String)empData.get("empName"));
-                        employee.setPassword((String)empData.get("password"));
+                        employee.setEmpName((String) empData.get("empName"));
+                        employee.setPassword((String) empData.get("password"));
                         employee = serviceManager.getEmpManagerService().authenticate(employee);
-                        if(employee!= null){
+                        if (employee != null && employee.getCentreCode().equals(this.centre.getCentreCode())) {
                             empData = employee.toHashMap();
                             this.write(empData);
-                        }else{
+                            step = ENTRY_PHASE;
+                        } else {
                             this.write("ERROR");
                         }
+                        break;
                     }
-                    break;
+                    case 1: {
+                        break;
+                    }
                 }
             } catch (IOException ex) {
                 Logger.getLogger(ClientHandlingThread.class.getName()).log(Level.SEVERE, null, ex);
@@ -76,14 +91,14 @@ public class ClientHandlingThread extends Thread {
         close();
     }
 
-    public void write(Object data){
+    public void write(Object data) {
         try {
             output.writeObject(data);
         } catch (IOException ex) {
             Logger.getLogger(ClientHandlingThread.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void close() {
         try {
             if (output != null) {

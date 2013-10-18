@@ -9,22 +9,13 @@ package Server.Entity;
  * @author QUANGHUY
  */
 public class Centre {
-    
-    private int centreID;
+  
     private String pin_Code;
     private String centreName;
     private String centreCode;
     private String location;
     private String ip;
     private String zoneName;
-
-    public int getCentreID() {
-        return centreID;
-    }
-
-    public void setCentreID(int centreID) {
-        this.centreID = centreID;
-    }
 
     public String getPin_Code() {
         return pin_Code;

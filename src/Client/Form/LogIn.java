@@ -4,9 +4,9 @@
  */
 package Client.Form;
 
-import Client.Connection.ServerConnection;
-import Client.Controller.LogInController;
+import Client.Controller.LoggingController;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,6 +22,10 @@ public class LogIn extends javax.swing.JFrame implements Runnable{
         this.setLocationRelativeTo(this);
     }
 
+    public void clear(){
+        txtUsername.setText("");
+        txtPassword.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,8 +49,6 @@ public class LogIn extends javax.swing.JFrame implements Runnable{
         jLabel1.setText("Username");
 
         jLabel2.setText("Password");
-
-        txtPassword.setText("jPasswordField1");
 
         btnLogIn.setText("Log In");
         btnLogIn.addActionListener(new java.awt.event.ActionListener() {
@@ -80,36 +82,36 @@ public class LogIn extends javax.swing.JFrame implements Runnable{
                                     .addComponent(jLabel1))
                                 .addGap(30, 30, 30)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtPassword)
-                                    .addComponent(txtUsername)))
+                                    .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                                    .addComponent(txtPassword)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(2, 2, 2)
                                 .addComponent(btnLogIn)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                                 .addComponent(btnClose))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(92, 92, 92)
+                        .addGap(89, 89, 89)
                         .addComponent(jLabel3)))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addGap(32, 32, 32)
                 .addComponent(jLabel3)
-                .addGap(41, 41, 41)
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogIn)
                     .addComponent(btnClose))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -119,6 +121,16 @@ public class LogIn extends javax.swing.JFrame implements Runnable{
         // TODO add your handling code here:
         String userName = txtUsername.getText();
         String password = new String(txtPassword.getPassword());
+        if(userName.isEmpty()){
+            JOptionPane.showMessageDialog(this,"Username must not be empty","Error", 0);
+            txtUsername.requestFocus();
+            return;
+        }
+        if(password.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Password must not be empty", "Error", 0);
+            txtPassword.requestFocus();
+            return;
+        }
         HashMap employee = new HashMap();
         employee.put("empName",userName);
         employee.put("password",password);
@@ -130,11 +142,11 @@ public class LogIn extends javax.swing.JFrame implements Runnable{
         this.controller.close();
     }//GEN-LAST:event_btnCloseActionPerformed
 
-    public LogInController getController() {
+    public LoggingController getController() {
         return controller;
     }
 
-    public void setController(LogInController controller) {
+    public void setController(LoggingController controller) {
         this.controller = controller;
     }
 
@@ -154,5 +166,5 @@ public class LogIn extends javax.swing.JFrame implements Runnable{
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
-    private LogInController controller;
+    private LoggingController controller;
 }

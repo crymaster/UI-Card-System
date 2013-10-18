@@ -13,9 +13,11 @@ import javax.swing.JOptionPane;
 public class FormManager implements Runnable {
 
     private LogIn logIn;
-
+    private MainMenu mainMenu;
+    
     public FormManager() {
         logIn = new LogIn();
+        mainMenu = new MainMenu();
     }
 
     public LogIn getLogIn() {
@@ -25,9 +27,35 @@ public class FormManager implements Runnable {
     public void setLogIn(LogIn logIn) {
         this.logIn = logIn;
     }
+
+    public MainMenu getMainMenu() {
+        return mainMenu;
+    }
+
+    public void setMainMenu(MainMenu mainMenu) {
+        this.mainMenu = mainMenu;
+    }
     
     public void showMessageOnLogIn(String message, int messageType){
         JOptionPane.showMessageDialog(this.logIn, message,"Message",messageType);
+    }
+    
+    public void disposeLogIn(){
+        logIn.dispose();
+        logIn.clear();
+    }
+    
+    public void showLogIn(){
+        logIn.setVisible(true);
+    }
+    
+    public void disposeMainMenu(){
+        mainMenu.dispose();
+    }
+    
+    public void showMainMenu(){
+        mainMenu.setVisible(true);
+        
     }
     
     @Override

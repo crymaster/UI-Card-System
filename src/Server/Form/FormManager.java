@@ -52,8 +52,17 @@ public class FormManager implements Runnable {
     
     public void disposeLogIn(){
         logIn.dispose();
+        logIn.clear();
     }
-
+    
+    public void showLogIn(){
+        logIn.setVisible(true);
+    }
+    
+    public void disposeMainMenu(){
+        mainMenu.dispose();
+    }
+    
     public void showMainMenu() {
         mainMenu.setVisible(true);
         mainMenu.refresh();

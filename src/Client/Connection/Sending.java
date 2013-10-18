@@ -14,7 +14,8 @@ import java.util.logging.Logger;
  * @author Son
  */
 public class Sending {
-     ObjectOutputStream output;
+
+    ObjectOutputStream output;
 
     public ObjectOutputStream getOutput() {
         return output;
@@ -23,21 +24,23 @@ public class Sending {
     public void setOutput(ObjectOutputStream output) {
         this.output = output;
     }
-    
-    public void send(Object data){
-        try {
-            output.writeObject(data);
-        } catch (IOException ex) {
-            Logger.getLogger(Sending.class.getName()).log(Level.SEVERE, null, ex);
+
+    public void send(Object data) {
+        if (output != null) {
+            try {
+                output.writeObject(data);
+            } catch (IOException ex) {
+                return;
+            }
         }
     }
-    
-    public void close(){
-        if(output!= null){
+
+    public void close() {
+        if (output != null) {
             try {
                 output.close();
             } catch (IOException ex) {
-                Logger.getLogger(Sending.class.getName()).log(Level.SEVERE, null, ex);
+                return;
             }
         }
     }
