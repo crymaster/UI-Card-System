@@ -30,22 +30,21 @@ public class Start {
         MainMenu mainMenu = formManager.getMainMenu();
         //Controller
         LogInController logInCtrl = new LogInController();
-        logIn.setController(logInCtrl);
-        logInCtrl.setFormManager(formManager);
-        logInCtrl.setServiceManager(serviceManager);
-        
         AdminController adminCtrl = new AdminController();
         CentreController centreCtrl = new CentreController();
         EmpController empCtrl = new EmpController();
         ZoneController zoneCtrl = new ZoneController();
         CustomerController custCtrl = new CustomerController();
-        
+        //Set Controller for Form
+        logIn.setController(logInCtrl);
         mainMenu.setAdminController(adminCtrl);
         mainMenu.setCentreController(centreCtrl);
         mainMenu.setEmpController(empCtrl);
         mainMenu.setZoneController(zoneCtrl);
         mainMenu.setCustController(custCtrl);
-        
+        //Set FormManager and ServiceManager for Controller
+        logInCtrl.setFormManager(formManager);
+        logInCtrl.setServiceManager(serviceManager);
         adminCtrl.setFormManager(formManager);
         adminCtrl.setServiceManager(serviceManager);
         centreCtrl.setFormManager(formManager);

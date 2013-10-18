@@ -4,17 +4,20 @@
  */
 package Server.Entity;
 
+import java.io.Serializable;
+import java.util.HashMap;
+
 /**
  *
  * @author QUANGHUY
  */
-public class Employee {
+public class Employee implements Serializable{
     
     private int empID;
     private String empName;
     private String password;
     private String email;
-    private int centreID;
+    private String centreCode;
     private String centreName;
 
     public int getEmpID() {
@@ -49,12 +52,12 @@ public class Employee {
         this.email = email;
     }
 
-    public int getCentreID() {
-        return centreID;
+    public String getCentreCode() {
+        return centreCode;
     }
 
-    public void setCentreID(int centreID) {
-        this.centreID = centreID;
+    public void setCentreCode(String centreCode) {
+        this.centreCode = centreCode;
     }
 
     public String getCentreName() {
@@ -63,5 +66,14 @@ public class Employee {
 
     public void setCentreName(String centreName) {
         this.centreName = centreName;
+    }
+    
+    public HashMap toHashMap(){
+        HashMap data = new HashMap();
+        data.put("empName", this.empName);
+        data.put("password", this.password);
+        data.put("email", this.email);
+        data.put("centreName", this.centreName);
+        return data;
     }
 }

@@ -43,7 +43,33 @@ public class EmployeeManagerService {
             emp.setEmpName(rs.getString(2));
             emp.setPassword(rs.getString(3));
             emp.setEmail(rs.getString(4));
-            emp.setCentreID(rs.getInt(5));
+            emp.setCentreCode(rs.getString(5));
+        } catch (SQLException ex) {
+            Logger.getLogger(CentreManagerService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dbConnection.disconnect();
+        return emp;
+    }
+    
+    public Employee getByEmpName(String empName) {
+        dbConnection.connect();
+        Connection connection = dbConnection.getConnection();
+        PreparedStatement stm;
+        ResultSet rs;
+        Employee emp = new Employee();
+        try {
+            String query = "SELECT * FROM Employee WHERE empName = ?";
+            stm = connection.prepareStatement(query);
+            stm.setString(1, empName);
+            rs = stm.executeQuery();
+            if(!rs.next()) {
+                return null;
+            }
+            emp.setEmpID(rs.getInt(1));
+            emp.setEmpName(rs.getString(2));
+            emp.setPassword(rs.getString(3));
+            emp.setEmail(rs.getString(4));
+            emp.setCentreCode(rs.getString(5));
         } catch (SQLException ex) {
             Logger.getLogger(CentreManagerService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -91,7 +117,7 @@ public class EmployeeManagerService {
             stm.setString(2, emp.getEmpName());
             stm.setString(3, emp.getPassword());
             stm.setString(4, emp.getEmail());
-            stm.setInt(5, emp.getCentreID());
+            stm.setString(5, emp.getCentreCode());
             result = stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CentreManagerService.class.getName()).log(Level.SEVERE, null, ex);
@@ -114,7 +140,7 @@ public class EmployeeManagerService {
             stm.setString(2, emp.getEmpName());
             stm.setString(3, emp.getPassword());
             stm.setString(4, emp.getEmail());
-            stm.setInt(5, emp.getCentreID());
+            stm.setString(5, emp.getCentreCode());
             result = stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CentreManagerService.class.getName()).log(Level.SEVERE, null, ex);
@@ -142,5 +168,13 @@ public class EmployeeManagerService {
             return false;
         }
         return true;
+    }
+    
+    public Employee authenticate(Employee account){
+        Employee employee = this.getByEmpName(account.getEmpName());
+        if(employee == null || !employee.getPassword().equals(account.getPassword())){
+            return null;
+        }
+        return employee;
     }
 }

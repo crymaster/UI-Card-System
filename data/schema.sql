@@ -109,15 +109,14 @@ SET ANSI_PADDING ON
 GO
 
 CREATE TABLE [dbo].[Centre](
-	[centreID] [int] NOT NULL,
+	[centreCode] [varchar](50) NOT NULL,
 	[pin_code] [varchar](50) NOT NULL,
 	[centreName] [varchar](50) NOT NULL,
-	[centreCode] [varchar](50) NOT NULL,
 	[location] [varchar](50) NOT NULL,
 	[ip] [varchar](50) NOT NULL,
  CONSTRAINT [PK_Centre] PRIMARY KEY CLUSTERED 
 (
-	[centreID] ASC
+	[centreCode] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
@@ -145,11 +144,11 @@ SET ANSI_PADDING ON
 GO
 
 CREATE TABLE [dbo].[Employee](
-	[empID] [int] NOT NULL,
+	[empID] [int] NOT NULL IDENTITY,
 	[empName] [varchar](100) NOT NULL,
 	[password] [varchar](100) NOT NULL,
 	[email] [varchar](100) NULL,
-	[centreID] [int] NOT NULL,
+	[centreCode] [varchar] (50) NOT NULL,
  CONSTRAINT [PK_Employee] PRIMARY KEY CLUSTERED 
 (
 	[empID] ASC
@@ -161,8 +160,8 @@ GO
 SET ANSI_PADDING OFF
 GO
 
-ALTER TABLE [dbo].[Employee]  WITH CHECK ADD  CONSTRAINT [FK_Employee_Centre] FOREIGN KEY([centreID])
-REFERENCES [dbo].[Centre] ([centreID])
+ALTER TABLE [dbo].[Employee]  WITH CHECK ADD  CONSTRAINT [FK_Employee_Centre] FOREIGN KEY([centreCode])
+REFERENCES [dbo].[Centre] ([centreCode])
 GO
 
 ALTER TABLE [dbo].[Employee] CHECK CONSTRAINT [FK_Employee_Centre]
@@ -180,7 +179,7 @@ SET ANSI_PADDING ON
 GO
 
 CREATE TABLE [dbo].[Customer](
-	[cusID] [int] NOT NULL,
+	[cusID] [int] NOT NULL IDENTITY,
 	[first_name] [varchar](50) NOT NULL,
 	[middle_name] [varchar](50) NULL,
 	[last_name] [varchar](50) NOT NULL,
@@ -195,7 +194,7 @@ CREATE TABLE [dbo].[Customer](
 	[address_proof] [bit] NULL,
 	[citizen_proof] [varchar](200) NULL,
 	[health] [varchar](100) NULL,
-	[centreID] [int] NOT NULL,
+	[centreCode] [varchar] (50) NOT NULL,
 	[UICode] [varchar](50) NULL,
 	[thumb] [bit] NULL,
 	[fingerprint] [bit] NULL,
@@ -214,8 +213,8 @@ GO
 SET ANSI_PADDING OFF
 GO
 
-ALTER TABLE [dbo].[Customer]  WITH CHECK ADD  CONSTRAINT [FK_Customer_Centre] FOREIGN KEY([centreID])
-REFERENCES [dbo].[Centre] ([centreID])
+ALTER TABLE [dbo].[Customer]  WITH CHECK ADD  CONSTRAINT [FK_Customer_Centre] FOREIGN KEY([centreCode])
+REFERENCES [dbo].[Centre] ([centreCode])
 GO
 
 ALTER TABLE [dbo].[Customer] CHECK CONSTRAINT [FK_Customer_Centre]

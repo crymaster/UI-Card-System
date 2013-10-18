@@ -7,7 +7,9 @@ package Client.Thread;
 import Client.Connection.ListeningThread;
 import Client.Connection.Sending;
 import Client.Connection.ServerConnection;
+import Client.Controller.ControllerManager;
 import Client.Controller.LogInController;
+import Client.Form.FormManager;
 import Client.Form.LogIn;
 import Client.Service.ServerCommunicationService;
 import Client.Service.ServiceManager;
@@ -54,12 +56,19 @@ public class Start{
         ServerCommunicationService serverCom = new ServerCommunicationService();
         serviceManager.setServerCommunicationService(serverCom);
         serverCom.setConnection(connection);
+        /*Form*/
+        FormManager formManager = new FormManager();
+        LogIn logIn = formManager.getLogIn();
         /*Controller*/
-        LogInController signInCtrl = new LogInController();
-        signInCtrl.setServiceManager(serviceManager);   
+        ControllerManager controllerManager = new ControllerManager();
+        listen.setControllerManager(controllerManager);
+        LogInController logInCtrl = controllerManager.getLogInController();
+        /*Set FormManager and ServiceManager for controller*/
+        logInCtrl.setFormManager(formManager);
+        logInCtrl.setServiceManager(serviceManager);   
+        /*Set Controller for Form*/
+        logIn.setController(logInCtrl);
         /* Create and display the form */
-        LogIn signIn = new LogIn();
-        signIn.setController(signInCtrl);
-        java.awt.EventQueue.invokeLater(signIn);
+        java.awt.EventQueue.invokeLater(formManager);
     }
 }

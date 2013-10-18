@@ -6,6 +6,7 @@ package Client.Form;
 
 import Client.Connection.ServerConnection;
 import Client.Controller.LogInController;
+import java.util.HashMap;
 
 /**
  *
@@ -18,6 +19,7 @@ public class LogIn extends javax.swing.JFrame implements Runnable{
      */
     public LogIn() {
         initComponents();
+        this.setLocationRelativeTo(this);
     }
 
     /**
@@ -115,6 +117,12 @@ public class LogIn extends javax.swing.JFrame implements Runnable{
 
     private void btnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogInActionPerformed
         // TODO add your handling code here:
+        String userName = txtUsername.getText();
+        String password = new String(txtPassword.getPassword());
+        HashMap employee = new HashMap();
+        employee.put("empName",userName);
+        employee.put("password",password);
+        this.controller.requestLogIn(employee);
     }//GEN-LAST:event_btnLogInActionPerformed
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
