@@ -5,6 +5,7 @@
 package Client.Form;
 
 import Client.Controller.LoggingController;
+import Client.Controller.MainController;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,7 +13,8 @@ import javax.swing.JOptionPane;
  * @author Son
  */
 public class MainMenu extends javax.swing.JFrame {
-    LoggingController logController;
+    private LoggingController logController;
+    private MainController mainController;
     /**
      * Creates new form MainMenu
      */
@@ -27,6 +29,14 @@ public class MainMenu extends javax.swing.JFrame {
 
     public void setLogController(LoggingController logController) {
         this.logController = logController;
+    }
+
+    public MainController getMainController() {
+        return mainController;
+    }
+
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
     }
 
     void showMessage(String message,int messageType){

@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -19,10 +20,11 @@ import javax.swing.JOptionPane;
  * @author Son
  */
 public class EntryProcess extends javax.swing.JDialog {
+
     private static final String EMAIL_PATTERN =
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
             + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-    
+
     /**
      * Creates new form EntryProcess
      */
@@ -212,9 +214,8 @@ public class EntryProcess extends javax.swing.JDialog {
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel9)
-                        .addComponent(ckAddress))
+                    .addComponent(ckAddress)
+                    .addComponent(jLabel9)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25))
         );
@@ -393,41 +394,42 @@ public class EntryProcess extends javax.swing.JDialog {
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         // TODO add your handling code here:
         String firstName = txtFirstName.getText();
-        if(firstName.isEmpty()){
+        if (firstName.isEmpty()) {
             txtFirstName.requestFocus();
             JOptionPane.showMessageDialog(this, "First name must not be empty", "Error", 0);
             return;
         }
         String midName = txtMiddleName.getText();
         String lastName = txtLastName.getText();
-        if(lastName.isEmpty()){
+        if (lastName.isEmpty()) {
             txtLastName.requestFocus();
             JOptionPane.showMessageDialog(this, "Last name must not be empty", "Error", 0);
             return;
         }
         String year = txtYear.getText();
-        if(year.isEmpty()){
+        if (year.isEmpty()) {
             txtYear.requestFocus();
             JOptionPane.showMessageDialog(this, "Year must not be empty", "Error", 0);
             return;
         }
-        try{
-            String date = (String)cbDay.getSelectedItem()+'/'+(String)cbMonth.getSelectedItem()+'/'+Integer.parseInt(year);
+        Date dob;
+        try {
+            String date = (String) cbDay.getSelectedItem() + '/' + (String) cbMonth.getSelectedItem() + '/' + Integer.parseInt(year);
             System.out.println(date);
             SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
             try {
-                Date dob = df.parse(date);
+                dob = df.parse(date);
             } catch (ParseException ex) {
                 JOptionPane.showMessageDialog(this, "Day or Month is not correct (Ex: 31/2)", "Error", 0);
                 return;
             }
-        }catch (NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             txtYear.requestFocus();
             JOptionPane.showMessageDialog(this, "Year must be a number", "Error", 0);
             return;
         }
         String address = txtAddress.getText();
-        if(address.isEmpty()){
+        if (address.isEmpty()) {
             txtAddress.requestFocus();
             JOptionPane.showMessageDialog(this, "Address must not be empty", "Error", 0);
             return;
@@ -443,13 +445,57 @@ public class EntryProcess extends javax.swing.JDialog {
             }
         }
         String contact = txtContact.getText();
+        int gender = 1;
+        if (radioMale.isSelected()) {
+            gender = 1;
+        } else {
+            gender = 0;
+        }
         String education = txtEducation.getText();
         String occupation = txtOccupation.getText();
-        boolean married = ckMarried.isSelected();
-        boolean passport = ckPassport.isSelected();
-        boolean vote = ckVoter.isSelected();
-        boolean license = ckLicense.isSelected();
+        int married = 0;
+        if(ckMarried.isSelected()){
+            married = 1;
+        } else{
+            married = 0;
+        }
+        int passport;
+        if(ckPassport.isSelected()){
+            passport = 1;
+        } else{
+            passport = 0;
+        }
+        int vote;
+        if(ckVoter.isSelected()){
+            vote = 1;
+        } else{
+            vote = 0;
+        }
+        int license;
+        if(ckLicense.isSelected()){
+            license = 1;
+        } else{
+            license = 0;
+        }
         String health = txtHealth.getText();
+        HashMap customer = new HashMap();
+        customer.put("firstName", firstName);
+        customer.put("midName", midName);
+        customer.put("lastName", lastName);
+        customer.put("dob", dob);
+        customer.put("address", address);
+        customer.put("gender", gender);
+        customer.put("contact", contact);
+        customer.put("email", email);
+        customer.put("education", education);
+        customer.put("occupation", occupation);
+        customer.put("married", married);
+        customer.put("passport", passport);
+        customer.put("vote", vote);
+        customer.put("license", license);
+        customer.put("health", health);
+        MainMenu menu = (MainMenu)this.getParent();
+        menu.getMainController().send(customer);
     }//GEN-LAST:event_btnSendActionPerformed
 
     /**

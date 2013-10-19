@@ -5,6 +5,7 @@
 package Server.Entity;
 
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  *
@@ -23,10 +24,11 @@ public class Customer {
     private String education;
     private String occupation;
     private int married;
-    private int addressProof;
-    private String citizenProof;
+    private int passport;
+    private int vote;
+    private int drivingLicense;
     private String health;
-    private int centreID;
+    private String centreCode;
     private String UICode;
     private int thump;
     private int fingerPrint;
@@ -133,20 +135,28 @@ public class Customer {
         this.married = married;
     }
 
-    public int getAddressProof() {
-        return addressProof;
+    public int getPassport() {
+        return passport;
     }
 
-    public void setAddressProof(int addressProof) {
-        this.addressProof = addressProof;
+    public void setPassport(int passport) {
+        this.passport = passport;
     }
 
-    public String getCitizenProof() {
-        return citizenProof;
+    public int getVote() {
+        return vote;
     }
 
-    public void setCitizenProof(String citizenProof) {
-        this.citizenProof = citizenProof;
+    public void setVote(int vote) {
+        this.vote = vote;
+    }
+
+    public int getDrivingLicense() {
+        return drivingLicense;
+    }
+
+    public void setDrivingLicense(int drivingLicense) {
+        this.drivingLicense = drivingLicense;
     }
 
     public String getHealth() {
@@ -157,12 +167,12 @@ public class Customer {
         this.health = health;
     }
 
-    public int getCentreID() {
-        return centreID;
+    public String getCentreCode() {
+        return centreCode;
     }
 
-    public void setCentreID(int centreID) {
-        this.centreID = centreID;
+    public void setCentreCode(String centreCode) {
+        this.centreCode = centreCode;
     }
 
     public String getUICode() {
@@ -247,5 +257,28 @@ public class Customer {
             return "Waiting";
         }
         return "";
+    }
+    
+    public static Customer toCustomer(HashMap data){
+        Customer customer = new Customer();
+        customer.firstName = (String)data.get("firstName");
+        customer.middleName = (String)data.get("midName");
+        customer.lastName = (String)data.get("lastName");
+        customer.dob = (Date)data.get("dob");
+        customer.address = (String)data.get("address");
+        customer.gender = (Integer)data.get("gender");
+        customer.contactDetail = (String)data.get("contact");
+        customer.email = (String)data.get("email");
+        customer.education = (String)data.get("education");
+        customer.occupation = (String)data.get("occupation");
+        customer.middleName = (String)data.get("midName");
+        customer.married = (Integer)data.get("married");
+        customer.passport = (Integer)data.get("passport");
+        customer.vote = (Integer)data.get("vote");
+        customer.drivingLicense = (Integer)data.get("license");
+        customer.health = (String)data.get("health");
+        customer.centreCode = (String)data.get("centreCode");
+        customer.dateCreated = (Date)data.get("dateCreated");
+        return customer;
     }
 }

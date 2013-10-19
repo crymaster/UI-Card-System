@@ -54,17 +54,18 @@ public class CustomerManagerService {
             cust.setEducation(rs.getString(10));
             cust.setOccupation(rs.getString(11));
             cust.setMarried(rs.getInt(12));
-            cust.setAddressProof(rs.getInt(13));
-            cust.setCitizenProof(rs.getString(14));
-            cust.setHealth(rs.getString(15));
-            cust.setCentreID(rs.getInt(16));
-            cust.setUICode(rs.getString(17));
-            cust.setThump(rs.getInt(18));
-            cust.setFingerPrint(rs.getInt(19));
-            cust.setRetinaScan(rs.getInt(20));
-            cust.setStatus(rs.getInt(21));
-            cust.setPersonalDetail(rs.getString(22));
-            cust.setDateCreated(rs.getDate(23));
+            cust.setPassport(rs.getInt(13));
+            cust.setVote(rs.getInt(14));
+            cust.setDrivingLicense(rs.getInt(15));
+            cust.setHealth(rs.getString(16));
+            cust.setCentreCode(rs.getString(17));
+            cust.setUICode(rs.getString(18));
+            cust.setThump(rs.getInt(19));
+            cust.setFingerPrint(rs.getInt(20));
+            cust.setRetinaScan(rs.getInt(21));
+            cust.setStatus(rs.getInt(22));
+            cust.setPersonalDetail(rs.getString(23));
+            cust.setDateCreated(rs.getDate(24));
         } catch (SQLException ex) {
             Logger.getLogger(AdminManagerService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -85,7 +86,7 @@ public class CustomerManagerService {
             rs = stm.executeQuery();
             while (rs.next()) {
                 Customer cust = new Customer();
-                
+
                 cust.setCustID(rs.getInt(1));
                 cust.setFirstName(rs.getString(2));
                 cust.setMiddleName(rs.getString(3));
@@ -98,19 +99,20 @@ public class CustomerManagerService {
                 cust.setEducation(rs.getString(10));
                 cust.setOccupation(rs.getString(11));
                 cust.setMarried(rs.getInt(12));
-                cust.setAddressProof(rs.getInt(13));
-                cust.setCitizenProof(rs.getString(14));
-                cust.setHealth(rs.getString(15));
-                cust.setCentreID(rs.getInt(16));
-                cust.setUICode(rs.getString(17));
-                cust.setThump(rs.getInt(18));
-                cust.setFingerPrint(rs.getInt(19));
-                cust.setRetinaScan(rs.getInt(20));
-                cust.setStatus(rs.getInt(21));
-                cust.setPersonalDetail(rs.getString(22));
-                cust.setDateCreated(rs.getDate(23));
-                cust.setCentreName(rs.getString(24));
-                
+                cust.setPassport(rs.getInt(13));
+                cust.setVote(rs.getInt(14));
+                cust.setDrivingLicense(rs.getInt(15));
+                cust.setHealth(rs.getString(16));
+                cust.setCentreCode(rs.getString(17));
+                cust.setUICode(rs.getString(18));
+                cust.setThump(rs.getInt(19));
+                cust.setFingerPrint(rs.getInt(20));
+                cust.setRetinaScan(rs.getInt(21));
+                cust.setStatus(rs.getInt(22));
+                cust.setPersonalDetail(rs.getString(23));
+                cust.setDateCreated(rs.getDate(24));
+                cust.setCentreName(rs.getString(25));
+
                 custs.add(cust);
             }
         } catch (SQLException ex) {
@@ -128,8 +130,8 @@ public class CustomerManagerService {
         try {
             String updateQuery = "UPDATE Customer SET first_name = ?, middle_name = ?, "
                     + "last_name = ?, dob = ?, gender = ?, contact_detail = ?, email = ?, "
-                    + "address = ?, education = ?, occupation = ?, married = ?, address_proof = ?, "
-                    + "citizen_proof = ?, health = ?, centreID = ?, UICode = ?, thump = ?, "
+                    + "address = ?, education = ?, occupation = ?, married = ?, passport = ?, "
+                    + "voter = ?, driving_license = ?,health = ?, centreCode = ?, UICode = ?, thump = ?, "
                     + "fingerprint = ?, retina_scan = ?, status = ?, personal_detail =  ?, "
                     + "date_created = ? WHERE custID = ?";
             stm = connection.prepareStatement(updateQuery);
@@ -144,18 +146,19 @@ public class CustomerManagerService {
             stm.setString(9, cust.getEducation());
             stm.setString(10, cust.getOccupation());
             stm.setInt(11, cust.getMarried());
-            stm.setInt(12, cust.getAddressProof());
-            stm.setString(13, cust.getCitizenProof());
-            stm.setString(14, cust.getHealth());
-            stm.setInt(15, cust.getCentreID());
-            stm.setString(16, cust.getUICode());
-            stm.setInt(17, cust.getThump());
-            stm.setInt(18, cust.getFingerPrint());
-            stm.setInt(19, cust.getRetinaScan());
-            stm.setInt(20, cust.getStatus());
-            stm.setString(21, cust.getPersonalDetail());
-            stm.setDate(22, (Date) cust.getDateCreated());
-            stm.setInt(23, cust.getCustID());
+            stm.setInt(12, cust.getPassport());
+            stm.setInt(13, cust.getVote());
+            stm.setInt(14, cust.getDrivingLicense());
+            stm.setString(15, cust.getHealth());
+            stm.setString(16, cust.getCentreCode());
+            stm.setString(17, cust.getUICode());
+            stm.setInt(18, cust.getThump());
+            stm.setInt(19, cust.getFingerPrint());
+            stm.setInt(20, cust.getRetinaScan());
+            stm.setInt(21, cust.getStatus());
+            stm.setString(22, cust.getPersonalDetail());
+            stm.setDate(23, (Date) cust.getDateCreated());
+            stm.setInt(24, cust.getCustID());
             result = stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AdminManagerService.class.getName()).log(Level.SEVERE, null, ex);
@@ -174,29 +177,29 @@ public class CustomerManagerService {
         try {
             String insertQuery = "INSERT INTO Customer VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             stm = connection.prepareStatement(insertQuery);
-            stm.setInt(1, cust.getCustID());
-            stm.setString(2, cust.getFirstName());
-            stm.setString(3, cust.getMiddleName());
-            stm.setString(4, cust.getLastName());
-            stm.setDate(5, (Date) cust.getDob());
-            stm.setInt(6, cust.getGender());
-            stm.setString(7, cust.getContactDetail());
-            stm.setString(8, cust.getEmail());
-            stm.setString(9, cust.getAddress());
-            stm.setString(10, cust.getEducation());
-            stm.setString(11, cust.getOccupation());
-            stm.setInt(12, cust.getMarried());
-            stm.setInt(13, cust.getAddressProof());
-            stm.setString(14, cust.getCitizenProof());
+            stm.setString(1, cust.getFirstName());
+            stm.setString(2, cust.getMiddleName());
+            stm.setString(3, cust.getLastName());
+            stm.setDate(4, new Date(cust.getDob().getTime()));
+            stm.setInt(5, cust.getGender());
+            stm.setString(6, cust.getContactDetail());
+            stm.setString(7, cust.getEmail());
+            stm.setString(8, cust.getAddress());
+            stm.setString(9, cust.getEducation());
+            stm.setString(10, cust.getOccupation());
+            stm.setInt(11, cust.getMarried());
+            stm.setInt(12, cust.getPassport());
+            stm.setInt(13, cust.getVote());
+            stm.setInt(14, cust.getDrivingLicense());
             stm.setString(15, cust.getHealth());
-            stm.setInt(16, cust.getCentreID());
+            stm.setString(16, cust.getCentreCode());
             stm.setString(17, cust.getUICode());
             stm.setInt(18, cust.getThump());
             stm.setInt(19, cust.getFingerPrint());
             stm.setInt(20, cust.getRetinaScan());
             stm.setInt(21, cust.getStatus());
             stm.setString(22, cust.getPersonalDetail());
-            stm.setDate(23, (Date) cust.getDateCreated());
+            stm.setDate(23, new Date(cust.getDateCreated().getTime()));
             result = stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(AdminManagerService.class.getName()).log(Level.SEVERE, null, ex);
@@ -225,8 +228,8 @@ public class CustomerManagerService {
         }
         return true;
     }
-    
-    public ArrayList<Customer> search(String  firstName, String middleName, String lastName, String uicode, String date) {
+
+    public ArrayList<Customer> search(String firstName, String middleName, String lastName, String uicode, String date) {
         dbConnection.connect();
         Connection connection = dbConnection.getConnection();
         Statement stm;
@@ -234,24 +237,24 @@ public class CustomerManagerService {
         ArrayList<Customer> custs = new ArrayList<>();
         try {
             String selectQuery = "SELECT * FROM Customer WHERE 2>1 ";
-            if(!(firstName == null) && !(firstName.isEmpty())) {
+            if (!(firstName == null) && !(firstName.isEmpty())) {
                 selectQuery += " and first_name = '" + firstName + "'";
             }
-            if(!(middleName == null) && !(middleName.isEmpty())) {
+            if (!(middleName == null) && !(middleName.isEmpty())) {
                 selectQuery += " and middle_name = '" + middleName + "'";
             }
-            if(!(lastName == null) && !(lastName.isEmpty())) {
+            if (!(lastName == null) && !(lastName.isEmpty())) {
                 selectQuery += " and last_name = '" + lastName + "'";
             }
-            if(!(uicode == null) && !(uicode.isEmpty())) {
+            if (!(uicode == null) && !(uicode.isEmpty())) {
                 selectQuery += " and UICode = '" + uicode + "'";
             }
-            
+
             stm = connection.createStatement();
             rs = stm.executeQuery(selectQuery);
-            while(rs.next()) {
+            while (rs.next()) {
                 Customer cust = new Customer();
-                
+
                 cust.setCustID(rs.getInt(1));
                 cust.setFirstName(rs.getString(2));
                 cust.setMiddleName(rs.getString(3));
@@ -264,18 +267,19 @@ public class CustomerManagerService {
                 cust.setEducation(rs.getString(10));
                 cust.setOccupation(rs.getString(11));
                 cust.setMarried(rs.getInt(12));
-                cust.setAddressProof(rs.getInt(13));
-                cust.setCitizenProof(rs.getString(14));
-                cust.setHealth(rs.getString(15));
-                cust.setCentreID(rs.getInt(16));
-                cust.setUICode(rs.getString(17));
-                cust.setThump(rs.getInt(18));
-                cust.setFingerPrint(rs.getInt(19));
-                cust.setRetinaScan(rs.getInt(20));
-                cust.setStatus(rs.getInt(21));
-                cust.setPersonalDetail(rs.getString(22));
-                cust.setDateCreated(rs.getDate(23));
-                
+                cust.setPassport(rs.getInt(13));
+                cust.setVote(rs.getInt(14));
+                cust.setDrivingLicense(rs.getInt(15));
+                cust.setHealth(rs.getString(16));
+                cust.setCentreCode(rs.getString(17));
+                cust.setUICode(rs.getString(18));
+                cust.setThump(rs.getInt(19));
+                cust.setFingerPrint(rs.getInt(20));
+                cust.setRetinaScan(rs.getInt(21));
+                cust.setStatus(rs.getInt(22));
+                cust.setPersonalDetail(rs.getString(23));
+                cust.setDateCreated(rs.getDate(24));
+
                 custs.add(cust);
             }
         } catch (SQLException ex) {

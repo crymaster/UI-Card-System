@@ -9,6 +9,7 @@ import Client.Connection.Sending;
 import Client.Connection.ServerConnection;
 import Client.Controller.ControllerManager;
 import Client.Controller.LoggingController;
+import Client.Controller.MainController;
 import Client.Form.FormManager;
 import Client.Form.LogIn;
 import Client.Form.MainMenu;
@@ -65,12 +66,16 @@ public class Start{
         ControllerManager controllerManager = new ControllerManager();
         listen.setControllerManager(controllerManager);
         LoggingController logInCtrl = controllerManager.getLogInController();
+        MainController mainCtrl = controllerManager.getMainController();
         /*Set FormManager and ServiceManager for controller*/
         logInCtrl.setFormManager(formManager);
-        logInCtrl.setServiceManager(serviceManager);   
+        logInCtrl.setServiceManager(serviceManager);
+        mainCtrl.setFormManager(formManager);
+        mainCtrl.setServiceManager(serviceManager);
         /*Set Controller for Form*/
         logIn.setController(logInCtrl);
         menu.setLogController(logInCtrl);
+        menu.setMainController(mainCtrl);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(formManager);
     }

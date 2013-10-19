@@ -5,6 +5,7 @@
 package Server.Thread;
 
 import Server.Entity.Centre;
+import Server.Entity.Customer;
 import Server.Entity.Employee;
 import Server.Service.ServiceManager;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -79,13 +81,20 @@ public class ClientHandlingThread extends Thread {
                         break;
                     }
                     case 1: {
+                        HashMap dataPackage = (HashMap) data;
+                        String msg = (String) dataPackage.get("message");
+                        if(msg.equals("ENTRY")){
+                            Date date = new Date();
+                            dataPackage.put("dateCreated", date);
+                            dataPackage.put("centreCode", centre.getCentreCode());
+                            Customer customer = Customer.toCustomer(dataPackage);
+                            serviceManager.getCustManagerService().insert(customer);
+                        }
                         break;
                     }
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(ClientHandlingThread.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ClientHandlingThread.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (    IOException | ClassNotFoundException ex) {
+                break;
             }
         }
         close();
