@@ -46,7 +46,7 @@ public class CustomerManagerService {
             cust.setFirstName(rs.getString(2));
             cust.setMiddleName(rs.getString(3));
             cust.setLastName(rs.getString(4));
-            cust.setDob(rs.getDate(5));
+            cust.setDob(new java.util.Date(rs.getDate(5).getTime()));
             cust.setGender(rs.getInt(6));
             cust.setContactDetail(rs.getString(7));
             cust.setEmail(rs.getString(8));
@@ -60,14 +60,14 @@ public class CustomerManagerService {
             cust.setHealth(rs.getString(16));
             cust.setCentreCode(rs.getString(17));
             cust.setUICode(rs.getString(18));
-            cust.setThump(rs.getInt(19));
-            cust.setFingerPrint(rs.getInt(20));
-            cust.setRetinaScan(rs.getInt(21));
+            cust.setThumb(rs.getBoolean(19));
+            cust.setFingerPrint(rs.getBoolean(20));
+            cust.setRetinaScan(rs.getBoolean(21));
             cust.setStatus(rs.getInt(22));
             cust.setPersonalDetail(rs.getString(23));
-            cust.setDateCreated(rs.getDate(24));
+            cust.setDateCreated(new java.util.Date(rs.getDate(24).getTime()));
         } catch (SQLException ex) {
-            Logger.getLogger(AdminManagerService.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
         dbConnection.disconnect();
         return cust;
@@ -91,7 +91,7 @@ public class CustomerManagerService {
                 cust.setFirstName(rs.getString(2));
                 cust.setMiddleName(rs.getString(3));
                 cust.setLastName(rs.getString(4));
-                cust.setDob(rs.getDate(5));
+                cust.setDob(new java.util.Date(rs.getDate(5).getTime()));
                 cust.setGender(rs.getInt(6));
                 cust.setContactDetail(rs.getString(7));
                 cust.setEmail(rs.getString(8));
@@ -105,18 +105,18 @@ public class CustomerManagerService {
                 cust.setHealth(rs.getString(16));
                 cust.setCentreCode(rs.getString(17));
                 cust.setUICode(rs.getString(18));
-                cust.setThump(rs.getInt(19));
-                cust.setFingerPrint(rs.getInt(20));
-                cust.setRetinaScan(rs.getInt(21));
+                cust.setThumb(rs.getBoolean(19));
+                cust.setFingerPrint(rs.getBoolean(20));
+                cust.setRetinaScan(rs.getBoolean(21));
                 cust.setStatus(rs.getInt(22));
                 cust.setPersonalDetail(rs.getString(23));
-                cust.setDateCreated(rs.getDate(24));
+                cust.setDateCreated(new java.util.Date(rs.getDate(24).getTime()));
                 cust.setCentreName(rs.getString(25));
 
                 custs.add(cust);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AdminManagerService.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
         dbConnection.disconnect();
         return custs;
@@ -138,7 +138,7 @@ public class CustomerManagerService {
             stm.setString(1, cust.getFirstName());
             stm.setString(2, cust.getMiddleName());
             stm.setString(3, cust.getLastName());
-            stm.setDate(4, (Date) cust.getDob());
+            stm.setDate(4, new Date(cust.getDob().getTime()));
             stm.setInt(5, cust.getGender());
             stm.setString(6, cust.getContactDetail());
             stm.setString(7, cust.getEmail());
@@ -152,16 +152,16 @@ public class CustomerManagerService {
             stm.setString(15, cust.getHealth());
             stm.setString(16, cust.getCentreCode());
             stm.setString(17, cust.getUICode());
-            stm.setInt(18, cust.getThump());
-            stm.setInt(19, cust.getFingerPrint());
-            stm.setInt(20, cust.getRetinaScan());
+            stm.setBoolean(18, cust.isThumb());
+            stm.setBoolean(19, cust.isFingerPrint());
+            stm.setBoolean(20, cust.isRetinaScan());
             stm.setInt(21, cust.getStatus());
             stm.setString(22, cust.getPersonalDetail());
-            stm.setDate(23, (Date) cust.getDateCreated());
+            stm.setDate(23, new Date(cust.getDateCreated().getTime())); 
             stm.setInt(24, cust.getCustID());
             result = stm.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(AdminManagerService.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
         if (result == 0) {
             return false;
@@ -194,15 +194,15 @@ public class CustomerManagerService {
             stm.setString(15, cust.getHealth());
             stm.setString(16, cust.getCentreCode());
             stm.setString(17, cust.getUICode());
-            stm.setInt(18, cust.getThump());
-            stm.setInt(19, cust.getFingerPrint());
-            stm.setInt(20, cust.getRetinaScan());
+            stm.setBoolean(18, cust.isThumb());
+            stm.setBoolean(19, cust.isFingerPrint());
+            stm.setBoolean(20, cust.isRetinaScan());
             stm.setInt(21, cust.getStatus());
             stm.setString(22, cust.getPersonalDetail());
             stm.setDate(23, new Date(cust.getDateCreated().getTime()));
             result = stm.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(AdminManagerService.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
         if (result == 0) {
             return false;
@@ -221,7 +221,7 @@ public class CustomerManagerService {
             stm.setInt(1, custID);
             result = stm.executeUpdate();
         } catch (SQLException ex) {
-            Logger.getLogger(AdminManagerService.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
         if (result == 0) {
             return false;
@@ -259,7 +259,7 @@ public class CustomerManagerService {
                 cust.setFirstName(rs.getString(2));
                 cust.setMiddleName(rs.getString(3));
                 cust.setLastName(rs.getString(4));
-                cust.setDob(rs.getDate(5));
+                cust.setDob(new java.util.Date(rs.getDate(5).getTime()));
                 cust.setGender(rs.getInt(6));
                 cust.setContactDetail(rs.getString(7));
                 cust.setEmail(rs.getString(8));
@@ -273,19 +273,53 @@ public class CustomerManagerService {
                 cust.setHealth(rs.getString(16));
                 cust.setCentreCode(rs.getString(17));
                 cust.setUICode(rs.getString(18));
-                cust.setThump(rs.getInt(19));
-                cust.setFingerPrint(rs.getInt(20));
-                cust.setRetinaScan(rs.getInt(21));
+                cust.setThumb(rs.getBoolean(19));
+                cust.setFingerPrint(rs.getBoolean(20));
+                cust.setRetinaScan(rs.getBoolean(21));
                 cust.setStatus(rs.getInt(22));
                 cust.setPersonalDetail(rs.getString(23));
-                cust.setDateCreated(rs.getDate(24));
+                cust.setDateCreated(new java.util.Date(rs.getDate(24).getTime()));
 
                 custs.add(cust);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AdminManagerService.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
         dbConnection.disconnect();
         return custs;
+    }
+    
+    public Customer generateUICode(Customer customer){
+        customer.setUICode("123456");
+        return customer;
+    }
+    
+    public boolean updateByUICode(Customer customer){
+        dbConnection.connect();
+        Connection connection = dbConnection.getConnection();
+        PreparedStatement stm;
+        int result = 0;
+        try {
+            String updateQuery = "UPDATE Customer SET health = ?, thumb = ?, "
+                    + "fingerprint = ?, retina_scan = ?, status = ?, personal_detail =  ? "
+                    + "WHERE UICode = ?";
+            System.out.println(customer.getUICode());
+            stm = connection.prepareStatement(updateQuery);
+            stm.setString(1, customer.getHealth());
+            stm.setBoolean(2, customer.isThumb());
+            stm.setBoolean(3, customer.isFingerPrint());
+            stm.setBoolean(4, customer.isRetinaScan());
+            stm.setInt(5, customer.getStatus());
+            stm.setString(6, customer.getPersonalDetail());
+            stm.setString(7, customer.getUICode());
+            result = stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerManagerService.class.getName()).log(Level.SEVERE, null, ex);
+            //return false;
+        }
+        if (result == 0) {
+            return false;
+        }
+        return true;
     }
 }

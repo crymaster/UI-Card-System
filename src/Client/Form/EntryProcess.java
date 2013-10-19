@@ -44,6 +44,7 @@ public class EntryProcess extends javax.swing.JDialog {
     private void initComponents() {
 
         gender = new javax.swing.ButtonGroup();
+        health = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -83,8 +84,8 @@ public class EntryProcess extends javax.swing.JDialog {
         ckPassport = new javax.swing.JCheckBox();
         ckVoter = new javax.swing.JCheckBox();
         ckLicense = new javax.swing.JCheckBox();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        txtHealth = new javax.swing.JTextArea();
+        radioNormal = new javax.swing.JRadioButton();
+        radioHandicapped = new javax.swing.JRadioButton();
         btnSend = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
@@ -115,6 +116,7 @@ public class EntryProcess extends javax.swing.JDialog {
 
         txtAddress.setColumns(10);
         txtAddress.setRows(3);
+        txtAddress.setEnabled(false);
         jScrollPane1.setViewportView(txtAddress);
 
         txtContact.setColumns(10);
@@ -127,6 +129,12 @@ public class EntryProcess extends javax.swing.JDialog {
 
         gender.add(radioFemale);
         radioFemale.setText("Female");
+
+        ckAddress.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckAddressActionPerformed(evt);
+            }
+        });
 
         cbMonth.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
@@ -208,7 +216,7 @@ public class EntryProcess extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -248,9 +256,12 @@ public class EntryProcess extends javax.swing.JDialog {
 
         ckLicense.setText("   ");
 
-        txtHealth.setColumns(10);
-        txtHealth.setRows(3);
-        jScrollPane4.setViewportView(txtHealth);
+        health.add(radioNormal);
+        radioNormal.setSelected(true);
+        radioNormal.setText("Normal");
+
+        health.add(radioHandicapped);
+        radioHandicapped.setText("Handicapped");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -271,23 +282,24 @@ public class EntryProcess extends javax.swing.JDialog {
                                 .addComponent(txtOccupation))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(63, 63, 63)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(ckPassport)
-                                    .addComponent(ckMarried)
-                                    .addComponent(ckVoter)
-                                    .addComponent(ckLicense))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(radioNormal)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(ckPassport)
+                                        .addComponent(ckMarried)
+                                        .addComponent(ckVoter)
+                                        .addComponent(ckLicense))
+                                    .addComponent(radioHandicapped))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel16)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel16))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -318,9 +330,11 @@ public class EntryProcess extends javax.swing.JDialog {
                     .addComponent(jLabel15)
                     .addComponent(ckLicense))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(radioNormal))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(radioHandicapped)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -380,7 +394,7 @@ public class EntryProcess extends javax.swing.JDialog {
                     .addComponent(btnSend)
                     .addComponent(btnCancel)
                     .addComponent(btnSave))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -477,7 +491,12 @@ public class EntryProcess extends javax.swing.JDialog {
         } else{
             license = 0;
         }
-        String health = txtHealth.getText();
+        String health;
+        if(radioNormal.isSelected()){
+            health = "Normal";
+        } else {
+            health = "Handicapped";
+        }
         HashMap customer = new HashMap();
         customer.put("firstName", firstName);
         customer.put("midName", midName);
@@ -497,6 +516,15 @@ public class EntryProcess extends javax.swing.JDialog {
         MainMenu menu = (MainMenu)this.getParent();
         menu.getMainController().send(customer);
     }//GEN-LAST:event_btnSendActionPerformed
+
+    private void ckAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckAddressActionPerformed
+        // TODO add your handling code here:
+        if(ckAddress.isSelected()){
+            txtAddress.setEnabled(true);
+        } else{
+            txtAddress.setEnabled(false);
+        }
+    }//GEN-LAST:event_ckAddressActionPerformed
 
     /**
      * @param args the command line arguments
@@ -551,6 +579,7 @@ public class EntryProcess extends javax.swing.JDialog {
     private javax.swing.JCheckBox ckPassport;
     private javax.swing.JCheckBox ckVoter;
     private javax.swing.ButtonGroup gender;
+    private javax.swing.ButtonGroup health;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -572,15 +601,15 @@ public class EntryProcess extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JRadioButton radioFemale;
+    private javax.swing.JRadioButton radioHandicapped;
     private javax.swing.JRadioButton radioMale;
+    private javax.swing.JRadioButton radioNormal;
     private javax.swing.JTextArea txtAddress;
     private javax.swing.JTextArea txtContact;
     private javax.swing.JTextArea txtEducation;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFirstName;
-    private javax.swing.JTextArea txtHealth;
     private javax.swing.JTextField txtLastName;
     private javax.swing.JTextField txtMiddleName;
     private javax.swing.JTextField txtOccupation;

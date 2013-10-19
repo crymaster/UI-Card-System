@@ -84,8 +84,19 @@ public class ListeningThread implements Runnable {
                             this.getControllerManager().getLogInController().logIn(employee);
                             step = ENTRY_PHASE;
                         }
+                        break;
                     }
-                    break;
+                    case 1: {
+                        HashMap customer = (HashMap)data;
+                        String msg = (String)customer.get("message");
+                        if(msg.equals("ENTRYSUCCESS")){
+                            controllerManager.getMainController().entrySuccess(customer);
+                            step = UI_PHASE;
+                        } else if (msg.equals("ENTRYFAIL")) {
+                            controllerManager.getMainController().entryFail();
+                        }
+                        break;
+                    }
                 }
             }catch (    IOException | ClassNotFoundException ex) {
                 break;

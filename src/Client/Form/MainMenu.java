@@ -6,6 +6,7 @@ package Client.Form;
 
 import Client.Controller.LoggingController;
 import Client.Controller.MainController;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,6 +16,8 @@ import javax.swing.JOptionPane;
 public class MainMenu extends javax.swing.JFrame {
     private LoggingController logController;
     private MainController mainController;
+    private EntryProcess entryProcess;
+    private UIProcess uiProcess;
     /**
      * Creates new form MainMenu
      */
@@ -45,6 +48,13 @@ public class MainMenu extends javax.swing.JFrame {
     
     public void refresh(){
         
+    }
+    
+    public void toUIProcess(HashMap data){
+        entryProcess.dispose();
+        uiProcess = new UIProcess(this, true);
+        uiProcess.setData(data);
+        uiProcess.setVisible(true);
     }
     
     /**
@@ -172,7 +182,8 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         // TODO add your handling code here:
-        new EntryProcess(this, true).setVisible(true);
+        entryProcess = new EntryProcess(this, true);
+        entryProcess.setVisible(true);
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

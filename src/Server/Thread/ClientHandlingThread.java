@@ -23,6 +23,7 @@ import java.util.logging.Logger;
  * @author Son
  */
 public class ClientHandlingThread extends Thread {
+
     public static final int LOGGING_PHASE = 0;
     public static final int ENTRY_PHASE = 1;
     public static final int UI_PHASE = 2;
@@ -59,7 +60,7 @@ public class ClientHandlingThread extends Thread {
                         this.close();
                         break;
                     }
-                    if (msg.equals("LOGOUT")){
+                    if (msg.equals("LOGOUT")) {
                         step = LOGGING_PHASE;
                         continue;
                     }
@@ -83,17 +84,35 @@ public class ClientHandlingThread extends Thread {
                     case 1: {
                         HashMap dataPackage = (HashMap) data;
                         String msg = (String) dataPackage.get("message");
-                        if(msg.equals("ENTRY")){
-                            Date date = new Date();
-                            dataPackage.put("dateCreated", date);
-                            dataPackage.put("centreCode", centre.getCentreCode());
+                        if (msg.equals("ENTRY")) {
                             Customer customer = Customer.toCustomer(dataPackage);
-                            serviceManager.getCustManagerService().insert(customer);
+                            customer.setCentreCode(centre.getCentreCode());
+                            Date date = new Date();
+                            customer.setDateCreated(date);
+                            customer.setStatus(-1);
+                            customer = serviceManager.getCustManagerService().generateUICode(customer);
+                            if (serviceManager.getCustManagerService().insert(customer)) {
+                                dataPackage = customer.toHashMap();
+                                dataPackage.put("message", "ENTRYSUCCESS");
+                                this.write(dataPackage);
+                                step = UI_PHASE;
+                            } else{
+                                dataPackage.put("message", "ENTRYFAIL");
+                                this.write(data);
+                            }
                         }
                         break;
                     }
+                    case 2: {
+                        HashMap dataPackage = (HashMap) data;
+                        Customer customer = Customer.toCustomer(dataPackage);
+                        customer.setStatus(0);
+                        serviceManager.getCustManagerService().updateByUICode(customer);
+                            
+                        break;
+                    }
                 }
-            } catch (    IOException | ClassNotFoundException ex) {
+            } catch (IOException | ClassNotFoundException ex) {
                 break;
             }
         }

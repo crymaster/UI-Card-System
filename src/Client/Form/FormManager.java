@@ -4,6 +4,7 @@
  */
 package Client.Form;
 
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 /**
@@ -40,6 +41,10 @@ public class FormManager implements Runnable {
         JOptionPane.showMessageDialog(this.logIn, message,"Message",messageType);
     }
     
+    public void showMessageOnMainMenu(String message, int messageType){
+        JOptionPane.showMessageDialog(this.mainMenu, message,"Message",messageType);
+    }
+    
     public void disposeLogIn(){
         logIn.dispose();
         logIn.clear();
@@ -58,6 +63,9 @@ public class FormManager implements Runnable {
         
     }
     
+    public void toUIProcess(HashMap data){
+        mainMenu.toUIProcess(data);
+    }
     @Override
     public void run() {
         this.logIn.setVisible(true);

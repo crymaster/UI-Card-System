@@ -12,6 +12,7 @@ import java.util.HashMap;
  * @author QUANGHUY
  */
 public class Customer {
+
     private int custID;
     private String firstName;
     private String middleName;
@@ -30,13 +31,12 @@ public class Customer {
     private String health;
     private String centreCode;
     private String UICode;
-    private int thump;
-    private int fingerPrint;
-    private int retinaScan;
+    private boolean thumb;
+    private boolean fingerPrint;
+    private boolean retinaScan;
     private int status;
     private String personalDetail;
     private Date dateCreated;
-    
     private String centreName;
 
     public int getCustID() {
@@ -102,7 +102,7 @@ public class Customer {
     public void setEmail(String email) {
         this.email = email;
     }
-   
+
     public String getAddress() {
         return address;
     }
@@ -183,27 +183,27 @@ public class Customer {
         this.UICode = UICode;
     }
 
-    public int getThump() {
-        return thump;
+    public boolean isThumb() {
+        return thumb;
     }
 
-    public void setThump(int thump) {
-        this.thump = thump;
+    public void setThumb(boolean thumb) {
+        this.thumb = thumb;
     }
 
-    public int getFingerPrint() {
+    public boolean isFingerPrint() {
         return fingerPrint;
     }
 
-    public void setFingerPrint(int fingerPrint) {
+    public void setFingerPrint(boolean fingerPrint) {
         this.fingerPrint = fingerPrint;
     }
 
-    public int getRetinaScan() {
+    public boolean isRetinaScan() {
         return retinaScan;
     }
 
-    public void setRetinaScan(int retinaScan) {
+    public void setRetinaScan(boolean retinaScan) {
         this.retinaScan = retinaScan;
     }
 
@@ -238,47 +238,87 @@ public class Customer {
     public void setCentreName(String centreName) {
         this.centreName = centreName;
     }
-    
+
     public String getCustGender() {
-        if(gender == 1) {
+        if (gender == 1) {
             return "Male";
         }
-        if(gender == 0) {
+        if (gender == 0) {
             return "Female";
         }
         return "";
     }
-    
+
     public String getCustStatus() {
-        if(status == 1) {
+        if (status == 1) {
             return "Sent";
         }
-        if(status == 0) {
+        if (status == 0) {
             return "Waiting";
+        }
+        if (status == -1) {
+            return "Not Ready";
         }
         return "";
     }
-    
-    public static Customer toCustomer(HashMap data){
+
+    public static Customer toCustomer(HashMap data) {
         Customer customer = new Customer();
-        customer.firstName = (String)data.get("firstName");
-        customer.middleName = (String)data.get("midName");
-        customer.lastName = (String)data.get("lastName");
-        customer.dob = (Date)data.get("dob");
-        customer.address = (String)data.get("address");
-        customer.gender = (Integer)data.get("gender");
-        customer.contactDetail = (String)data.get("contact");
-        customer.email = (String)data.get("email");
-        customer.education = (String)data.get("education");
-        customer.occupation = (String)data.get("occupation");
-        customer.middleName = (String)data.get("midName");
-        customer.married = (Integer)data.get("married");
-        customer.passport = (Integer)data.get("passport");
-        customer.vote = (Integer)data.get("vote");
-        customer.drivingLicense = (Integer)data.get("license");
-        customer.health = (String)data.get("health");
-        customer.centreCode = (String)data.get("centreCode");
-        customer.dateCreated = (Date)data.get("dateCreated");
+        customer.firstName = (String) data.get("firstName");
+        customer.middleName = (String) data.get("midName");
+        customer.lastName = (String) data.get("lastName");
+        customer.dob = (Date) data.get("dob");
+        customer.address = (String) data.get("address");
+        customer.gender = (Integer) data.get("gender");
+        customer.contactDetail = (String) data.get("contact");
+        customer.email = (String) data.get("email");
+        customer.education = (String) data.get("education");
+        customer.occupation = (String) data.get("occupation");
+        customer.married = (Integer) data.get("married");
+        customer.passport = (Integer) data.get("passport");
+        customer.vote = (Integer) data.get("vote");
+        customer.drivingLicense = (Integer) data.get("license");
+        customer.health = (String) data.get("health");
+        customer.centreCode = (String) data.get("centreCode");
+        if (data.get("uiCode") != null) {
+            customer.UICode = (String) data.get("uiCode");
+        }
+        if (data.get("thumb") != null) {
+            customer.thumb = (Boolean) data.get("thumb");
+        }
+        if (data.get("finger") != null) {
+            customer.fingerPrint = (Boolean) data.get("finger");
+        }
+        if (data.get("retina") != null) {
+            customer.retinaScan = (Boolean) data.get("retina");
+        }
+        if (data.get("personal") != null) {
+            customer.personalDetail = (String) data.get("personal");
+        }
+        customer.dateCreated = (Date) data.get("dateCreated");
         return customer;
+    }
+
+    public HashMap toHashMap() {
+        HashMap data = new HashMap();
+        data.put("firstName", firstName);
+        data.put("midName", middleName);
+        data.put("lastName", lastName);
+        data.put("dob", dob);
+        data.put("address", address);
+        data.put("gender", gender);
+        data.put("contact", contactDetail);
+        data.put("email", email);
+        data.put("occupation", occupation);
+        data.put("education", education);
+        data.put("married", married);
+        data.put("passport", passport);
+        data.put("vote", vote);
+        data.put("license", drivingLicense);
+        data.put("health", health);
+        data.put("centreCode", centreCode);
+        data.put("uiCode", UICode);
+        data.put("dateCreated", dateCreated);
+        return data;
     }
 }
