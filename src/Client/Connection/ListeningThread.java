@@ -97,6 +97,16 @@ public class ListeningThread implements Runnable {
                         }
                         break;
                     }
+                    case 2: {
+                        String msg = (String) data;
+                        if(msg.equals("UISUCCESS")){
+                            controllerManager.getMainController().uiSuccess();
+                            step = ENTRY_PHASE;
+                        } else if (msg.equals("UIFAIL")){
+                            controllerManager.getMainController().uiFail();
+                        }
+                        break;
+                    }
                 }
             }catch (    IOException | ClassNotFoundException ex) {
                 break;

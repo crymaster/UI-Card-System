@@ -4,6 +4,7 @@
  */
 package Client.Form;
 
+import Client.Entity.Draft;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,7 +21,7 @@ import javax.swing.JOptionPane;
  * @author Son
  */
 public class EntryProcess extends javax.swing.JDialog {
-
+    
     private static final String EMAIL_PATTERN =
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
             + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -353,6 +354,11 @@ public class EntryProcess extends javax.swing.JDialog {
         });
 
         btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -404,7 +410,7 @@ public class EntryProcess extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
-
+    
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         // TODO add your handling code here:
         String firstName = txtFirstName.getText();
@@ -468,31 +474,31 @@ public class EntryProcess extends javax.swing.JDialog {
         String education = txtEducation.getText();
         String occupation = txtOccupation.getText();
         int married = 0;
-        if(ckMarried.isSelected()){
+        if (ckMarried.isSelected()) {
             married = 1;
-        } else{
+        } else {
             married = 0;
         }
         int passport;
-        if(ckPassport.isSelected()){
+        if (ckPassport.isSelected()) {
             passport = 1;
-        } else{
+        } else {
             passport = 0;
         }
         int vote;
-        if(ckVoter.isSelected()){
+        if (ckVoter.isSelected()) {
             vote = 1;
-        } else{
+        } else {
             vote = 0;
         }
         int license;
-        if(ckLicense.isSelected()){
+        if (ckLicense.isSelected()) {
             license = 1;
-        } else{
+        } else {
             license = 0;
         }
         String health;
-        if(radioNormal.isSelected()){
+        if (radioNormal.isSelected()) {
             health = "Normal";
         } else {
             health = "Handicapped";
@@ -513,18 +519,61 @@ public class EntryProcess extends javax.swing.JDialog {
         customer.put("vote", vote);
         customer.put("license", license);
         customer.put("health", health);
-        MainMenu menu = (MainMenu)this.getParent();
+        MainMenu menu = (MainMenu) this.getParent();
         menu.getMainController().send(customer);
     }//GEN-LAST:event_btnSendActionPerformed
-
+    
     private void ckAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckAddressActionPerformed
         // TODO add your handling code here:
-        if(ckAddress.isSelected()){
+        if (ckAddress.isSelected()) {
             txtAddress.setEnabled(true);
-        } else{
+        } else {
             txtAddress.setEnabled(false);
         }
     }//GEN-LAST:event_ckAddressActionPerformed
+    
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        Draft draft = new Draft();
+        draft.setFirstName(txtFirstName.getText());
+        draft.setMiddleName(txtMiddleName.getText());
+        draft.setLastName(txtLastName.getText());
+        Date dob;
+        if (!txtYear.getText().isEmpty()) {
+            try {
+                String date = (String) cbDay.getSelectedItem() + '/' + (String) cbMonth.getSelectedItem() + '/' + Integer.parseInt(txtYear.getText());
+                SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+                try {
+                    dob = df.parse(date);
+                    draft.setDob(dob);
+                } catch (ParseException ex) {
+                }
+            } catch (NumberFormatException ex) {
+            }
+        }
+        if (radioMale.isSelected()) {
+            draft.setGender(1);
+        } else {
+            draft.setGender(0);
+        }
+        draft.setAddress(txtAddress.getText());
+        draft.setContactDetail(txtContact.getText());
+        draft.setEmail(txtEmail.getText());
+        draft.setEducation(txtEducation.getText());
+        draft.setOccupation(txtOccupation.getText());
+        draft.setMarried(ckMarried.isSelected());
+        draft.setPassport(ckPassport.isSelected());
+        draft.setVoter(ckVoter.isSelected());
+        draft.setDrivingLicense(ckLicense.isSelected());
+        if(radioNormal.isSelected()){
+            draft.setHealth("Normal");
+        } else{
+            draft.setHealth("Handicapped");
+        }
+        MainMenu menu = (MainMenu) this.getParent();
+        menu.getMainController().saveDraft(draft);
+        this.dispose();
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments

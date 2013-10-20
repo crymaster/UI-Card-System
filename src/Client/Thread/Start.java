@@ -55,8 +55,7 @@ public class Start{
         listen.setConnection(connection);
         /*Instantiate ServiceManager, ServerCommunication Service*/
         ServiceManager serviceManager = new ServiceManager();
-        ServerCommunicationService serverCom = new ServerCommunicationService();
-        serviceManager.setServerCommunicationService(serverCom);
+        ServerCommunicationService serverCom = serviceManager.getServerCommunicationService();
         serverCom.setConnection(connection);
         /*Form*/
         FormManager formManager = new FormManager();

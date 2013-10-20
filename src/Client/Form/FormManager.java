@@ -66,6 +66,11 @@ public class FormManager implements Runnable {
     public void toUIProcess(HashMap data){
         mainMenu.toUIProcess(data);
     }
+    
+    public void finishUIProcess(){
+        mainMenu.finishUIProcess();
+    }
+    
     @Override
     public void run() {
         this.logIn.setVisible(true);

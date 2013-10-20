@@ -303,7 +303,6 @@ public class CustomerManagerService {
             String updateQuery = "UPDATE Customer SET health = ?, thumb = ?, "
                     + "fingerprint = ?, retina_scan = ?, status = ?, personal_detail =  ? "
                     + "WHERE UICode = ?";
-            System.out.println(customer.getUICode());
             stm = connection.prepareStatement(updateQuery);
             stm.setString(1, customer.getHealth());
             stm.setBoolean(2, customer.isThumb());

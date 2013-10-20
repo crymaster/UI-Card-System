@@ -4,6 +4,7 @@
  */
 package Client.Controller;
 
+import Client.Entity.Draft;
 import java.util.HashMap;
 
 /**
@@ -22,5 +23,17 @@ public class MainController extends BaseController{
     
     public void entryFail(){
         this.getFormManager().showMessageOnMainMenu("An error has occured on server. Please try again", 0);
+    }
+    
+    public void uiSuccess(){
+        this.getFormManager().finishUIProcess();
+    }
+    
+    public void uiFail(){
+        this.getFormManager().showMessageOnMainMenu("An error has occured on server. Please try again", 0);
+    }
+    
+    public void saveDraft(Draft draft){
+        this.getServiceManager().getDraftManagerService().insert(draft);
     }
 }

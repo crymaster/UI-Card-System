@@ -28,6 +28,10 @@ public class UIProcess extends javax.swing.JDialog {
         lbCode.setText((String) customer.get("uiCode"));
     }
 
+    public HashMap getCustomer() {
+        return customer;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

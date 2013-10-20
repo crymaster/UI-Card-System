@@ -9,7 +9,14 @@ package Client.Service;
  * @author Son
  */
 public class ServiceManager {
+
     private ServerCommunicationService serverCommunicationService;
+    private DraftManagerService draftManagerService;
+
+    public ServiceManager() {
+        serverCommunicationService = new ServerCommunicationService();
+        draftManagerService = new DraftManagerService();
+    }
 
     public ServerCommunicationService getServerCommunicationService() {
         return serverCommunicationService;
@@ -19,4 +26,11 @@ public class ServiceManager {
         this.serverCommunicationService = serverCommunicationService;
     }
 
+    public DraftManagerService getDraftManagerService() {
+        return draftManagerService;
+    }
+
+    public void setDraftManagerService(DraftManagerService draftManagerService) {
+        this.draftManagerService = draftManagerService;
+    }
 }

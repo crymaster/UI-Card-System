@@ -107,8 +107,12 @@ public class ClientHandlingThread extends Thread {
                         HashMap dataPackage = (HashMap) data;
                         Customer customer = Customer.toCustomer(dataPackage);
                         customer.setStatus(0);
-                        serviceManager.getCustManagerService().updateByUICode(customer);
-                            
+                        if(serviceManager.getCustManagerService().updateByUICode(customer)){
+                            this.write("UISUCCESS");
+                            step = ENTRY_PHASE;
+                        } else{
+                            this.write("UIFAIL");
+                        }
                         break;
                     }
                 }
