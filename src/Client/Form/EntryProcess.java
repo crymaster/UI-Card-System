@@ -21,10 +21,11 @@ import javax.swing.JOptionPane;
  * @author Son
  */
 public class EntryProcess extends javax.swing.JDialog {
-    
+
     private static final String EMAIL_PATTERN =
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
             + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+    private Draft data;
 
     /**
      * Creates new form EntryProcess
@@ -33,6 +34,42 @@ public class EntryProcess extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
+    }
+
+    public void setData(Draft data) {
+        this.data = data;
+    }
+
+    public void refresh() {
+        txtFirstName.setText(data.getFirstName());
+        txtMiddleName.setText(data.getMiddleName());
+        txtLastName.setText(data.getLastName());
+        txtEmail.setText(data.getEmail());
+        if (!data.getAddress().isEmpty()) {
+            txtAddress.setText(data.getAddress());
+            ckAddress.setSelected(true);
+            txtAddress.setEnabled(true);
+        }
+        txtContact.setText(data.getContactDetail());
+        txtEducation.setText(data.getEducation());
+        txtOccupation.setText(data.getOccupation());
+        ckMarried.setSelected(data.isMarried());
+        ckPassport.setSelected(data.isPassport());
+        ckVoter.setSelected(data.isVoter());
+        ckLicense.setSelected(data.isDrivingLicense());
+        if(data.getHealth().equals("Normal")){
+            radioNormal.setSelected(true);
+        } else {
+            radioHandicapped.setSelected(true);
+        }
+        if(data.getGender()==1){
+            radioMale.setSelected(true);
+        } else {
+            radioFemale.setSelected(true);
+        }
+        cbDay.setSelectedIndex(data.getDob().getDate()-1);
+        cbMonth.setSelectedIndex(data.getDob().getMonth());
+        txtYear.setText(data.getDob().getYear()+1900+"");
     }
 
     /**
@@ -410,7 +447,7 @@ public class EntryProcess extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
-    
+
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         // TODO add your handling code here:
         String firstName = txtFirstName.getText();
@@ -522,7 +559,7 @@ public class EntryProcess extends javax.swing.JDialog {
         MainMenu menu = (MainMenu) this.getParent();
         menu.getMainController().send(customer);
     }//GEN-LAST:event_btnSendActionPerformed
-    
+
     private void ckAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckAddressActionPerformed
         // TODO add your handling code here:
         if (ckAddress.isSelected()) {
@@ -531,7 +568,7 @@ public class EntryProcess extends javax.swing.JDialog {
             txtAddress.setEnabled(false);
         }
     }//GEN-LAST:event_ckAddressActionPerformed
-    
+
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
         Draft draft = new Draft();
@@ -565,57 +602,16 @@ public class EntryProcess extends javax.swing.JDialog {
         draft.setPassport(ckPassport.isSelected());
         draft.setVoter(ckVoter.isSelected());
         draft.setDrivingLicense(ckLicense.isSelected());
-        if(radioNormal.isSelected()){
+        if (radioNormal.isSelected()) {
             draft.setHealth("Normal");
-        } else{
+        } else {
             draft.setHealth("Handicapped");
         }
         MainMenu menu = (MainMenu) this.getParent();
         menu.getMainController().saveDraft(draft);
+        menu.refresh();
         this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EntryProcess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EntryProcess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EntryProcess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EntryProcess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                EntryProcess dialog = new EntryProcess(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;

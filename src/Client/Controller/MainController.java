@@ -5,6 +5,7 @@
 package Client.Controller;
 
 import Client.Entity.Draft;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -35,5 +36,13 @@ public class MainController extends BaseController{
     
     public void saveDraft(Draft draft){
         this.getServiceManager().getDraftManagerService().insert(draft);
+    }
+    
+    public void load(){
+        this.getFormManager().loadDraft(this.getServiceManager().getDraftManagerService().getAll());
+    }
+    
+    public void delete(int draftID){
+        this.getServiceManager().getDraftManagerService().delete(draftID);
     }
 }

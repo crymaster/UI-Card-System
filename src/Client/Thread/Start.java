@@ -51,7 +51,6 @@ public class Start{
         Sending send = new Sending();
         connection.setListen(listen);
         connection.setSend(send);
-        connection.connect();
         listen.setConnection(connection);
         /*Instantiate ServiceManager, ServerCommunication Service*/
         ServiceManager serviceManager = new ServiceManager();
@@ -77,5 +76,6 @@ public class Start{
         menu.setMainController(mainCtrl);
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(formManager);
+        connection.connect();
     }
 }

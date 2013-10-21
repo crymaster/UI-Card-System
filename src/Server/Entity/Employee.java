@@ -70,9 +70,11 @@ public class Employee implements Serializable{
     
     public HashMap toHashMap(){
         HashMap data = new HashMap();
+        data.put("empID", this.empID);
         data.put("empName", this.empName);
         data.put("password", this.password);
         data.put("email", this.email);
+        data.put("centreCode", this.centreCode);
         data.put("centreName", this.centreName);
         return data;
     }

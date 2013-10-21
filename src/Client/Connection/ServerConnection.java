@@ -55,24 +55,29 @@ public class ServerConnection {
     }
 
     public void connect() {
-        try {
-            clientSocket = new Socket(host, portNumber);
-            listen.setInput(new ObjectInputStream(clientSocket.getInputStream()));
-            send.setOutput(new ObjectOutputStream(clientSocket.getOutputStream()));
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
-        } catch(ConnectException ex){
-            
-        }catch (IOException ex) {
-            Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
+        while (true) {
+            try {
+                clientSocket = new Socket(host, portNumber);
+                listen.setInput(new ObjectInputStream(clientSocket.getInputStream()));
+                send.setOutput(new ObjectOutputStream(clientSocket.getOutputStream()));
+                break;
+            } catch (UnknownHostException ex) {
+                Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ConnectException ex) {
+                //Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
+                continue;
+            } catch (IOException ex) {
+                Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         if (clientSocket != null) {
             /* Create a thread to read from the server. */
             new Thread(listen).start();
         }
+        this.listen.getControllerManager().getLogInController().connected();
     }
-    
-    public void disconnect(){
+
+    public void disconnect() {
         listen.close();
         send.close();
         try {

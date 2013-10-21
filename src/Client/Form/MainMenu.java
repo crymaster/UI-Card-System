@@ -6,6 +6,8 @@ package Client.Form;
 
 import Client.Controller.LoggingController;
 import Client.Controller.MainController;
+import Client.Entity.Draft;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
 import javax.swing.JOptionPane;
@@ -25,6 +27,8 @@ public class MainMenu extends javax.swing.JFrame {
      */
     public MainMenu() {
         initComponents();
+        btnDelete.setEnabled(false);
+        btnLoad.setEnabled(false);
         setLocationRelativeTo(this);
     }
 
@@ -49,7 +53,31 @@ public class MainMenu extends javax.swing.JFrame {
     }
     
     public void refresh(){
-        
+        DefaultTableModel model = (DefaultTableModel)draftTable.getModel();
+        while(model.getRowCount()>0){
+            model.removeRow(0);
+        }
+        /*Load data to table model*/
+        this.mainController.load();
+        if(draftTable.getSelectedRow() == -1){
+            btnDelete.setEnabled(false);
+            btnLoad.setEnabled(false);
+        }
+    }
+    
+    public void renderDraft(ArrayList<Draft> drafts){
+        /*Add information to table model*/
+        DefaultTableModel model = (DefaultTableModel) draftTable.getModel();
+        Vector row;
+        for(int i = 0; i< drafts.size(); i++){
+            row = new Vector();
+            row.add(drafts.get(i).getDraftId());
+            row.add(drafts.get(i).getFirstName());
+            row.add(drafts.get(i).getMiddleName());
+            row.add(drafts.get(i).getLastName());
+            model.addRow(row);
+        }
+        draftTable.setModel(model);
     }
     
     public void toUIProcess(HashMap data){
@@ -99,10 +127,10 @@ public class MainMenu extends javax.swing.JFrame {
         custTable = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        draftTable = new javax.swing.JTable();
+        btnLoad = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnReload = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -123,6 +151,11 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnProfile.setText("Profile");
+        btnProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProfileActionPerformed(evt);
+            }
+        });
 
         btnLogOut.setText("Log Out");
         btnLogOut.addActionListener(new java.awt.event.ActionListener() {
@@ -206,12 +239,12 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnRegister)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Main", jPanel3);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        draftTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -220,7 +253,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -234,13 +267,33 @@ public class MainMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable2);
+        draftTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                draftTableMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(draftTable);
 
-        jButton1.setText("Load");
+        btnLoad.setText("Load");
+        btnLoad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Delete");
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Reload");
+        btnReload.setText("Reload");
+        btnReload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReloadActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -249,11 +302,11 @@ public class MainMenu extends javax.swing.JFrame {
             .addComponent(jScrollPane3)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(55, 55, 55)
-                .addComponent(jButton1)
+                .addComponent(btnLoad)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(btnDelete)
                 .addGap(74, 74, 74)
-                .addComponent(jButton3)
+                .addComponent(btnReload)
                 .addGap(56, 56, 56))
         );
         jPanel1Layout.setVerticalGroup(
@@ -262,10 +315,10 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addGap(0, 16, Short.MAX_VALUE))
+                    .addComponent(btnLoad)
+                    .addComponent(btnDelete)
+                    .addComponent(btnReload))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Draft", jPanel1);
@@ -282,7 +335,7 @@ public class MainMenu extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
 
         pack();
@@ -299,14 +352,53 @@ public class MainMenu extends javax.swing.JFrame {
         entryProcess.setVisible(true);
     }//GEN-LAST:event_btnRegisterActionPerformed
 
+    private void draftTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_draftTableMouseClicked
+        // TODO add your handling code here:
+        btnDelete.setEnabled(true);
+        btnLoad.setEnabled(true);
+    }//GEN-LAST:event_draftTableMouseClicked
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm Message", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        //choose "Yes" = 0
+        if(result == 0){
+            //Get draftID from table to delete
+            DefaultTableModel model = (DefaultTableModel) draftTable.getModel();
+            int draftID = (Integer)model.getValueAt(draftTable.getSelectedRow(), 0);
+            this.getMainController().delete(draftID);
+            this.refresh();
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadActionPerformed
+        // TODO add your handling code here:
+        entryProcess = new EntryProcess(this, true);
+        int id = Integer.parseInt(draftTable.getValueAt(draftTable.getSelectedRow(), 0).toString());
+        entryProcess.setData(mainController.getServiceManager().getDraftManagerService().get(id) );
+        entryProcess.refresh();
+        entryProcess.setVisible(true);
+    }//GEN-LAST:event_btnLoadActionPerformed
+
+    private void btnReloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadActionPerformed
+        // TODO add your handling code here:
+        refresh();
+    }//GEN-LAST:event_btnReloadActionPerformed
+
+    private void btnProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnProfileActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnLoad;
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnProfile;
     private javax.swing.JButton btnRegister;
+    private javax.swing.JButton btnReload;
     private javax.swing.JTable custTable;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JTable draftTable;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -315,6 +407,5 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

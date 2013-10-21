@@ -14,6 +14,10 @@ import java.util.HashMap;
 public class LoggingController extends BaseController {
     //Send close connection signal to server
 
+    public void connected(){
+        this.getFormManager().logInConnected();
+    }
+    
     public void close() {
         this.getServiceManager().getServerCommunicationService().send("CLOSE");
         this.getServiceManager().getServerCommunicationService().close();
