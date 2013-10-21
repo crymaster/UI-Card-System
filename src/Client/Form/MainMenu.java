@@ -4,6 +4,7 @@
  */
 package Client.Form;
 
+import Client.Controller.BaseController;
 import Client.Controller.LoggingController;
 import Client.Controller.MainController;
 import Client.Entity.Draft;
@@ -387,7 +388,10 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void btnProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileActionPerformed
         // TODO add your handling code here:
-        
+        UpdateProfile updateProfile = new UpdateProfile(this, true);
+        updateProfile.setData(BaseController.getSession().getCurrentEmployee());
+        updateProfile.refresh();
+        updateProfile.setVisible(true);
     }//GEN-LAST:event_btnProfileActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

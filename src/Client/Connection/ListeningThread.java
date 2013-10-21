@@ -87,13 +87,17 @@ public class ListeningThread implements Runnable {
                         break;
                     }
                     case 1: {
-                        HashMap customer = (HashMap)data;
-                        String msg = (String)customer.get("message");
+                        HashMap dataPackage = (HashMap)data;
+                        String msg = (String)dataPackage.get("message");
                         if(msg.equals("ENTRYSUCCESS")){
-                            controllerManager.getMainController().entrySuccess(customer);
+                            controllerManager.getMainController().entrySuccess(dataPackage);
                             step = UI_PHASE;
                         } else if (msg.equals("ENTRYFAIL")) {
                             controllerManager.getMainController().entryFail();
+                        } else if (msg.equals("PROFILESUCCESS")){
+                            controllerManager.getMainController().profileSuccess(dataPackage);
+                        } else if (msg.equals("PROFILEFAIL")){
+                            controllerManager.getMainController().profileFail();
                         }
                         break;
                     }

@@ -45,4 +45,19 @@ public class MainController extends BaseController{
     public void delete(int draftID){
         this.getServiceManager().getDraftManagerService().delete(draftID);
     }
+    
+    public void requestUpdateProfile(HashMap data){
+        data.put("message", "PROFILE");
+        this.getServiceManager().getServerCommunicationService().send(data);
+    }
+    
+    public void profileSuccess(HashMap employee){
+        this.getFormManager().showMessageOnMainMenu("Update Profile successfully", 1);
+        BaseController.getSession().setCurrentEmployee(employee);
+        this.getFormManager().getMainMenu().refresh();
+    }
+    
+    public void profileFail(){
+        this.getFormManager().showMessageOnMainMenu("This name already existed or another error occur on the server. Please try again later", 0);
+    }
 }

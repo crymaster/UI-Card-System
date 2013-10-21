@@ -78,4 +78,15 @@ public class Employee implements Serializable{
         data.put("centreName", this.centreName);
         return data;
     }
+    
+    public static Employee toEmployee(HashMap data){
+        Employee employee = new Employee();
+        employee.setEmpID((int)data.get("empID"));
+        employee.setEmpName((String)data.get("empName"));
+        employee.setPassword((String)data.get("password"));
+        employee.setEmail((String)data.get("email"));
+        employee.setCentreCode((String)data.get("centreCode"));
+        employee.setCentreName((String)data.get("centreName"));
+        return employee;
+    }
 }

@@ -4,11 +4,21 @@
  */
 package Client.Form;
 
+import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Son
  */
 public class UpdateProfile extends javax.swing.JDialog {
+
+    private static final String EMAIL_PATTERN =
+            "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+    private HashMap data;
 
     /**
      * Creates new form UpdateProfile
@@ -16,6 +26,17 @@ public class UpdateProfile extends javax.swing.JDialog {
     public UpdateProfile(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(this);
+    }
+
+    public void setData(HashMap data) {
+        this.data = data;
+    }
+
+    public void refresh() {
+        txtName.setText((String) data.get("empName"));
+        txtEmail.setText((String) data.get("email"));
+        lbCentreName.setText((String) data.get("centreName"));
     }
 
     /**
@@ -34,7 +55,14 @@ public class UpdateProfile extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        lbCentreName = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
+        txtOld = new javax.swing.JPasswordField();
+        txtNew = new javax.swing.JPasswordField();
+        txtConfirm = new javax.swing.JPasswordField();
+        txtEmail = new javax.swing.JTextField();
+        btnUpdate = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -53,56 +81,177 @@ public class UpdateProfile extends javax.swing.JDialog {
 
         jLabel7.setText("Centre Name");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel8.setText("Centre name here");
+        lbCentreName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbCentreName.setText("Centre name here");
+
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
+
+        btnCancel.setText("Cancel");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addComponent(jLabel1))
+                        .addComponent(btnUpdate)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
+                            .addComponent(jLabel7)
                             .addComponent(jLabel2)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-                                .addComponent(jLabel8)))))
-                .addGap(64, 64, 64))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtName)
+                                .addComponent(txtOld)
+                                .addComponent(txtNew)
+                                .addComponent(txtConfirm)
+                                .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnCancel)
+                                .addComponent(lbCentreName)))
+                        .addGap(33, 33, 33))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(105, 105, 105)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(19, 19, 19)
                 .addComponent(jLabel1)
-                .addGap(21, 21, 21)
-                .addComponent(jLabel2)
-                .addGap(35, 35, 35)
-                .addComponent(jLabel3)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtOld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(txtConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel8))
-                .addContainerGap(37, Short.MAX_VALUE))
+                    .addComponent(lbCentreName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnUpdate)
+                    .addComponent(btnCancel))
+                .addGap(21, 21, 21))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        // Get text form textfield
+        String tempName = txtName.getText();
+        String tempOldPassword = new String(txtOld.getPassword());
+        String tempPassword = new String(txtNew.getPassword());
+        String tempPasswordConfirm = new String(txtConfirm.getPassword());
+        String tempEmail = txtEmail.getText();
+        HashMap newData = new HashMap();
+        
+        //Check if name is empty
+        if (tempName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Name must not be empty", "Message", JOptionPane.ERROR_MESSAGE);
+            txtName.requestFocus();
+            return;
+        }
+        if (!tempName.equals(data.get("empName"))){
+            newData.put("empName", tempName);
+        } else {
+            newData.put("empName", data.get("empName"));
+        }
+        //Check email format
+        if (!tempEmail.isEmpty()) {
+            Pattern pattern = Pattern.compile(UpdateProfile.EMAIL_PATTERN);
+            Matcher matcher = pattern.matcher(tempEmail);
+            if (!matcher.matches()) {
+                JOptionPane.showMessageDialog(this, "Email is not in valid form (Eg: abc@gmail.com)", "Message", JOptionPane.ERROR_MESSAGE);
+                txtEmail.requestFocus();
+                return;
+            }
+        }
+        newData.put("password", data.get("password"));
+        //Check old password field empty state
+        if (!tempOldPassword.isEmpty()) {
+            if (tempPassword.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter new password", "Message", JOptionPane.ERROR_MESSAGE);
+                txtNew.requestFocus();
+                return;
+            }
+            if (tempPasswordConfirm.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter new password confirmation", "Message", JOptionPane.ERROR_MESSAGE);
+                txtConfirm.requestFocus();
+                return;
+            }
+            // Check that pw and pw confirmation match
+            if (!tempPassword.equals(tempPasswordConfirm)) {
+                JOptionPane.showMessageDialog(this, "New Password and New Password Confirmation do not match", "Message", JOptionPane.ERROR_MESSAGE);
+                txtConfirm.requestFocus();
+                return;
+            }
+            // Check that old password is correct
+            if (!data.get("password").equals(tempOldPassword)) {
+                JOptionPane.showMessageDialog(this, "Old Password is not correct", "Message", JOptionPane.ERROR_MESSAGE);
+                txtOld.requestFocus();
+                return;
+            }
+            newData.put("password", tempPassword);
+        } else {
+            if (!tempPasswordConfirm.isEmpty() || !tempPassword.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please enter old password", "Message", JOptionPane.ERROR_MESSAGE);
+                txtOld.requestFocus();
+                return;
+            }
+        }
+
+        /*Add new admin*/
+        newData.put("empID", data.get("empID"));
+        newData.put("centreCode", data.get("centreCode"));
+        newData.put("centreName", data.get("centreName"));
+        newData.put("empName", txtName.getText());
+        newData.put("email", tempEmail);
+        MainMenu mainMenu = (MainMenu) this.getParent();
+        mainMenu.getMainController().requestUpdateProfile(newData);
+        dispose();
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,6 +295,8 @@ public class UpdateProfile extends javax.swing.JDialog {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -153,6 +304,11 @@ public class UpdateProfile extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel lbCentreName;
+    private javax.swing.JPasswordField txtConfirm;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JPasswordField txtNew;
+    private javax.swing.JPasswordField txtOld;
     // End of variables declaration//GEN-END:variables
 }

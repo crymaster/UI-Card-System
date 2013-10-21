@@ -96,9 +96,25 @@ public class ClientHandlingThread extends Thread {
                                 dataPackage.put("message", "ENTRYSUCCESS");
                                 this.write(dataPackage);
                                 step = UI_PHASE;
-                            } else{
+                            } else {
                                 dataPackage.put("message", "ENTRYFAIL");
-                                this.write(data);
+                                this.write(dataPackage);
+                            }
+                        }
+                        if (msg.equals("PROFILE")) {
+                            Employee employee = Employee.toEmployee(dataPackage);
+                            Employee temp = serviceManager.getEmpManagerService().getByEmpName(employee.getEmpName());
+                            if (temp == null || temp.getEmpID() == employee.getEmpID()) {
+                                if (serviceManager.getEmpManagerService().save(employee)) {
+                                    dataPackage.put("message", "PROFILESUCCESS");
+                                    this.write(dataPackage);
+                                } else {
+                                    dataPackage.put("message", "PROFILEFAIL");
+                                    this.write(dataPackage);
+                                }
+                            } else {
+                                dataPackage.put("message", "PROFILEFAIL");
+                                this.write(dataPackage);
                             }
                         }
                         break;
@@ -107,10 +123,10 @@ public class ClientHandlingThread extends Thread {
                         HashMap dataPackage = (HashMap) data;
                         Customer customer = Customer.toCustomer(dataPackage);
                         customer.setStatus(0);
-                        if(serviceManager.getCustManagerService().updateByUICode(customer)){
+                        if (serviceManager.getCustManagerService().updateByUICode(customer)) {
                             this.write("UISUCCESS");
                             step = ENTRY_PHASE;
-                        } else{
+                        } else {
                             this.write("UIFAIL");
                         }
                         break;
