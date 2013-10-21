@@ -64,6 +64,10 @@ public class MainMenu extends javax.swing.JFrame {
             btnDelete.setEnabled(false);
             btnLoad.setEnabled(false);
         }
+        HashMap data = BaseController.getSession().getCurrentEmployee();
+        lbName.setText((String)data.get("empName"));
+        lbCentreName.setText((String)data.get("centreName") + " Centre");
+        lbEmail.setText((String)data.get("email"));
     }
     
     public void renderDraft(ArrayList<Draft> drafts){
@@ -121,6 +125,9 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         btnProfile = new javax.swing.JButton();
         btnLogOut = new javax.swing.JButton();
+        lbCentreName = new javax.swing.JLabel();
+        lbName = new javax.swing.JLabel();
+        lbEmail = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         btnRegister = new javax.swing.JButton();
@@ -165,6 +172,15 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        lbCentreName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbCentreName.setText("Centre Name");
+
+        lbName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbName.setText("User Name");
+
+        lbEmail.setFont(new java.awt.Font("Tahoma", 2, 12)); // NOI18N
+        lbEmail.setText("Email");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -172,18 +188,27 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnLogOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLogOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lbEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbCentreName, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(93, 93, 93)
+                .addGap(29, 29, 29)
+                .addComponent(lbCentreName)
+                .addGap(18, 18, 18)
+                .addComponent(lbName)
+                .addGap(18, 18, 18)
+                .addComponent(lbEmail)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnProfile)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnLogOut)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTabbedPane1.setName(""); // NOI18N
@@ -331,7 +356,8 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -411,5 +437,8 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lbCentreName;
+    private javax.swing.JLabel lbEmail;
+    private javax.swing.JLabel lbName;
     // End of variables declaration//GEN-END:variables
 }
