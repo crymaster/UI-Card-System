@@ -55,7 +55,7 @@ public class UpdateEmp extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         btnCancel = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        txtCentreID = new javax.swing.JTextField();
+        txtCentreCode = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
         txtPasswordConfirm = new javax.swing.JPasswordField();
 
@@ -94,7 +94,7 @@ public class UpdateEmp extends javax.swing.JDialog {
             }
         });
 
-        jLabel7.setText("Centre ID:");
+        jLabel7.setText("Centre Code:");
 
         txtPassword.setText("jPasswordField1");
 
@@ -126,10 +126,12 @@ public class UpdateEmp extends javax.swing.JDialog {
                             .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtEmpName, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
                             .addComponent(txtEmail)
-                            .addComponent(txtCentreID)
-                            .addComponent(txtEmpID, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                            .addComponent(txtCentreCode)
                             .addComponent(txtPassword)
-                            .addComponent(txtPasswordConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)))
+                            .addComponent(txtPasswordConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtEmpID)
+                                .addGap(59, 59, 59))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addComponent(jLabel5)))
@@ -147,7 +149,7 @@ public class UpdateEmp extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtCentreID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCentreCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -176,7 +178,7 @@ public class UpdateEmp extends javax.swing.JDialog {
 
     public void refresh() {
         txtEmpID.setText(emp.getEmpID() + "");
-        txtCentreID.setText(emp.getCentreID() + "");
+        txtCentreCode.setText(emp.getCentreCode());
         txtEmpName.setText(emp.getEmpName());
         txtEmail.setText(emp.getEmail());
     }
@@ -184,16 +186,16 @@ public class UpdateEmp extends javax.swing.JDialog {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // Get text form textfield
         int tempEmpID = Integer.parseInt(txtEmpID.getText());
-        int tempCentreID = Integer.parseInt(txtCentreID.getText());
+        String tempCentreCode = txtCentreCode.getText();
         String tempEmpName = txtEmpName.getText();
         String tempPassword = new String(txtPassword.getPassword());
         String tempPasswordConfirm = new String(txtPasswordConfirm.getPassword());
         String tempEmail = txtEmail.getText();
                 
         //Check for empty fields
-        if (txtCentreID.getText().isEmpty()) {
+        if (txtCentreCode.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Centre ID cannot be empty !", "Message", JOptionPane.ERROR_MESSAGE);
-            txtCentreID.requestFocus();
+            txtCentreCode.requestFocus();
         }
         if (tempEmpName.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Employee Name cannot be empty !", "Message", JOptionPane.ERROR_MESSAGE);
@@ -224,7 +226,7 @@ public class UpdateEmp extends javax.swing.JDialog {
 
         /*Add new Employee*/
         emp.setEmpID(tempEmpID);
-        emp.setCentreID(tempCentreID);
+        emp.setCentreCode(tempCentreCode);
         emp.setEmpName(tempEmpName);
         emp.setPassword(tempPassword);
         emp.setEmail(tempEmail);
@@ -291,7 +293,7 @@ public class UpdateEmp extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField txtCentreID;
+    private javax.swing.JTextField txtCentreCode;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEmpID;
     private javax.swing.JTextField txtEmpName;

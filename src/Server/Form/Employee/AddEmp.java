@@ -52,7 +52,7 @@ public class AddEmp extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         txtEmpID = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        txtCentreID = new javax.swing.JTextField();
+        txtCentreCode = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -91,7 +91,7 @@ public class AddEmp extends javax.swing.JDialog {
 
         jLabel4.setText("Emp ID:");
 
-        jLabel7.setText("Centre ID:");
+        jLabel7.setText("Centre Code:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,15 +113,14 @@ public class AddEmp extends javax.swing.JDialog {
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEmpName, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPasswordConfirm, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtEmpID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                                .addComponent(txtCentreID, javax.swing.GroupLayout.Alignment.LEADING)))))
+                            .addComponent(txtEmpName, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                            .addComponent(txtPasswordConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                            .addComponent(txtEmpID, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCentreCode))))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -136,7 +135,7 @@ public class AddEmp extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtCentreID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCentreCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -171,7 +170,7 @@ public class AddEmp extends javax.swing.JDialog {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // Get text form textfield
         int tempEmpID = Integer.parseInt(txtEmpID.getText());
-        int tempCentreID = Integer.parseInt(txtCentreID.getText());
+        String tempCentreCode = txtCentreCode.getText();
         String tempEmpName = txtEmpName.getText();
         String tempPassword = new String(txtPassword.getPassword());
         String tempPasswordConfirm = new String(txtPasswordConfirm.getPassword());
@@ -183,7 +182,7 @@ public class AddEmp extends javax.swing.JDialog {
             txtEmpName.requestFocus();
             return;
         }
-        if (txtCentreID.getText().isEmpty()) {
+        if (txtCentreCode.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Centre ID cannot be empty", "Message", JOptionPane.ERROR_MESSAGE);
             txtEmpName.requestFocus();
             return;
@@ -224,7 +223,7 @@ public class AddEmp extends javax.swing.JDialog {
         emp.setEmpName(tempEmpName);
         emp.setPassword(tempPassword);
         emp.setEmail(tempEmail);
-        emp.setCentreID(tempCentreID);
+        emp.setCentreCode(tempCentreCode);
         MainMenu mainMenu = (MainMenu) this.getParent();
         mainMenu.getEmpController().add(emp);
         /*Reload main menu*/
@@ -283,7 +282,7 @@ public class AddEmp extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField txtCentreID;
+    private javax.swing.JTextField txtCentreCode;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEmpID;
     private javax.swing.JTextField txtEmpName;

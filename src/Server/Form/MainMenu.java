@@ -24,8 +24,12 @@ import Server.Form.Employee.AddEmp;
 import Server.Form.Employee.UpdateEmp;
 import Server.Form.Zone.AddZone;
 import Server.Form.Zone.UpdateZone;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,6 +42,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MainMenu extends javax.swing.JFrame {
     /*Properties*/
+
     private AdminController adminController;
     private CentreController centreController;
     private EmpController empController;
@@ -48,7 +53,7 @@ public class MainMenu extends javax.swing.JFrame {
      * Creates new form AdminManage
      */
     static int id;
-    
+
     public MainMenu() {
         initComponents();
         btnDeleteAdmin.setEnabled(false);
@@ -58,6 +63,8 @@ public class MainMenu extends javax.swing.JFrame {
         btnUpdateCentre.setEnabled(false);
         btnUpdateEmp.setEnabled(false);
         btnUpdateZone.setEnabled(false);
+        btnSend.setEnabled(false);
+        btnSendAll.setEnabled(false);
         setLocationRelativeTo(this);
     }
 
@@ -108,8 +115,7 @@ public class MainMenu extends javax.swing.JFrame {
     public void setLogController(LoggingController logController) {
         this.logController = logController;
     }
-        
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -155,7 +161,6 @@ public class MainMenu extends javax.swing.JFrame {
         btnDeleteCust = new javax.swing.JButton();
         btnAddCust = new javax.swing.JButton();
         btnReloadCust = new javax.swing.JButton();
-        btnUpdateCust = new javax.swing.JButton();
         pnlSearch = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtFirstName = new javax.swing.JTextField();
@@ -164,10 +169,22 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtMiddleName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtDate = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtLastName = new javax.swing.JTextField();
         btnResult = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        cbbStatus = new javax.swing.JComboBox();
+        jLabel7 = new javax.swing.JLabel();
+        cbbCentreName = new javax.swing.JComboBox();
+        btnSend = new javax.swing.JButton();
+        btnSendAll = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        txtYear = new javax.swing.JTextField();
+        cbbDay = new javax.swing.JComboBox();
+        cbbMonth = new javax.swing.JComboBox();
+        btnDetail = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnLogOut = new javax.swing.JButton();
         btnEditProfile = new javax.swing.JButton();
@@ -240,12 +257,12 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(btnDeleteAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
                 .addComponent(btnReloadAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddAdmin)
@@ -261,11 +278,11 @@ public class MainMenu extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Zone Name", "Name", "Code", "Location", "IP Address"
+                "Centre Code", "Zone Name", "Centre Name", "Location", "IP Address"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, true, true, true
+                true, true, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -306,7 +323,7 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAddCentre, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -321,7 +338,7 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddCentre)
@@ -383,7 +400,7 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAddEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -398,7 +415,7 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddEmp)
@@ -460,7 +477,7 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAddZone, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -475,7 +492,7 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddZone)
@@ -525,11 +542,9 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         btnReloadCust.setText("Reload");
-
-        btnUpdateCust.setText("Edit");
-        btnUpdateCust.addActionListener(new java.awt.event.ActionListener() {
+        btnReloadCust.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateCustActionPerformed(evt);
+                btnReloadCustActionPerformed(evt);
             }
         });
 
@@ -541,7 +556,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         jLabel3.setText("Middle Name:");
 
-        jLabel4.setText("Date Created:");
+        jLabel4.setText("Created Date:");
 
         jLabel5.setText("Last Name:");
 
@@ -552,32 +567,89 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setText("Status:");
+
+        cbbStatus.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "All", "Sent", "Not Sent" }));
+
+        jLabel7.setText("Centre:");
+
+        btnSend.setText("Send");
+        btnSend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendActionPerformed(evt);
+            }
+        });
+
+        btnSendAll.setText("Send All");
+        btnSendAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendAllActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Day:");
+
+        jLabel9.setText("Month:");
+
+        jLabel10.setText("Year:");
+
+        cbbDay.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
+
+        cbbMonth.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+
         javax.swing.GroupLayout pnlSearchLayout = new javax.swing.GroupLayout(pnlSearch);
         pnlSearch.setLayout(pnlSearchLayout);
         pnlSearchLayout.setHorizontalGroup(
             pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSearchLayout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtMiddleName)
-                        .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnResult, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDate, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                    .addComponent(txtUICode))
-                .addContainerGap())
+                    .addGroup(pnlSearchLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cbbDay, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbbMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(btnResult, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48))
+                    .addGroup(pnlSearchLayout.createSequentialGroup()
+                        .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlSearchLayout.createSequentialGroup()
+                                .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtMiddleName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtUICode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                                        .addComponent(cbbCentreName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(cbbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSearchLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnSend, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSendAll)
+                                .addGap(12, 12, 12))))))
         );
         pnlSearchLayout.setVerticalGroup(
             pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -587,31 +659,49 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(txtUICode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtMiddleName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel7)
+                    .addComponent(cbbCentreName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnResult))
+                    .addComponent(jLabel6)
+                    .addComponent(cbbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnSend)
+                        .addComponent(btnSendAll))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnResult, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10)
+                    .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        btnDetail.setText("Details");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+            .addComponent(jScrollPane8)
             .addComponent(pnlSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(btnAddCust, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(btnDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnUpdateCust, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAddCust, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnDeleteCust, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -621,16 +711,16 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddCust)
                     .addComponent(btnDeleteCust)
                     .addComponent(btnReloadCust)
-                    .addComponent(btnUpdateCust))
-                .addContainerGap())
+                    .addComponent(btnDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16))
         );
 
         jTabbedPane1.addTab("Customer", jPanel6);
@@ -679,8 +769,7 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jTabbedPane1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -694,11 +783,12 @@ public class MainMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     /*Functional method*/
-    void renderAdmin(ArrayList<Admin> admins){
+
+    void renderAdmin(ArrayList<Admin> admins) {
         /*Add information to table model*/
         DefaultTableModel model = (DefaultTableModel) tblAdminList.getModel();
         Vector row;
-        for(int i = 0; i< admins.size(); i++){
+        for (int i = 0; i < admins.size(); i++) {
             row = new Vector();
             row.add(admins.get(i).getAdminName());
             row.add(admins.get(i).getEmail());
@@ -706,29 +796,29 @@ public class MainMenu extends javax.swing.JFrame {
         }
         tblAdminList.setModel(model);
     }
-    
-    void renderCentre(ArrayList<Centre> centres){
+
+    void renderCentre(ArrayList<Centre> centres) {
         /*Add information to table model*/
         DefaultTableModel model = (DefaultTableModel) tblCentreList.getModel();
         Vector row;
-        for(int i = 0; i< centres.size(); i++){
+        for (int i = 0; i < centres.size(); i++) {
             row = new Vector();
-            row.add(centres.get(i).getCentreID());
+
+            row.add(centres.get(i).getCentreCode());
             row.add(centres.get(i).getZoneName());
             row.add(centres.get(i).getCentreName());
-            row.add(centres.get(i).getCentreCode());
             row.add(centres.get(i).getLocation());
             row.add(centres.get(i).getIp());
             model.addRow(row);
         }
         tblCentreList.setModel(model);
     }
-    
-    void renderEmp(ArrayList<Employee> emps){
+
+    void renderEmp(ArrayList<Employee> emps) {
         /*Add information to table model*/
         DefaultTableModel model = (DefaultTableModel) tblEmpList.getModel();
         Vector row;
-        for(int i = 0; i< emps.size(); i++){
+        for (int i = 0; i < emps.size(); i++) {
             row = new Vector();
             row.add(emps.get(i).getEmpID());
             row.add(emps.get(i).getEmpName());
@@ -738,12 +828,12 @@ public class MainMenu extends javax.swing.JFrame {
         }
         tblEmpList.setModel(model);
     }
-    
-    void renderZone(ArrayList<Zone> zones){
+
+    void renderZone(ArrayList<Zone> zones) {
         /*Add information to table model*/
         DefaultTableModel model = (DefaultTableModel) tblZoneList.getModel();
         Vector row;
-        for(int i = 0; i< zones.size(); i++){
+        for (int i = 0; i < zones.size(); i++) {
             row = new Vector();
             row.add(zones.get(i).getPin_Code());
             row.add(zones.get(i).getZone_Name());
@@ -751,12 +841,12 @@ public class MainMenu extends javax.swing.JFrame {
         }
         tblZoneList.setModel(model);
     }
-    
+
     void renderCust(ArrayList<Customer> custs) {
         /*Add information to table model*/
         DefaultTableModel model = (DefaultTableModel) tblCustList.getModel();
         Vector row;
-        for(int i = 0; i< custs.size(); i++){
+        for (int i = 0; i < custs.size(); i++) {
             row = new Vector();
             row.add(custs.get(i).getCustID());
             row.add(custs.get(i).getFirstName());
@@ -768,67 +858,76 @@ public class MainMenu extends javax.swing.JFrame {
         }
         tblCustList.setModel(model);
     }
-        
-    public void refresh(){
+
+    void renderCombobox(ArrayList<Centre> centres) {
+        cbbCentreName.removeAllItems();
+        cbbCentreName.addItem("Choose Centre");
+        for (Centre c : centres) {
+            cbbCentreName.addItem(c.getCentreName());
+        }
+    }
+
+    public void refresh() {
         /*Clear table model*/
         DefaultTableModel model = (DefaultTableModel) tblAdminList.getModel();
         DefaultTableModel centreModel = (DefaultTableModel) tblCentreList.getModel();
         DefaultTableModel empModel = (DefaultTableModel) tblEmpList.getModel();
         DefaultTableModel zoneModel = (DefaultTableModel) tblZoneList.getModel();
         DefaultTableModel custModel = (DefaultTableModel) tblCustList.getModel();
-        
-        while(model.getRowCount() > 0){
+
+        while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
         /*Load data to table model*/
         this.adminController.load();
-        if(tblAdminList.getSelectedRow() == -1){
+        if (tblAdminList.getSelectedRow() == -1) {
             btnDeleteAdmin.setEnabled(false);
         }
-        
-        while(centreModel.getRowCount() > 0){
+
+        while (centreModel.getRowCount() > 0) {
             centreModel.removeRow(0);
         }
         /*Load data to table model*/
         this.centreController.load();
-        if(tblCentreList.getSelectedRow() == -1){
+        if (tblCentreList.getSelectedRow() == -1) {
             btnDeleteCentre.setEnabled(false);
             btnUpdateCentre.setEnabled(false);
         }
-        
-        while(empModel.getRowCount() > 0){
+
+        while (empModel.getRowCount() > 0) {
             empModel.removeRow(0);
         }
         /*Load data to table model*/
         this.empController.load();
-        if(tblEmpList.getSelectedRow() == -1){
+        if (tblEmpList.getSelectedRow() == -1) {
             btnDeleteEmp.setEnabled(false);
             btnDeleteEmp.setEnabled(false);
         }
-        
-        while(zoneModel.getRowCount() > 0){
+
+        while (zoneModel.getRowCount() > 0) {
             zoneModel.removeRow(0);
         }
         /*Load data to table model*/
         this.zoneController.load();
-        if(tblZoneList.getSelectedRow() == -1){
+        if (tblZoneList.getSelectedRow() == -1) {
             btnDeleteZone.setEnabled(false);
             btnDeleteZone.setEnabled(false);
         }
-        
-        while(custModel.getRowCount() >0) {
+
+        while (custModel.getRowCount() > 0) {
             custModel.removeRow(0);
         }
         /*Load data to model*/
         this.custController.load();
-        if(tblCustList.getSelectedRow() == -1) {
+        if (tblCustList.getSelectedRow() == -1) {
             btnDeleteCust.setEnabled(false);
             btnDeleteCust.setEnabled(false);
+            btnSend.setEnabled(false);
         }
     }
-    
-    void showMessage(String message,int messageType){
-        JOptionPane.showMessageDialog(this,message,"Message", messageType);
+
+    void showMessage(String message, int messageType) {
+        JOptionPane.showMessageDialog(this, message, "Message", messageType);
     }
     private void btnEditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProfileActionPerformed
         // 
@@ -850,10 +949,10 @@ public class MainMenu extends javax.swing.JFrame {
     private void btnDeleteAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAdminActionPerformed
         int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm Message", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         //Admin choose "Yes" = 0
-        if(result == 0){
+        if (result == 0) {
             //Get amdinName from table to delete
             DefaultTableModel model = (DefaultTableModel) tblAdminList.getModel();
-            String adminName = (String)model.getValueAt(tblAdminList.getSelectedRow(), 0);
+            String adminName = (String) model.getValueAt(tblAdminList.getSelectedRow(), 0);
             this.getAdminController().delete(adminName);
             this.refresh();
         }
@@ -861,7 +960,7 @@ public class MainMenu extends javax.swing.JFrame {
 
 ////////////////////////////////////////////////////////////////////////////////
                 /*Event handling method*/
-                   /*Admin Tab event*/
+    /*Admin Tab event*/
     private void tblAdminListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAdminListMouseClicked
         //
         btnDeleteAdmin.setEnabled(true);
@@ -877,11 +976,11 @@ public class MainMenu extends javax.swing.JFrame {
         // 
         int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm Message", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         //Admin choose "Yes" = 0
-        if(result == 0){
+        if (result == 0) {
             //Get amdinName from table to delete
             DefaultTableModel model = (DefaultTableModel) tblCentreList.getModel();
-            int centreID = (int)model.getValueAt(tblCentreList.getSelectedRow(), 0);
-            this.getCentreController().delete(centreID);
+            String centreCode = model.getValueAt(tblCentreList.getSelectedRow(), 0).toString();
+            this.getCentreController().delete(centreCode);
             this.refresh();
         }
     }//GEN-LAST:event_btnDeleteCentreActionPerformed
@@ -901,10 +1000,10 @@ public class MainMenu extends javax.swing.JFrame {
         // 
         int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm Message", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         //Admin choose "Yes" = 0
-        if(result == 0){
+        if (result == 0) {
             //Get amdinName from table to delete
             DefaultTableModel model = (DefaultTableModel) tblEmpList.getModel();
-            int empID = (int)model.getValueAt(tblEmpList.getSelectedRow(), 0);
+            int empID = (int) model.getValueAt(tblEmpList.getSelectedRow(), 0);
             this.getEmpController().delete(empID);
             this.refresh();
         }
@@ -925,7 +1024,7 @@ public class MainMenu extends javax.swing.JFrame {
         // 
         int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm Message", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         //Admin choose "Yes" = 0
-        if(result == 0){
+        if (result == 0) {
             //Get amdinName from table to delete
             DefaultTableModel model = (DefaultTableModel) tblZoneList.getModel();
             String pin_Code = model.getValueAt(tblZoneList.getSelectedRow(), 0).toString();
@@ -942,8 +1041,8 @@ public class MainMenu extends javax.swing.JFrame {
     private void btnUpdateCentreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateCentreActionPerformed
         // 
         UpdateCentre updateCentre = new UpdateCentre(this, true);
-        int id = Integer.parseInt(tblCentreList.getValueAt(tblCentreList.getSelectedRow(), 0).toString());
-        updateCentre.setCentre(centreController.getServiceManager().getCentreManagerService().get(id) );
+        String centreCode = tblCentreList.getValueAt(tblCentreList.getSelectedRow(), 0).toString();
+        updateCentre.setCentre(centreController.getServiceManager().getCentreManagerService().get(centreCode));
         updateCentre.refresh();
         updateCentre.setVisible(true);
     }//GEN-LAST:event_btnUpdateCentreActionPerformed
@@ -964,20 +1063,31 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void tblCustListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustListMouseClicked
         // 
-        
+
+        btnDeleteCust.setEnabled(true);
+        if (!tblCustList.getValueAt(tblCustList.getSelectedRow(), 5).equals("Sent")) {
+            btnSend.setEnabled(true);
+        } else {
+            btnSend.setEnabled(false);
+        }
     }//GEN-LAST:event_tblCustListMouseClicked
 
     private void btnDeleteCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCustActionPerformed
-        // TODO add your handling code here:
+        // 
+        int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm Message", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        //Admin choose "Yes" = 0
+        if (result == 0) {
+            //Get amdinName from table to delete
+            DefaultTableModel model = (DefaultTableModel) tblCustList.getModel();
+            int cusID = (int) model.getValueAt(tblCustList.getSelectedRow(), 0);
+            this.getCustController().delete(cusID);
+            this.refresh();
+        }
     }//GEN-LAST:event_btnDeleteCustActionPerformed
 
     private void btnAddCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCustActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAddCustActionPerformed
-
-    private void btnUpdateCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateCustActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUpdateCustActionPerformed
 
     private void btnResultActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResultActionPerformed
         // 
@@ -985,32 +1095,103 @@ public class MainMenu extends javax.swing.JFrame {
         String middleName = null;
         String lastName = null;
         String uicode = null;
-        Date date = null;
-        
-        if(!txtFirstName.getText().isEmpty()) {
-            firstName = txtFirstName.getText();
+        String date = null;
+        int status = 2;
+        String centreName = null;
+
+        firstName = txtFirstName.getText();
+        middleName = txtMiddleName.getText();
+        lastName = txtLastName.getText();
+        uicode = txtUICode.getText();
+
+        int i = 0;
+        if (!cbbCentreName.getSelectedItem().equals("Choose Centre")) {
+            centreName = cbbCentreName.getSelectedItem().toString();
+            i = cbbCentreName.getSelectedIndex();
         }
-        if(!txtMiddleName.getText().isEmpty()) {
-            middleName = txtMiddleName.getText();
+        if (cbbStatus.getSelectedItem().equals("Sent")) {
+            status = 1;
+            btnSendAll.setEnabled(false);
         }
-        if(!txtLastName.getText().isEmpty()) {
-            lastName = txtLastName.getText();
+        if (cbbStatus.getSelectedItem().equals("Not Sent")) {
+            status = 0;
+            btnSendAll.setEnabled(true);
         }
-        if(!txtUICode.getText().isEmpty()) {
-            uicode = txtUICode.getText();
+        String year = txtYear.getText();
+        if (!(cbbDay.getSelectedItem().equals("--") || cbbMonth.getSelectedItem().equals("--"))) {
+            if (year.isEmpty()) {
+                txtYear.requestFocus();
+                JOptionPane.showMessageDialog(this, "Year must not be empty", "Error", 0);
+                return;
+            }
+            if (Integer.parseInt(year) < 1900 || Integer.parseInt(year) > 9999) {
+                txtYear.requestFocus();
+                JOptionPane.showMessageDialog(this, "Year must be in range 1900 to 9999 ", "Error", 0);
+                return;
+            }
+
+            Date d;
+            try {
+                date = (String) cbbDay.getSelectedItem() + '/' + (String) cbbMonth.getSelectedItem() + '/' + Integer.parseInt(year);
+                System.out.println(date);
+                SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    d = df.parse(date);
+                } catch (ParseException ex) {
+                    JOptionPane.showMessageDialog(this, "Day or Month is incorrect (Ex: 31/2)", "Error", 0);
+                    return;
+                }
+            } catch (NumberFormatException ex) {
+                txtYear.requestFocus();
+                JOptionPane.showMessageDialog(this, "Year must be a number", "Error", 0);
+                return;
+            }
+            int y = Integer.parseInt(txtYear.getText());
+            int m = Integer.parseInt(cbbMonth.getSelectedItem().toString());
+            Calendar cal = new GregorianCalendar(y, m, 0);
+            
+            int daysInMonth = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+            int day = Integer.parseInt(cbbDay.getSelectedItem().toString());
+            
+            if (day > daysInMonth) {
+                JOptionPane.showMessageDialog(this, "Day or Month is incorrect (Ex: 31/2)", "Error", 0);
+                return;
+            }
         }
-        
+
+        this.refresh();
         DefaultTableModel custModel = (DefaultTableModel) tblCustList.getModel();
-        while(custModel.getRowCount() >0) {
+        while (custModel.getRowCount() > 0) {
             custModel.removeRow(0);
         }
-        this.getCustController().search(firstName, middleName, lastName, uicode, uicode);
-//        this.refresh();
+        this.getCustController().search(firstName, middleName, lastName, uicode, date, status, centreName);
+        if (tblCustList.getRowCount() == 0) {
+            btnSendAll.setEnabled(false);
+        }
+        cbbCentreName.setSelectedIndex(i);
     }//GEN-LAST:event_btnResultActionPerformed
-            
+
+    private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
+        // 
+        int[] custIDs = new int[]{(int) tblCustList.getValueAt(tblCustList.getSelectedRow(), 0)};
+        this.getCustController().updateStatus(custIDs);
+        this.refresh();
+    }//GEN-LAST:event_btnSendActionPerformed
+
+    private void btnSendAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendAllActionPerformed
+        // 
+        int[] custIDs = null;
+        for (int i = 0; i < tblCustList.getRowCount(); i++) {
+            custIDs[i] = (int) tblCustList.getValueAt(i, 0);
+        }
+        this.getCustController().updateStatus(custIDs);
+    }//GEN-LAST:event_btnSendAllActionPerformed
+
+    private void btnReloadCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadCustActionPerformed
+        // 
+        this.refresh();
+    }//GEN-LAST:event_btnReloadCustActionPerformed
 //////////////////////////////////////////////////////////////////////////////////
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddAdmin;
     private javax.swing.JButton btnAddCentre;
@@ -1022,6 +1203,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnDeleteCust;
     private javax.swing.JButton btnDeleteEmp;
     private javax.swing.JButton btnDeleteZone;
+    private javax.swing.JButton btnDetail;
     private javax.swing.JButton btnEditProfile;
     private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnReloadAdmin;
@@ -1030,15 +1212,25 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnReloadEmp;
     private javax.swing.JButton btnReloadZone;
     private javax.swing.JButton btnResult;
+    private javax.swing.JButton btnSend;
+    private javax.swing.JButton btnSendAll;
     private javax.swing.JButton btnUpdateCentre;
-    private javax.swing.JButton btnUpdateCust;
     private javax.swing.JButton btnUpdateEmp;
     private javax.swing.JButton btnUpdateZone;
+    private javax.swing.JComboBox cbbCentreName;
+    private javax.swing.JComboBox cbbDay;
+    private javax.swing.JComboBox cbbMonth;
+    private javax.swing.JComboBox cbbStatus;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1059,10 +1251,10 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JTable tblCustList;
     private javax.swing.JTable tblEmpList;
     private javax.swing.JTable tblZoneList;
-    private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtLastName;
     private javax.swing.JTextField txtMiddleName;
     private javax.swing.JTextField txtUICode;
+    private javax.swing.JTextField txtYear;
     // End of variables declaration//GEN-END:variables
 }
