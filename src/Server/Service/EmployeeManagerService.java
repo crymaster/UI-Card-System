@@ -81,6 +81,35 @@ public class EmployeeManagerService {
         return emp;
     }
     
+    public ArrayList<Employee> getByCentreCode(String centreCode) {
+        dbConnection.connect();
+        Connection connection = dbConnection.getConnection();
+        PreparedStatement stm;
+        ResultSet rs;
+        ArrayList<Employee> emps = new ArrayList<>();
+        try {
+            String query = "SELECT Employee.*, centreName FROM Employee inner join Centre "
+                    + "on Employee.centreCode = Centre.centreCode WHERE Centre.centreCode = ?";
+            stm = connection.prepareStatement(query);
+            stm.setString(1, centreCode);
+            rs = stm.executeQuery();
+            while(rs.next()) {
+                Employee emp = new Employee();
+                emp.setEmpID(rs.getInt(1));
+                emp.setEmpName(rs.getString(2));
+                emp.setPassword(rs.getString(3));
+                emp.setEmail(rs.getString(4));
+                emp.setCentreCode(rs.getString(5));
+                emp.setCentreName(rs.getString(6));
+                emps.add(emp);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CentreManagerService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dbConnection.disconnect();
+        return emps;
+    }
+    
     public ArrayList<Employee> getAll() {
         dbConnection.connect();
         Connection connection  = dbConnection.getConnection();

@@ -8,6 +8,7 @@ import Server.Controller.CentreController;
 import Server.Controller.CustomerController;
 import Server.Controller.EmpController;
 import Server.Controller.LoggingController;
+import Server.Controller.TreeController;
 import Server.Controller.ZoneController;
 import Server.Form.FormManager;
 import Server.Form.LogIn;
@@ -35,6 +36,8 @@ public class Start {
         EmpController empCtrl = new EmpController();
         ZoneController zoneCtrl = new ZoneController();
         CustomerController custCtrl = new CustomerController();
+        TreeController treeCtrl = new TreeController();
+        
         //Set Controller for Form
         logIn.setController(logInCtrl);
         mainMenu.setLogController(logInCtrl);
@@ -43,6 +46,7 @@ public class Start {
         mainMenu.setEmpController(empCtrl);
         mainMenu.setZoneController(zoneCtrl);
         mainMenu.setCustController(custCtrl);
+        mainMenu.setTreeController(treeCtrl);
         //Set FormManager and ServiceManager for Controller
         logInCtrl.setFormManager(formManager);
         logInCtrl.setServiceManager(serviceManager);
@@ -56,6 +60,8 @@ public class Start {
         zoneCtrl.setServiceManager(serviceManager);
         custCtrl.setFormManager(formManager);
         custCtrl.setServiceManager(serviceManager);
+        treeCtrl.setFormManager(formManager);
+        treeCtrl.setServiceManager(serviceManager);
         java.awt.EventQueue.invokeLater(formManager);
     }
 }

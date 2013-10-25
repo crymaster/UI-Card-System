@@ -88,6 +88,10 @@ public class FormManager implements Runnable {
         mainMenu.renderCust(custs);
     }
     
+    public void loadTree(ArrayList tree){
+        mainMenu.renderTree(tree);
+    }
+    
     @Override
     public void run() {
         this.logIn.setVisible(true);

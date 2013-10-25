@@ -78,6 +78,34 @@ public class CentreManagerService {
         return centre;
     }
     
+    public ArrayList<Centre> getByPinCode(String pinCode){
+        dbConnection.connect();
+        Connection connection = dbConnection.getConnection();
+        PreparedStatement stm;
+        ResultSet rs;
+        ArrayList<Centre> centres = new ArrayList<>();
+        try {
+            String query = "SELECT Centre.*, Zone.zone_Name FROM Centre inner join Zone on Centre.pin_Code = Zone.pin_Code WHERE Centre.pin_Code = ?";
+            stm = connection.prepareStatement(query);
+            stm.setString(1, pinCode);
+            rs = stm.executeQuery();
+            while(rs.next()) {
+                Centre centre = new Centre();
+                centre.setCentreCode(rs.getString(1));
+                centre.setPin_Code(rs.getString(2));
+                centre.setCentreName(rs.getString(3));
+                centre.setLocation(rs.getString(4));
+                centre.setIp(rs.getString(5));
+                centre.setZoneName(rs.getString(6));
+                centres.add(centre);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CentreManagerService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dbConnection.disconnect();
+        return centres;
+    }
+    
     public ArrayList<Centre> getAll() {
         dbConnection.connect();
         Connection connection  = dbConnection.getConnection();

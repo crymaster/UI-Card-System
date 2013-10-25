@@ -12,6 +12,7 @@ import Server.Controller.CentreController;
 import Server.Controller.CustomerController;
 import Server.Controller.EmpController;
 import Server.Controller.LoggingController;
+import Server.Controller.TreeController;
 import Server.Controller.ZoneController;
 import Server.Entity.Admin;
 import Server.Entity.Centre;
@@ -31,6 +32,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -44,6 +47,7 @@ public class MainMenu extends javax.swing.JFrame {
     private ZoneController zoneController;
     private CustomerController custController;
     private LoggingController logController;
+    private TreeController treeController;
     /**
      * Creates new form AdminManage
      */
@@ -108,6 +112,14 @@ public class MainMenu extends javax.swing.JFrame {
     public void setLogController(LoggingController logController) {
         this.logController = logController;
     }
+
+    public TreeController getTreeController() {
+        return treeController;
+    }
+
+    public void setTreeController(TreeController treeController) {
+        this.treeController = treeController;
+    }
         
     
     /**
@@ -168,6 +180,8 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtLastName = new javax.swing.JTextField();
         btnResult = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tree = new javax.swing.JTree();
         jPanel2 = new javax.swing.JPanel();
         btnLogOut = new javax.swing.JButton();
         btnEditProfile = new javax.swing.JButton();
@@ -635,6 +649,13 @@ public class MainMenu extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Customer", jPanel6);
 
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("root");
+        tree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        tree.setRootVisible(false);
+        jScrollPane2.setViewportView(tree);
+
+        jTabbedPane1.addTab("Tree", jScrollPane2);
+
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         btnLogOut.setText("Log Out");
@@ -768,6 +789,37 @@ public class MainMenu extends javax.swing.JFrame {
         }
         tblCustList.setModel(model);
     }
+    
+    void renderTree(ArrayList tree){
+        DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("Root Node");
+        DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
+        DefaultMutableTreeNode zoneNode;
+        ArrayList zone;
+        DefaultMutableTreeNode centreNode;
+        ArrayList centreList;
+        ArrayList centre;
+        DefaultMutableTreeNode empNode;
+        ArrayList empList;
+        String empName;
+        for(int i = 0;i<tree.size();i++){
+            zone = (ArrayList)tree.get(i);
+            zoneNode = new DefaultMutableTreeNode(zone.get(0));
+            rootNode.add(zoneNode);
+            centreList = (ArrayList)zone.get(1);
+            for(int j=0 ; j<centreList.size(); j++){
+                centre = (ArrayList)centreList.get(j);
+                centreNode = new DefaultMutableTreeNode(centre.get(0));
+                zoneNode.add(centreNode);
+                empList = (ArrayList)centre.get(1);
+                for(int k=0; k<empList.size(); k++){
+                    empName = (String)empList.get(k);
+                    empNode = new DefaultMutableTreeNode(empName);
+                    centreNode.add(empNode);
+                }
+            }
+        }
+        this.tree.setModel(treeModel);
+    }
         
     public void refresh(){
         /*Clear table model*/
@@ -790,7 +842,7 @@ public class MainMenu extends javax.swing.JFrame {
             centreModel.removeRow(0);
         }
         /*Load data to table model*/
-        this.centreController.load();
+        //this.centreController.load();
         if(tblCentreList.getSelectedRow() == -1){
             btnDeleteCentre.setEnabled(false);
             btnUpdateCentre.setEnabled(false);
@@ -820,11 +872,16 @@ public class MainMenu extends javax.swing.JFrame {
             custModel.removeRow(0);
         }
         /*Load data to model*/
-        this.custController.load();
+        //this.custController.load();
         if(tblCustList.getSelectedRow() == -1) {
             btnDeleteCust.setEnabled(false);
             btnDeleteCust.setEnabled(false);
         }
+        refreshTree();
+    }
+    
+    public void refreshTree(){
+        this.getTreeController().load();
     }
     
     void showMessage(String message,int messageType){
@@ -1046,6 +1103,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
@@ -1059,6 +1117,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JTable tblCustList;
     private javax.swing.JTable tblEmpList;
     private javax.swing.JTable tblZoneList;
+    private javax.swing.JTree tree;
     private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtLastName;

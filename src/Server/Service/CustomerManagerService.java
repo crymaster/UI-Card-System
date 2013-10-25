@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +24,8 @@ import java.util.logging.Logger;
 public class CustomerManagerService {
 
     private DBConnection dbConnection;
+    private static final int MAX = 1000000000;
+    private static final int MIN = 1;
 
     public CustomerManagerService() {
         dbConnection = new DBConnection();
@@ -73,6 +76,51 @@ public class CustomerManagerService {
         return cust;
     }
 
+    public Customer getByUICode(String uiCode) {
+        dbConnection.connect();
+        Connection connection = dbConnection.getConnection();
+        PreparedStatement stm;
+        ResultSet rs;
+        Customer cust = new Customer();
+        try {
+            String query = "SELECT * FROM Customer WHERE uiCode = ?";
+            stm = connection.prepareStatement(query);
+            stm.setString(1, uiCode);
+            rs = stm.executeQuery();
+            if (!rs.next()) {
+                return null;
+            }
+            cust.setCustID(rs.getInt(1));
+            cust.setFirstName(rs.getString(2));
+            cust.setMiddleName(rs.getString(3));
+            cust.setLastName(rs.getString(4));
+            cust.setDob(new java.util.Date(rs.getDate(5).getTime()));
+            cust.setGender(rs.getInt(6));
+            cust.setContactDetail(rs.getString(7));
+            cust.setEmail(rs.getString(8));
+            cust.setAddress(rs.getString(9));
+            cust.setEducation(rs.getString(10));
+            cust.setOccupation(rs.getString(11));
+            cust.setMarried(rs.getInt(12));
+            cust.setPassport(rs.getInt(13));
+            cust.setVote(rs.getInt(14));
+            cust.setDrivingLicense(rs.getInt(15));
+            cust.setHealth(rs.getString(16));
+            cust.setCentreCode(rs.getString(17));
+            cust.setUICode(rs.getString(18));
+            cust.setThumb(rs.getBoolean(19));
+            cust.setFingerPrint(rs.getBoolean(20));
+            cust.setRetinaScan(rs.getBoolean(21));
+            cust.setStatus(rs.getInt(22));
+            cust.setPersonalDetail(rs.getString(23));
+            cust.setDateCreated(new java.util.Date(rs.getDate(24).getTime()));
+        } catch (SQLException ex) {
+            return null;
+        }
+        dbConnection.disconnect();
+        return cust;
+    }
+    
     public ArrayList<Customer> getAll() {
         dbConnection.connect();
         Connection connection = dbConnection.getConnection();
@@ -157,7 +205,7 @@ public class CustomerManagerService {
             stm.setBoolean(20, cust.isRetinaScan());
             stm.setInt(21, cust.getStatus());
             stm.setString(22, cust.getPersonalDetail());
-            stm.setDate(23, new Date(cust.getDateCreated().getTime())); 
+            stm.setDate(23, new Date(cust.getDateCreated().getTime()));
             stm.setInt(24, cust.getCustID());
             result = stm.executeUpdate();
         } catch (SQLException ex) {
@@ -288,13 +336,25 @@ public class CustomerManagerService {
         dbConnection.disconnect();
         return custs;
     }
-    
-    public Customer generateUICode(Customer customer){
-        customer.setUICode("123456");
+
+    public Customer generateUICode(Customer customer) {
+        String centreCode = customer.getCentreCode();
+        Random random = new Random();
+        String randomNum;
+        Customer temp;
+        do {
+            randomNum = "" + random.nextInt((MAX - MIN) + 1) + MIN;
+            while (randomNum.length() < 8) {
+                randomNum = "0" + randomNum;
+            }
+            randomNum = centreCode + randomNum;
+            temp = getByUICode(randomNum);
+        } while (temp!=null);
+        customer.setUICode(randomNum);
         return customer;
     }
-    
-    public boolean updateByUICode(Customer customer){
+
+    public boolean updateByUICode(Customer customer) {
         dbConnection.connect();
         Connection connection = dbConnection.getConnection();
         PreparedStatement stm;

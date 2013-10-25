@@ -84,7 +84,7 @@ GO
 
 CREATE TABLE [dbo].[Zone](
 	[pin_Code] [varchar](50) NOT NULL,
-	[zone_Name] [varchar](50) NULL,
+	[zone_Name] [varchar](50) NOT NULL,
  CONSTRAINT [PK_Zone] PRIMARY KEY CLUSTERED 
 (
 	[Pin_Code] ASC
@@ -187,20 +187,20 @@ CREATE TABLE [dbo].[Customer](
 	[gender] [smallint] NOT NULL,
 	[contact_detail] [varchar](100) NULL,
 	[email] [varchar](50) NULL,
-	[address] [varchar](200) NULL,
+	[address] [varchar](200) NOT NULL,
 	[education] [varchar](200) NULL,
-	[occupation] [varchar](200) NULL,
+	[occupation] [varchar](100) NULL,
 	[married] [bit] NULL,
 	[passport] [bit] NULL,
 	[voter] [bit] NULL,
 	[driving_license] [bit] NULL,
 	[health] [varchar](200) NULL,
 	[centreCode] [varchar] (50) NOT NULL,
-	[UICode] [varchar](50) NULL,
+	[UICode] [varchar](15) NULL,
 	[thumb] [bit] NULL,
 	[fingerprint] [bit] NULL,
 	[retina_scan] [bit] NULL,
-	[status] [int] NULL,
+	[status] [smallint] NULL,
 	[personal_detail] [varchar](200) NULL,
 	[created_date] [datetime] NULL,
  CONSTRAINT [PK_Customer] PRIMARY KEY CLUSTERED 
