@@ -40,7 +40,15 @@ public class CustomerController extends BaseController {
         }
     }
     
-    public void search(String firstName, String middleName, String lastName, String uicode, String date) {
-        this.getFormManager().loadCusts(this.getServiceManager().getCustManagerService().search(firstName, middleName, lastName, uicode, date));
+    public void search(String firstName, String middleName, String lastName, String uicode, String date, int status, String centreName) {
+        this.getFormManager().loadCusts(this.getServiceManager().getCustManagerService().search(firstName, middleName, lastName, uicode, date, status, centreName));
+    }
+    
+    public void updateStatus(int[] custIDs) {
+        if (this.getServiceManager().getCustManagerService().updateStatus(custIDs)) {
+            this.getFormManager().showMessageOnMainMenu("Done !", 1);
+        } else {
+            this.getFormManager().showMessageOnMainMenu("An error has occured !", 0);
+        }
     }
 }

@@ -15,21 +15,21 @@ import javax.swing.JOptionPane;
 public class UpdateCentre extends javax.swing.JDialog {
 
     private Centre centre;
-    
+
     /**
      * Creates new form UpdateCentre
      */
     public UpdateCentre(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        txtCentreID.setEnabled(false);
+
         setLocationRelativeTo(parent);
     }
 
     public void setCentre(Centre centre) {
         this.centre = centre;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -47,8 +47,6 @@ public class UpdateCentre extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         btnCancel = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        txtCentreID = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         txtCentreName = new javax.swing.JTextField();
         txtCentreCode = new javax.swing.JTextField();
         txtLocation = new javax.swing.JTextField();
@@ -85,11 +83,6 @@ public class UpdateCentre extends javax.swing.JDialog {
         jLabel2.setText("Centre Code:");
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        txtCentreID.setEnabled(false);
-
-        jLabel1.setText("Centre ID:");
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-
         jLabel7.setText("pin Code:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -99,33 +92,28 @@ public class UpdateCentre extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(60, 60, 60)
-                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(32, 32, 32)))
+                        .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtCentreName, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
                             .addComponent(txtCentreCode)
                             .addComponent(txtLocation)
                             .addComponent(txtIP)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtpinCode, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtCentreID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE))))
+                            .addComponent(txtpinCode)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(58, 58, 58)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -133,10 +121,10 @@ public class UpdateCentre extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCentreID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel2)
+                    .addComponent(txtCentreCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -147,35 +135,31 @@ public class UpdateCentre extends javax.swing.JDialog {
                     .addComponent(txtCentreName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtCentreCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
                     .addComponent(btnUpdate))
-                .addContainerGap())
+                .addGap(21, 21, 21))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     public void refresh() {
-        txtCentreID.setText(""+centre.getCentreID());
+
         txtpinCode.setText(centre.getPin_Code());
         txtCentreName.setText(centre.getCentreName());
         txtCentreCode.setText(centre.getCentreCode());
         txtLocation.setText(centre.getLocation());
         txtIP.setText(centre.getIp());
     }
-    
+
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // Get text form textfield
         String temppinCode = txtpinCode.getText();
@@ -185,28 +169,28 @@ public class UpdateCentre extends javax.swing.JDialog {
         String tempIP = txtIP.getText();
 
         //Check for empty fields
-        if(temppinCode.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "pin Code cannot be empty !", "Message", JOptionPane.ERROR_MESSAGE);
-            txtpinCode.requestFocus();
-            }
-        if (tempName.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Centre Name cannot be empty !", "Message", JOptionPane.ERROR_MESSAGE);
-            txtCentreName.requestFocus();
-            }
         if (tempCode.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Centre Code cannot be empty !", "Message", JOptionPane.ERROR_MESSAGE);
             txtCentreCode.requestFocus();
-            }
+        }
+        if (temppinCode.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "pin Code cannot be empty !", "Message", JOptionPane.ERROR_MESSAGE);
+            txtpinCode.requestFocus();
+        }
+        if (tempName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Centre Name cannot be empty !", "Message", JOptionPane.ERROR_MESSAGE);
+            txtCentreName.requestFocus();
+        }
         if (tempLocation.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Centre location cannot be empty !", "Message", JOptionPane.ERROR_MESSAGE);
             txtLocation.requestFocus();
-            }
+        }
         if (tempIP.isEmpty()) {
             JOptionPane.showMessageDialog(this, "IP address cannot be empty !", "Message", JOptionPane.ERROR_MESSAGE);
             txtIP.requestFocus();
-            }
-        
-        
+        }
+
+
 
         /*Add new centre*/
         centre.setPin_Code(temppinCode);
@@ -270,7 +254,6 @@ public class UpdateCentre extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -278,7 +261,6 @@ public class UpdateCentre extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JTextField txtCentreCode;
-    private javax.swing.JTextField txtCentreID;
     private javax.swing.JTextField txtCentreName;
     private javax.swing.JTextField txtIP;
     private javax.swing.JTextField txtLocation;

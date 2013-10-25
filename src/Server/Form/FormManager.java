@@ -74,6 +74,7 @@ public class FormManager implements Runnable {
     
     public void loadCentres(ArrayList<Centre> centres) {
         mainMenu.renderCentre(centres);
+        mainMenu.renderCombobox(centres);
     }
     
     public void loadEmps(ArrayList<Employee> emps) {
@@ -86,6 +87,7 @@ public class FormManager implements Runnable {
     
     public void loadCusts(ArrayList<Customer> custs) {
         mainMenu.renderCust(custs);
+        
     }
     
     public void loadTree(ArrayList tree){

@@ -19,7 +19,7 @@ public class CentreController extends BaseController {
         if (this.getServiceManager().getCentreManagerService().insert(centre)) {
             this.getFormManager().showMessageOnMainMenu("Add successfully !", 1);
         } else {
-            this.getFormManager().showMessageOnMainMenu("Centre ID has existed or saving error !", 0);
+            this.getFormManager().showMessageOnMainMenu("Centre Code has existed or saving error !", 0);
         }
     }
     
@@ -31,8 +31,8 @@ public class CentreController extends BaseController {
         }
     }
     
-    public void delete(int centreID){
-        if (this.getServiceManager().getCentreManagerService().delete(centreID)){
+    public void delete(String centreCode){
+        if (this.getServiceManager().getCentreManagerService().delete(centreCode)){
             this.getFormManager().showMessageOnMainMenu("Delete completed !", 1);
         } else{
             this.getFormManager().showMessageOnMainMenu("An error has occured while deleting !", 0);

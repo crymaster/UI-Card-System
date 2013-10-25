@@ -38,7 +38,7 @@ public class CustomerManagerService {
         ResultSet rs;
         Customer cust = new Customer();
         try {
-            String query = "SELECT * FROM Customer WHERE custID = ?";
+            String query = "SELECT * FROM Customer WHERE cusID = ?";
             stm = connection.prepareStatement(query);
             stm.setInt(1, custID);
             rs = stm.executeQuery();
@@ -129,7 +129,7 @@ public class CustomerManagerService {
         ArrayList<Customer> custs = new ArrayList();
         try {
             String query = "SELECT Customer.*, Centre.centreName FROM Customer inner join Centre "
-                    + "on Customer.centreID = Centre.centreID";
+                    + "on Customer.centreCode = Centre.centreCode";
             stm = connection.prepareStatement(query);
             rs = stm.executeQuery();
             while (rs.next()) {
@@ -179,9 +179,9 @@ public class CustomerManagerService {
             String updateQuery = "UPDATE Customer SET first_name = ?, middle_name = ?, "
                     + "last_name = ?, dob = ?, gender = ?, contact_detail = ?, email = ?, "
                     + "address = ?, education = ?, occupation = ?, married = ?, passport = ?, "
-                    + "voter = ?, driving_license = ?,health = ?, centreCode = ?, UICode = ?, thump = ?, "
+                    + "voter = ?, driving_license = ?, health = ?, centreCode = ?, UICode = ?, thump = ?, "
                     + "fingerprint = ?, retina_scan = ?, status = ?, personal_detail =  ?, "
-                    + "date_created = ? WHERE custID = ?";
+                    + "date_created = ? WHERE cusID = ?";
             stm = connection.prepareStatement(updateQuery);
             stm.setString(1, cust.getFirstName());
             stm.setString(2, cust.getMiddleName());
@@ -264,7 +264,7 @@ public class CustomerManagerService {
         PreparedStatement stm;
         int result = 0;
         try {
-            String deleteQuery = "DELETE FROM Customer WHERE custID = ?";
+            String deleteQuery = "DELETE FROM Customer WHERE cusID = ?";
             stm = connection.prepareStatement(deleteQuery);
             stm.setInt(1, custID);
             result = stm.executeUpdate();
@@ -277,27 +277,37 @@ public class CustomerManagerService {
         return true;
     }
 
-    public ArrayList<Customer> search(String firstName, String middleName, String lastName, String uicode, String date) {
+    public ArrayList<Customer> search(String firstName, String middleName, String lastName, String uicode, String date, int status, String centreName) {
         dbConnection.connect();
         Connection connection = dbConnection.getConnection();
         Statement stm;
         ResultSet rs;
         ArrayList<Customer> custs = new ArrayList<>();
         try {
-            String selectQuery = "SELECT * FROM Customer WHERE 2>1 ";
-            if (!(firstName == null) && !(firstName.isEmpty())) {
+            String selectQuery = "SELECT Customer.*, Centre.centreName FROM Customer left join Centre"
+                    + " on customer.centreCode = Centre.centreCode WHERE 2>1 ";
+            if ((firstName != null) && !(firstName.isEmpty())) {
                 selectQuery += " and first_name = '" + firstName + "'";
             }
-            if (!(middleName == null) && !(middleName.isEmpty())) {
+            if ((middleName != null) && !(middleName.isEmpty())) {
                 selectQuery += " and middle_name = '" + middleName + "'";
             }
-            if (!(lastName == null) && !(lastName.isEmpty())) {
+            if ((lastName != null) && !(lastName.isEmpty())) {
                 selectQuery += " and last_name = '" + lastName + "'";
             }
-            if (!(uicode == null) && !(uicode.isEmpty())) {
+            if ((uicode != null) && !(uicode.isEmpty())) {
                 selectQuery += " and UICode = '" + uicode + "'";
             }
-
+            if ((date != null)) {
+                selectQuery += " and created_date = '" + date + "'";
+            }
+            if (status != 2) {
+                selectQuery += " and status = " + status;
+            }
+            if ((centreName != null) && !(centreName.isEmpty())) {
+                selectQuery += " and centreName = '" + centreName + "'";
+            }
+            
             stm = connection.createStatement();
             rs = stm.executeQuery(selectQuery);
             while (rs.next()) {
@@ -331,7 +341,7 @@ public class CustomerManagerService {
                 custs.add(cust);
             }
         } catch (SQLException ex) {
-            return null;
+            ex.printStackTrace();
         }
         dbConnection.disconnect();
         return custs;
@@ -352,6 +362,31 @@ public class CustomerManagerService {
         } while (temp!=null);
         customer.setUICode(randomNum);
         return customer;
+    }
+
+    public boolean updateStatus(int[] custIDs) {
+        dbConnection.connect();
+        Connection connection = dbConnection.getConnection();
+        Statement stm;
+        String query;
+        try {
+            connection.setAutoCommit(false);
+            stm = connection.createStatement();
+            for (int i = 0; i < custIDs.length; i++) {
+                query = "UPDATE Customer SET Status = 1 WHERE cusID = " + custIDs[i];
+                stm.addBatch(query);
+            }
+            stm.executeBatch();
+            connection.commit();
+        } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(CustomerManagerService.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+            return false;
+        }
+        return true;
     }
 
     public boolean updateByUICode(Customer customer) {

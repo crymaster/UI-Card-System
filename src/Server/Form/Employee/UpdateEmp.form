@@ -49,10 +49,13 @@
                           <Component id="btnCancel" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
                           <Component id="txtEmpName" alignment="0" pref="135" max="32767" attributes="0"/>
                           <Component id="txtEmail" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtCentreID" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtEmpID" alignment="0" pref="135" max="32767" attributes="0"/>
+                          <Component id="txtCentreCode" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtPassword" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtPasswordConfirm" alignment="0" pref="135" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="txtEmpID" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -77,7 +80,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtCentreID" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtCentreCode" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -176,10 +179,10 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Centre ID:"/>
+        <Property name="text" type="java.lang.String" value="Centre Code:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtCentreID">
+    <Component class="javax.swing.JTextField" name="txtCentreCode">
     </Component>
     <Component class="javax.swing.JPasswordField" name="txtPassword">
       <Properties>
