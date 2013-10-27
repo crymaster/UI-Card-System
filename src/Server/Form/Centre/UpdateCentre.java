@@ -57,6 +57,7 @@ public class UpdateCentre extends javax.swing.JDialog {
         txtIP4 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jLabel4.setText("Centre Name:");
 

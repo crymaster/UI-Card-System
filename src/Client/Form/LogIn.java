@@ -51,6 +51,7 @@ public class LogIn extends javax.swing.JFrame implements Runnable{
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("UICS Client");
+        setResizable(false);
 
         jLabel1.setText("Username");
 

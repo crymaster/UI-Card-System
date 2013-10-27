@@ -38,7 +38,7 @@ public class LoggingController extends BaseController {
             this.getFormManager().showMainMenu();
             this.getFormManager().updateProfile();
         } else{
-            this.getFormManager().showMessageOnLogIn("Log in fail! Username or password is not correct", 0);
+            this.getFormManager().showMessageOnLogIn("Log in fail!\n 1.Username or password is not correct\n 2.Not the right centre", 0);
         }
     }
     

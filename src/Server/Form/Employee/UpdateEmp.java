@@ -6,8 +6,10 @@ package Server.Form.Employee;
 
 import Server.Entity.Employee;
 import Server.Form.MainMenu;
+import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,18 +22,42 @@ public class UpdateEmp extends javax.swing.JDialog {
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
             + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     private Employee emp;
+    private Vector<Vector> centres;
 
     /**
      * Creates new form UpdateEmp
      */
-    public UpdateEmp(java.awt.Frame parent, boolean modal) {
+    public UpdateEmp(java.awt.Frame parent, boolean modal, Vector centres) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
+        setCentres(centres);
     }
 
     public void setEmp(Employee emp) {
         this.emp = emp;
+    }
+
+    public void setCentres(Vector<Vector> centres) {
+        this.centres = centres;
+    }
+
+    public void refresh() {
+        loadCentres();
+        txtEmpName.setText(emp.getEmpName());
+        txtEmail.setText(emp.getEmail());
+    }
+
+    void loadCentres() {
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for (int i = 0; i < centres.size(); i++) {
+            if (emp.getCentreCode().equals(centres.get(i).get(0).toString())) {
+                model.setSelectedItem(centres.get(i).get(1) + "-" + centres.get(i).get(2));
+            } else {
+                model.addElement(centres.get(i).get(1) + "-" + centres.get(i).get(2));
+            }
+        }
+        cbCentre.setModel(model);
     }
 
     /**
@@ -43,8 +69,6 @@ public class UpdateEmp extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtEmpID = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         txtEmpName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
@@ -55,16 +79,12 @@ public class UpdateEmp extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         btnCancel = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        txtCentreCode = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
         txtPasswordConfirm = new javax.swing.JPasswordField();
+        cbCentre = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        txtEmpID.setEnabled(false);
-
-        jLabel1.setText("Emp ID:");
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        setResizable(false);
 
         jLabel4.setText("Employee Name:");
 
@@ -96,10 +116,6 @@ public class UpdateEmp extends javax.swing.JDialog {
 
         jLabel7.setText("Centre Code:");
 
-        txtPassword.setText("jPasswordField1");
-
-        txtPasswordConfirm.setText("jPasswordField1");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,49 +123,39 @@ public class UpdateEmp extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(32, 32, 32))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEmpName, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                            .addComponent(txtEmail)
-                            .addComponent(txtCentreCode)
-                            .addComponent(txtPassword)
-                            .addComponent(txtPasswordConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtEmpID)
-                                .addGap(59, 59, 59))))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbCentre, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEmpName, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtPasswordConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
+                        .addGap(59, 59, 59)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
                         .addComponent(jLabel5)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(25, 25, 25)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtEmpID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtCentreCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbCentre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -166,46 +172,29 @@ public class UpdateEmp extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancel)
-                    .addComponent(btnUpdate))
-                .addGap(11, 11, 11))
+                    .addComponent(btnUpdate)
+                    .addComponent(btnCancel))
+                .addGap(26, 26, 26))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void refresh() {
-        txtEmpID.setText(emp.getEmpID() + "");
-        txtCentreCode.setText(emp.getCentreCode());
-        txtEmpName.setText(emp.getEmpName());
-        txtEmail.setText(emp.getEmail());
-    }
-
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         // Get text form textfield
-        int tempEmpID = Integer.parseInt(txtEmpID.getText());
-        String tempCentreCode = txtCentreCode.getText();
         String tempEmpName = txtEmpName.getText();
         String tempPassword = new String(txtPassword.getPassword());
         String tempPasswordConfirm = new String(txtPasswordConfirm.getPassword());
         String tempEmail = txtEmail.getText();
-                
+
         //Check for empty fields
-        if (txtCentreCode.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Centre ID cannot be empty !", "Message", JOptionPane.ERROR_MESSAGE);
-            txtCentreCode.requestFocus();
-        }
         if (tempEmpName.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Employee Name cannot be empty !", "Message", JOptionPane.ERROR_MESSAGE);
             txtEmpName.requestFocus();
+            return;
         }
-        if (tempEmail.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Email cannot be empty !", "Message", JOptionPane.ERROR_MESSAGE);
-            txtEmail.requestFocus();
-        }
-        
         //Check email format
         if (!tempEmail.isEmpty()) {
             Pattern pattern = Pattern.compile(UpdateEmp.EMAIL_PATTERN);
@@ -216,86 +205,45 @@ public class UpdateEmp extends javax.swing.JDialog {
                 return;
             }
         }
-        
-        // Check that pw and pw confirmation match
-            if (!tempPassword.equals(tempPasswordConfirm)) {
-                JOptionPane.showMessageDialog(this, "Password and Password Confirmation do not match", "Message", JOptionPane.ERROR_MESSAGE);
-                txtPasswordConfirm.requestFocus();
-                return;
-            }
 
-        /*Add new Employee*/
-        emp.setEmpID(tempEmpID);
-        emp.setCentreCode(tempCentreCode);
+        // Check that pw and pw confirmation match
+        if (!tempPassword.equals(tempPasswordConfirm)) {
+            JOptionPane.showMessageDialog(this, "Password and Password Confirmation do not match", "Message", JOptionPane.ERROR_MESSAGE);
+            txtPasswordConfirm.requestFocus();
+            return;
+        }
+        for(int i=0; i<centres.size(); i++){
+            if(cbCentre.getSelectedItem().toString().equals(centres.get(i).get(1) + "-" + centres.get(i).get(2))){
+                emp.setCentreCode(centres.get(i).get(0).toString());
+            }
+        }
+        /*Update Employee*/
+        if(!tempPassword.isEmpty()){
+            emp.setPassword(tempPassword);
+        }
         emp.setEmpName(tempEmpName);
-        emp.setPassword(tempPassword);
         emp.setEmail(tempEmail);
         MainMenu mainMenu = (MainMenu) this.getParent();
         mainMenu.getEmpController().update(emp);
         /*Reload main menu*/
         mainMenu.refresh();
-        dispose();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         //
         dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UpdateEmp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UpdateEmp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UpdateEmp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UpdateEmp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                UpdateEmp dialog = new UpdateEmp(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox cbCentre;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField txtCentreCode;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtEmpID;
     private javax.swing.JTextField txtEmpName;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JPasswordField txtPasswordConfirm;

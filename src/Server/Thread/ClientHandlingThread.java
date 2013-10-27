@@ -72,7 +72,7 @@ public class ClientHandlingThread extends Thread {
                         employee.setEmpName((String) empData.get("empName"));
                         employee.setPassword((String) empData.get("password"));
                         employee = serviceManager.getEmpManagerService().authenticate(employee);
-                        if (employee != null && employee.getCentreCode().equals(this.centre.getCentreCode())) {
+                        if (employee != null && this.centre!=null && employee.getCentreCode().equals(this.centre.getCentreCode())) {
                             empData = employee.toHashMap();
                             this.write(empData);
                             step = ENTRY_PHASE;

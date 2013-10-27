@@ -26,7 +26,7 @@ public class ClientDBConnection {
     public ClientDBConnection() {
         try {
             prop = new Properties();
-            prop.load(new FileReader("./data/Connection-client.properties"));
+            prop.load(new FileReader("./config/Connection-client.properties"));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ClientDBConnection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex){
@@ -38,7 +38,7 @@ public class ClientDBConnection {
         try {
             if (connection == null || connection.isClosed()) {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433",this.prop);
+                connection = DriverManager.getConnection("jdbc:sqlserver://localhost:"+prop.getProperty("databasePort","1433"),this.prop);
             }
         } catch (ClassNotFoundException ex) {
         } catch (SQLException ex) {

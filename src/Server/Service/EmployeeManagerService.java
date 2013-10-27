@@ -149,13 +149,14 @@ public class EmployeeManagerService {
         int result = 0;
         try {
             String updateQuery = "UPDATE Employee SET empName = ?,"
-                    + " password = ?, email = ?, state = ? WHERE empID = ? ";
+                    + " password = ?, email = ?, state = ?, centreCode = ? WHERE empID = ? ";
             stm = connection.prepareStatement(updateQuery);
             stm.setString(1, emp.getEmpName());
             stm.setString(2, emp.getPassword());
             stm.setString(3, emp.getEmail());
             stm.setBoolean(4, emp.isState());
-            stm.setInt(5, emp.getEmpID());
+            stm.setString(5, emp.getCentreCode());
+            stm.setInt(6, emp.getEmpID());
             result = stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CentreManagerService.class.getName()).log(Level.SEVERE, null, ex);

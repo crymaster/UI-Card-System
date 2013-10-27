@@ -130,6 +130,7 @@ public class EntryProcess extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Entry Process");
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Entry Process");
@@ -472,8 +473,8 @@ public class EntryProcess extends javax.swing.JDialog {
         Date dob;
         try {
             String date = (String) cbDay.getSelectedItem() + '/' + (String) cbMonth.getSelectedItem() + '/' + Integer.parseInt(year);
-            System.out.println(date);
-            SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            df.setLenient(false);
             try {
                 dob = df.parse(date);
             } catch (ParseException ex) {

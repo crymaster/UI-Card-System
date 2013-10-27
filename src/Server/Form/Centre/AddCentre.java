@@ -73,6 +73,7 @@ public class AddCentre extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 153, 0));
@@ -271,7 +272,6 @@ public class AddCentre extends javax.swing.JDialog {
         mainMenu.getCentreController().add(centre);
         /*Reload main menu*/
         mainMenu.refresh();
-        dispose();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void cbZoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbZoneActionPerformed

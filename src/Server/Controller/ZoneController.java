@@ -20,7 +20,7 @@ public class ZoneController extends BaseController{
         if (this.getServiceManager().getZoneManagerService().insert(zone)) {
             this.getFormManager().showMessageOnMainMenu("Add successfully !", 1);
         } else {
-            this.getFormManager().showMessageOnMainMenu("pin_Code has existed or saving error !", 0);
+            this.getFormManager().showMessageOnMainMenu("PinCode has existed or saving error !", 0);
         }
     }
     
