@@ -17,6 +17,7 @@ public class Employee implements Serializable{
     private String empName;
     private String password;
     private String email;
+    private boolean state;
     private String centreCode;
     private String centreName;
 
@@ -52,6 +53,14 @@ public class Employee implements Serializable{
         this.email = email;
     }
 
+    public boolean isState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
+    }
+
     public String getCentreCode() {
         return centreCode;
     }
@@ -74,6 +83,7 @@ public class Employee implements Serializable{
         data.put("empName", this.empName);
         data.put("password", this.password);
         data.put("email", this.email);
+        data.put("state",this.state);
         data.put("centreCode", this.centreCode);
         data.put("centreName", this.centreName);
         return data;
@@ -85,6 +95,7 @@ public class Employee implements Serializable{
         employee.setEmpName((String)data.get("empName"));
         employee.setPassword((String)data.get("password"));
         employee.setEmail((String)data.get("email"));
+        employee.setState((boolean)data.get("state"));
         employee.setCentreCode((String)data.get("centreCode"));
         employee.setCentreName((String)data.get("centreName"));
         return employee;

@@ -247,6 +247,7 @@ public class UpdateProfile extends javax.swing.JDialog {
         newData.put("centreCode", data.get("centreCode"));
         newData.put("centreName", data.get("centreName"));
         newData.put("empName", txtName.getText());
+        newData.put("state", true);
         newData.put("email", tempEmail);
         MainMenu mainMenu = (MainMenu) this.getParent();
         mainMenu.getMainController().requestUpdateProfile(newData);

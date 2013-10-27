@@ -33,7 +33,7 @@ public class CentreManagerService {
         ResultSet rs;
         Centre centre = new Centre();
         try {
-            String query = "SELECT * FROM Centre WHERE centreCode = ?";
+            String query = "SELECT Centre.*, Zone.zone_Name FROM Centre INNER JOIN Zone ON Centre.pin_Code = Zone.pin_Code WHERE centreCode = ?";
             stm = connection.prepareStatement(query);
             stm.setString(1, centreCode);
             rs = stm.executeQuery();
@@ -45,6 +45,7 @@ public class CentreManagerService {
             centre.setCentreName(rs.getString(3));
             centre.setLocation(rs.getString(4));
             centre.setIp(rs.getString(5));
+            centre.setZoneName(rs.getString(6));
         } catch (SQLException ex) {
             Logger.getLogger(CentreManagerService.class.getName()).log(Level.SEVERE, null, ex);
         }

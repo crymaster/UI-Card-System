@@ -50,6 +50,10 @@ public class FormManager implements Runnable {
         JOptionPane.showMessageDialog(this.mainMenu, message,"Message",messageType);
     }
     
+    public void updateProfile(){
+        mainMenu.updateProfile();
+    }
+    
     public void disposeLogIn(){
         logIn.dispose();
         logIn.clear();

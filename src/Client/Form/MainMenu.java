@@ -20,10 +20,12 @@ import javax.swing.table.DefaultTableModel;
  * @author Son
  */
 public class MainMenu extends javax.swing.JFrame {
+
     private LoggingController logController;
     private MainController mainController;
     private EntryProcess entryProcess;
     private UIProcess uiProcess;
+
     /**
      * Creates new form MainMenu
      */
@@ -50,32 +52,32 @@ public class MainMenu extends javax.swing.JFrame {
         this.mainController = mainController;
     }
 
-    void showMessage(String message,int messageType){
-        JOptionPane.showMessageDialog(this,message,"Message", messageType);
+    void showMessage(String message, int messageType) {
+        JOptionPane.showMessageDialog(this, message, "Message", messageType);
     }
-    
-    public void refresh(){
-        DefaultTableModel model = (DefaultTableModel)draftTable.getModel();
-        while(model.getRowCount()>0){
+
+    public void refresh() {
+        DefaultTableModel model = (DefaultTableModel) draftTable.getModel();
+        while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
         /*Load data to table model*/
         this.mainController.load();
-        if(draftTable.getSelectedRow() == -1){
+        if (draftTable.getSelectedRow() == -1) {
             btnDelete.setEnabled(false);
             btnLoad.setEnabled(false);
         }
         HashMap data = BaseController.getSession().getCurrentEmployee();
-        lbName.setText((String)data.get("empName"));
-        lbCentreName.setText((String)data.get("centreName") + " Centre");
-        lbEmail.setText((String)data.get("email"));
+        lbName.setText((String) data.get("empName"));
+        lbCentreName.setText((String) data.get("centreName") + " Centre");
+        lbEmail.setText((String) data.get("email"));
     }
-    
-    public void renderDraft(ArrayList<Draft> drafts){
+
+    public void renderDraft(ArrayList<Draft> drafts) {
         /*Add information to table model*/
         DefaultTableModel model = (DefaultTableModel) draftTable.getModel();
         Vector row;
-        for(int i = 0; i< drafts.size(); i++){
+        for (int i = 0; i < drafts.size(); i++) {
             row = new Vector();
             row.add(drafts.get(i).getDraftId());
             row.add(drafts.get(i).getFirstName());
@@ -85,36 +87,44 @@ public class MainMenu extends javax.swing.JFrame {
         }
         draftTable.setModel(model);
     }
-    
-    public void toUIProcess(HashMap data){
+
+    public void toUIProcess(HashMap data) {
         entryProcess.dispose();
         uiProcess = new UIProcess(this, true);
         uiProcess.setData(data);
         new Thread(new Runnable() {
-
             @Override
             public void run() {
                 uiProcess.setVisible(true);
             }
         }).start();
     }
-    
-    public void finishUIProcess(){
+
+    public void finishUIProcess() {
         uiProcess.dispose();
-        DefaultTableModel model = (DefaultTableModel)custTable.getModel();
+        DefaultTableModel model = (DefaultTableModel) custTable.getModel();
         Vector row = new Vector();
         HashMap data = uiProcess.getCustomer();
         row.add(data.get("uiCode"));
         row.add(data.get("firstName"));
         row.add(data.get("midName"));
         row.add(data.get("lastName"));
-        Date dob = (Date)data.get("dob");
-        String dobString = ""+dob.getDate()+"/"+(dob.getMonth()+1)+"/"+(dob.getYear()+1900);
+        Date dob = (Date) data.get("dob");
+        String dobString = "" + dob.getDate() + "/" + (dob.getMonth() + 1) + "/" + (dob.getYear() + 1900);
         row.add(dobString);
         model.addRow(row);
         custTable.setModel(model);
     }
-    
+
+    void updateProfile() {
+        if (!(boolean) BaseController.getSession().getCurrentEmployee().get("state")) {
+            UpdateProfile updateProfile = new UpdateProfile(this, true);
+            updateProfile.setData(BaseController.getSession().getCurrentEmployee());
+            updateProfile.refresh();
+            updateProfile.setVisible(true);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -393,10 +403,10 @@ public class MainMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm Message", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         //choose "Yes" = 0
-        if(result == 0){
+        if (result == 0) {
             //Get draftID from table to delete
             DefaultTableModel model = (DefaultTableModel) draftTable.getModel();
-            int draftID = (Integer)model.getValueAt(draftTable.getSelectedRow(), 0);
+            int draftID = (Integer) model.getValueAt(draftTable.getSelectedRow(), 0);
             this.getMainController().delete(draftID);
             this.refresh();
         }
@@ -406,7 +416,7 @@ public class MainMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
         entryProcess = new EntryProcess(this, true);
         int id = Integer.parseInt(draftTable.getValueAt(draftTable.getSelectedRow(), 0).toString());
-        entryProcess.setData(mainController.getServiceManager().getDraftManagerService().get(id) );
+        entryProcess.setData(mainController.getServiceManager().getDraftManagerService().get(id));
         entryProcess.refresh();
         entryProcess.setVisible(true);
     }//GEN-LAST:event_btnLoadActionPerformed
@@ -423,7 +433,6 @@ public class MainMenu extends javax.swing.JFrame {
         updateProfile.refresh();
         updateProfile.setVisible(true);
     }//GEN-LAST:event_btnProfileActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnLoad;

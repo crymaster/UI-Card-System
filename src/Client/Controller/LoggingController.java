@@ -36,6 +36,7 @@ public class LoggingController extends BaseController {
             this.getFormManager().showMessageOnLogIn("Log in successfully", 1);
             this.getFormManager().disposeLogIn();
             this.getFormManager().showMainMenu();
+            this.getFormManager().updateProfile();
         } else{
             this.getFormManager().showMessageOnLogIn("Log in fail! Username or password is not correct", 0);
         }

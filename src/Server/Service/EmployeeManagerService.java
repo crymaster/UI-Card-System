@@ -32,7 +32,7 @@ public class EmployeeManagerService {
         ResultSet rs;
         Employee emp = new Employee();
         try {
-            String query = "SELECT empName, password, email, Employee.centreCode, centreName FROM Employee inner join Centre "
+            String query = "SELECT Employee.*, centreName FROM Employee inner join Centre "
                     + "on Employee.centreCode = Centre.centreCode WHERE empID = ?";
             stm = connection.prepareStatement(query);
             stm.setInt(1, empID);
@@ -40,12 +40,13 @@ public class EmployeeManagerService {
             if(!rs.next()) {
                 return null;
             }
-            emp.setEmpID(empID);
-            emp.setEmpName(rs.getString(1));
-            emp.setPassword(rs.getString(2));
-            emp.setEmail(rs.getString(3));
-            emp.setCentreCode(rs.getString(4));
-            emp.setCentreName(rs.getString(5));
+            emp.setEmpID(rs.getInt(1));
+            emp.setEmpName(rs.getString(2));
+            emp.setPassword(rs.getString(3));
+            emp.setEmail(rs.getString(4));
+            emp.setState(rs.getBoolean(5));
+            emp.setCentreCode(rs.getString(6));
+            emp.setCentreName(rs.getString(7));
         } catch (SQLException ex) {
             Logger.getLogger(CentreManagerService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -60,7 +61,7 @@ public class EmployeeManagerService {
         ResultSet rs;
         Employee emp = new Employee();
         try {
-            String query = "SELECT empID, password, email, Employee.centreCode, centreName FROM Employee inner join Centre "
+            String query = "SELECT Employee.*, centreName FROM Employee inner join Centre "
                     + "on Employee.centreCode = Centre.centreCode WHERE empName = ?";
             stm = connection.prepareStatement(query);
             stm.setString(1, empName);
@@ -70,10 +71,11 @@ public class EmployeeManagerService {
             }
             emp.setEmpID(rs.getInt(1));
             emp.setEmpName(empName);
-            emp.setPassword(rs.getString(2));
-            emp.setEmail(rs.getString(3));
-            emp.setCentreCode(rs.getString(4));
-            emp.setCentreName(rs.getString(5));
+            emp.setPassword(rs.getString(3));
+            emp.setEmail(rs.getString(4));
+            emp.setState(rs.getBoolean(5));
+            emp.setCentreCode(rs.getString(6));
+            emp.setCentreName(rs.getString(7));
         } catch (SQLException ex) {
             Logger.getLogger(CentreManagerService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -99,8 +101,9 @@ public class EmployeeManagerService {
                 emp.setEmpName(rs.getString(2));
                 emp.setPassword(rs.getString(3));
                 emp.setEmail(rs.getString(4));
-                emp.setCentreCode(rs.getString(5));
-                emp.setCentreName(rs.getString(6));
+                emp.setState(rs.getBoolean(5));
+                emp.setCentreCode(rs.getString(6));
+                emp.setCentreName(rs.getString(7));
                 emps.add(emp);
             }
         } catch (SQLException ex) {
@@ -117,7 +120,7 @@ public class EmployeeManagerService {
         ResultSet rs;
         ArrayList<Employee> emps = new ArrayList();
         try {
-            String query = "SELECT empID, empName, password, email, Employee.centreCode, centreName FROM Employee inner join Centre "
+            String query = "SELECT Employee.*, centreName FROM Employee inner join Centre "
                     + "on Employee.centreCode = Centre.centreCode";
             stm = connection.prepareStatement(query);
             rs = stm.executeQuery();
@@ -127,8 +130,9 @@ public class EmployeeManagerService {
                 emp.setEmpName(rs.getString(2));
                 emp.setPassword(rs.getString(3));
                 emp.setEmail(rs.getString(4));
-                emp.setCentreCode(rs.getString(5));
-                emp.setCentreName(rs.getString(6));
+                emp.setState(rs.getBoolean(5));
+                emp.setCentreCode(rs.getString(6));
+                emp.setCentreName(rs.getString(7));
                 emps.add(emp);
             }
         } catch (SQLException ex) {
@@ -145,12 +149,13 @@ public class EmployeeManagerService {
         int result = 0;
         try {
             String updateQuery = "UPDATE Employee SET empName = ?,"
-                    + " password = ?, email = ? WHERE empID = ? ";
+                    + " password = ?, email = ?, state = ? WHERE empID = ? ";
             stm = connection.prepareStatement(updateQuery);
             stm.setString(1, emp.getEmpName());
             stm.setString(2, emp.getPassword());
             stm.setString(3, emp.getEmail());
-            stm.setInt(4, emp.getEmpID());
+            stm.setBoolean(4, emp.isState());
+            stm.setInt(5, emp.getEmpID());
             result = stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CentreManagerService.class.getName()).log(Level.SEVERE, null, ex);
@@ -167,12 +172,13 @@ public class EmployeeManagerService {
         PreparedStatement stm;
         int result = 0;
         try {
-            String insertQuery = "INSERT INTO Employee VALUES(?,?,?,?)";
+            String insertQuery = "INSERT INTO Employee VALUES(?,?,?,?,?)";
             stm = connection.prepareStatement(insertQuery);
             stm.setString(1, emp.getEmpName());
             stm.setString(2, emp.getPassword());
             stm.setString(3, emp.getEmail());
-            stm.setString(4, emp.getCentreCode());
+            stm.setBoolean(4, emp.isState());
+            stm.setString(5, emp.getCentreCode());
             result = stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CentreManagerService.class.getName()).log(Level.SEVERE, null, ex);

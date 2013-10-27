@@ -37,10 +37,18 @@
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="txtCentreName" alignment="0" pref="135" max="32767" attributes="0"/>
-                          <Component id="txtCentreCode" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtLocation" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtIP" alignment="0" max="32767" attributes="0"/>
-                          <Component id="txtpinCode" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lbCentreCode" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lbZone" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="txtIP1" min="-2" pref="22" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="txtIP2" min="-2" pref="22" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="txtIP3" min="-2" pref="22" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="txtIP4" min="-2" pref="22" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -63,15 +71,15 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Component id="jLabel5" min="-2" pref="51" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtCentreCode" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbCentreCode" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtpinCode" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbZone" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -86,9 +94,12 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtIP" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtIP1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtIP2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtIP3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtIP4" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="26" max="32767" attributes="0"/>
+              <EmptySpace pref="35" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnCancel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnUpdate" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -121,7 +132,7 @@
         <Property name="text" type="java.lang.String" value="Location:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtIP">
+    <Component class="javax.swing.JTextField" name="txtIP1">
     </Component>
     <Component class="javax.swing.JButton" name="btnUpdate">
       <Properties>
@@ -152,16 +163,28 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtCentreName">
     </Component>
-    <Component class="javax.swing.JTextField" name="txtCentreCode">
-    </Component>
     <Component class="javax.swing.JTextField" name="txtLocation">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="pin Code:"/>
+        <Property name="text" type="java.lang.String" value="Zone"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtpinCode">
+    <Component class="javax.swing.JLabel" name="lbCentreCode">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="CentreCode"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbZone">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="ZoneName"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtIP2">
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtIP3">
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtIP4">
     </Component>
   </SubComponents>
 </Form>

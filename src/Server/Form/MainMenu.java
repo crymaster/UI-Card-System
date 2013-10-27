@@ -184,8 +184,6 @@ public class MainMenu extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txtLastName = new javax.swing.JTextField();
         btnResult = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tree = new javax.swing.JTree();
         jLabel6 = new javax.swing.JLabel();
         cbbStatus = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
@@ -199,6 +197,8 @@ public class MainMenu extends javax.swing.JFrame {
         cbbDay = new javax.swing.JComboBox();
         cbbMonth = new javax.swing.JComboBox();
         btnDetail = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tree = new javax.swing.JTree();
         jPanel2 = new javax.swing.JPanel();
         btnLogOut = new javax.swing.JButton();
         btnEditProfile = new javax.swing.JButton();
@@ -296,7 +296,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, true, false, true, true
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -325,6 +325,11 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         btnReloadCentre.setText("Reload");
+        btnReloadCentre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReloadCentreActionPerformed(evt);
+            }
+        });
 
         btnUpdateCentre.setText("Edit");
         btnUpdateCentre.addActionListener(new java.awt.event.ActionListener() {
@@ -373,7 +378,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, false, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -527,7 +532,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, true, true, true
+                false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -729,11 +734,12 @@ public class MainMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddCust)
-                    .addComponent(btnDeleteCust)
-                    .addComponent(btnReloadCust)
-                    .addComponent(btnDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDetail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnAddCust)
+                        .addComponent(btnDeleteCust)
+                        .addComponent(btnReloadCust)))
                 .addGap(16, 16, 16))
         );
 
@@ -922,7 +928,6 @@ public class MainMenu extends javax.swing.JFrame {
     public void refresh() {
         /*Clear table model*/
         DefaultTableModel model = (DefaultTableModel) tblAdminList.getModel();
-        DefaultTableModel centreModel = (DefaultTableModel) tblCentreList.getModel();
         DefaultTableModel empModel = (DefaultTableModel) tblEmpList.getModel();
         DefaultTableModel zoneModel = (DefaultTableModel) tblZoneList.getModel();
         DefaultTableModel custModel = (DefaultTableModel) tblCustList.getModel();
@@ -934,16 +939,6 @@ public class MainMenu extends javax.swing.JFrame {
         this.adminController.load();
         if (tblAdminList.getSelectedRow() == -1) {
             btnDeleteAdmin.setEnabled(false);
-        }
-
-        while (centreModel.getRowCount() > 0) {
-            centreModel.removeRow(0);
-        }
-        /*Load data to table model*/
-        this.centreController.load();
-        if (tblCentreList.getSelectedRow() == -1) {
-            btnDeleteCentre.setEnabled(false);
-            btnUpdateCentre.setEnabled(false);
         }
 
         while (empModel.getRowCount() > 0) {
@@ -976,6 +971,7 @@ public class MainMenu extends javax.swing.JFrame {
             btnDeleteCust.setEnabled(false);
             btnSend.setEnabled(false);
         }
+        refreshCentre();
         refreshTree();
     }
     
@@ -983,6 +979,18 @@ public class MainMenu extends javax.swing.JFrame {
         this.getTreeController().load();
     }
 
+    public void refreshCentre(){
+        DefaultTableModel centreModel = (DefaultTableModel) tblCentreList.getModel();
+        while (centreModel.getRowCount() > 0) {
+            centreModel.removeRow(0);
+        }
+        /*Load data to table model*/
+        this.centreController.load();
+        if (tblCentreList.getSelectedRow() == -1) {
+            btnDeleteCentre.setEnabled(false);
+            btnUpdateCentre.setEnabled(false);
+        }
+    }
     void showMessage(String message, int messageType) {
         JOptionPane.showMessageDialog(this, message, "Message", messageType);
     }
@@ -1044,7 +1052,10 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void btnAddCentreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCentreActionPerformed
         // 
-        new AddCentre(this, true).setVisible(true);
+        DefaultTableModel model = (DefaultTableModel)tblZoneList.getModel();
+        AddCentre add = new AddCentre(this, true,model.getDataVector());
+        add.setVisible(true);
+        
     }//GEN-LAST:event_btnAddCentreActionPerformed
 
     private void tblEmpListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpListMouseClicked
@@ -1248,6 +1259,11 @@ public class MainMenu extends javax.swing.JFrame {
         // 
         this.refresh();
     }//GEN-LAST:event_btnReloadCustActionPerformed
+
+    private void btnReloadCentreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReloadCentreActionPerformed
+        // TODO add your handling code here:
+        this.refreshCentre();
+    }//GEN-LAST:event_btnReloadCentreActionPerformed
 //////////////////////////////////////////////////////////////////////////////////
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddAdmin;
@@ -1310,7 +1326,6 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JTable tblEmpList;
     private javax.swing.JTable tblZoneList;
     private javax.swing.JTree tree;
-    private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtLastName;
     private javax.swing.JTextField txtMiddleName;

@@ -223,6 +223,7 @@ public class AddEmp extends javax.swing.JDialog {
         emp.setEmpName(tempEmpName);
         emp.setPassword(tempPassword);
         emp.setEmail(tempEmail);
+        emp.setState(false);
         emp.setCentreCode(tempCentreCode);
         MainMenu mainMenu = (MainMenu) this.getParent();
         mainMenu.getEmpController().add(emp);

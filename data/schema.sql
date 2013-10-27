@@ -148,6 +148,7 @@ CREATE TABLE [dbo].[Employee](
 	[empName] [varchar](100) NOT NULL,
 	[password] [varchar](100) NOT NULL,
 	[email] [varchar](100) NULL,
+	[state] [bit] NULL,
 	[centreCode] [varchar] (50) NOT NULL,
  CONSTRAINT [PK_Employee] PRIMARY KEY CLUSTERED 
 (
