@@ -5,6 +5,7 @@
 package Server.Controller;
 
 import Server.Entity.Customer;
+import java.util.ArrayList;
 
 /**
  *
@@ -44,7 +45,7 @@ public class CustomerController extends BaseController {
         this.getFormManager().loadCusts(this.getServiceManager().getCustManagerService().search(firstName, middleName, lastName, uicode, date, status, centreName));
     }
     
-    public void updateStatus(int[] custIDs) {
+    public void updateStatus(ArrayList custIDs) {
         if (this.getServiceManager().getCustManagerService().updateStatus(custIDs)) {
             this.getFormManager().showMessageOnMainMenu("Done !", 1);
         } else {

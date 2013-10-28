@@ -364,7 +364,7 @@ public class CustomerManagerService {
         return customer;
     }
 
-    public boolean updateStatus(int[] custIDs) {
+    public boolean updateStatus(ArrayList custIDs) {
         dbConnection.connect();
         Connection connection = dbConnection.getConnection();
         Statement stm;
@@ -372,8 +372,8 @@ public class CustomerManagerService {
         try {
             connection.setAutoCommit(false);
             stm = connection.createStatement();
-            for (int i = 0; i < custIDs.length; i++) {
-                query = "UPDATE Customer SET Status = 1 WHERE cusID = " + custIDs[i];
+            for (int i = 0; i < custIDs.size(); i++) {
+                query = "UPDATE Customer SET Status = 1 WHERE cusID = " + custIDs.get(i);
                 stm.addBatch(query);
             }
             stm.executeBatch();

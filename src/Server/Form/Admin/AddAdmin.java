@@ -192,6 +192,7 @@ public class AddAdmin extends javax.swing.JDialog {
         mainMenu.getAdminController().add(admin);
         /*Reload main menu*/
         mainMenu.refresh();
+        dispose();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
