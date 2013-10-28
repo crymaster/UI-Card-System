@@ -73,3 +73,18 @@ INSERT INTO Employee VALUES('emp34','123','emp34@gmail.com',0,'0901');
 INSERT INTO Employee VALUES('emp35','123','emp35@gmail.com',0,'0902');
 INSERT INTO Employee VALUES('emp36','123','emp36@gmail.com',0,'0902');
 
+/**************************** CUSTOMER TABLE ************************/
+INSERT INTO Customer VALUES('Tracy','D.','Watson','1992-1-1',1,'contact detail','tracy@gmail.com','Room-Building-Street-District-City','High School','Student',1,1,1,1,'Normal','0101','010100000001',1,1,1,0,'Personal detail','2013-10-28');
+INSERT INTO Customer VALUES('Ezquiel','K.','McGee','1992-1-1',1,'contact detail','ezquiel@gmail.com','Room-Building-Street-District-City','High School','Student',1,1,1,1,'Normal','0101','010100000002',1,1,1,0,'Personal detail','2013-10-28');
+INSERT INTO Customer VALUES('Michelle','L.','Russell','1992-1-1',1,'contact detail','michelle@gmail.com','Room-Building-Street-District-City','High School','Student',1,1,1,1,'Normal','0101','010100000003',1,1,1,0,'Personal detail','2013-10-27');
+INSERT INTO Customer VALUES('William','J.','Hester','1992-1-1',1,'contact detail','william@gmail.com','Room-Building-Street-District-City','High School','Student',1,1,1,1,'Normal','0101','010100000004',1,1,1,0,'Personal detail','2013-10-27');
+INSERT INTO Customer VALUES('Dina','J.','Kurtz','1992-1-1',1,'contact detail','dina@gmail.com','Room-Building-Street-District-City','High School','Student',1,1,1,1,'Normal','0101','010100000005',1,1,1,1,'Personal detail','2013-10-28');
+INSERT INTO Customer VALUES('Naomi','R.','Kean','1992-1-1',1,'contact detail','naomi@gmail.com','Room-Building-Street-District-City','High School','Student',1,1,1,1,'Normal','0101','010100000006',1,1,1,1,'Personal detail','2013-10-28');
+INSERT INTO Customer VALUES('Shyla','M.','Vandeusen','1992-1-1',1,'contact detail','shyla@gmail.com','Room-Building-Street-District-City','High School','Student',1,1,1,1,'Normal','0101','010100000007',1,1,1,1,'Personal detail','2013-10-27');
+INSERT INTO Customer VALUES('Donna','M.','Lyons','1992-1-1',1,'contact detail','donna@gmail.com','Room-Building-Street-District-City','High School','Student',1,1,1,1,'Normal','0101','010100000008',1,1,1,1,'Personal detail','2013-10-28');
+INSERT INTO Customer VALUES('Miguel','L.','Gardner','1992-1-1',1,'contact detail','miguel@gmail.com','Room-Building-Street-District-City','High School','Student',1,1,1,1,'Normal','0101','010100000009',1,1,1,-1,'Personal detail','2013-10-28');
+INSERT INTO Customer VALUES('David','E.','Moe','1992-1-1',1,'contact detail','david@gmail.com','Room-Building-Street-District-City','High School','Student',1,1,1,1,'Normal','0101','010100000010',1,1,1,-1,'Personal detail','2013-10-27');
+INSERT INTO Customer VALUES('Robert','C.','Turnbull','1992-1-1',1,'contact detail','robert@gmail.com','Room-Building-Street-District-City','High School','Student',1,1,1,1,'Normal','0102','010200000001',1,1,1,0,'Personal detail','2013-10-28');
+INSERT INTO Customer VALUES('Mark','L.','Manzo','1992-1-1',1,'contact detail','mark@gmail.com','Room-Building-Street-District-City','High School','Student',1,1,1,1,'Normal','0102','010200000002',1,1,1,0,'Personal detail','2013-10-28');
+INSERT INTO Customer VALUES('Teresa','J.','Johnson','1992-1-1',1,'contact detail','teresa@gmail.com','Room-Building-Street-District-City','High School','Student',1,1,1,1,'Normal','0102','010200000003',1,1,1,1,'Personal detail','2013-10-28');
+INSERT INTO Customer VALUES('Larry','M.','Jackson','1992-1-1',1,'contact detail','larry@gmail.com','Room-Building-Street-District-City','High School','Student',1,1,1,1,'Normal','0102','010200000004',1,1,1,1,'Personal detail','2013-10-28');

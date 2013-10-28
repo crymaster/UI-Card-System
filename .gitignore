@@ -1,3 +1,7 @@
-/build/
-/data/Connection.properties
-/data/Connection-client.properties
+/UICSServer/config/Connection.properties
+/UICSClient/config/Connection-client.properties
+/UICSServer/nbproject/private/
+/UICSServer/build/
+/UICSClient/nbproject/private/
+/UICSClient/build/
+/data/
