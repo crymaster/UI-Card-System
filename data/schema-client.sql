@@ -1,12 +1,9 @@
-USE [uicard]
+USE [uicsclient]
 GO
 
 /****** Object:  Table [dbo].[Draft]    Script Date: 10/20/2013 16:03:12 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Draft]') AND type in (N'U'))
 DROP TABLE [dbo].[Draft]
-GO
-
-USE [uicard]
 GO
 
 /****** Object:  Table [dbo].[Draft]    Script Date: 10/20/2013 16:03:12 ******/
