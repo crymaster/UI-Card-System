@@ -70,6 +70,7 @@ public class AddEmp extends javax.swing.JDialog {
         cbCentre = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Add Employee");
         setResizable(false);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N

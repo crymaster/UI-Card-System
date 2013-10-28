@@ -58,7 +58,7 @@ public class UpdateAdmin extends javax.swing.JDialog {
         lbAdminName = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Add New Admin");
+        setTitle("Update Admin");
         setResizable(false);
 
         jLabel1.setText("Admin Name:");

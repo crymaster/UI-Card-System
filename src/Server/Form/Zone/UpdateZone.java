@@ -43,6 +43,7 @@ public class UpdateZone extends javax.swing.JDialog {
         lbPinCode = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Update Zone");
         setResizable(false);
 
         jLabel3.setText("Zone Name:");

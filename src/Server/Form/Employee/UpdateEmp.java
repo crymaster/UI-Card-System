@@ -84,6 +84,7 @@ public class UpdateEmp extends javax.swing.JDialog {
         cbCentre = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Update Employee");
         setResizable(false);
 
         jLabel4.setText("Employee Name:");

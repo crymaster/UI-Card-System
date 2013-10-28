@@ -52,7 +52,7 @@ public class AddAdmin extends javax.swing.JDialog {
         txtPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Add New Admin");
+        setTitle("Add Admin");
         setResizable(false);
 
         jLabel1.setText("Admin Name:");

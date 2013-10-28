@@ -41,6 +41,7 @@ public class AddZone extends javax.swing.JDialog {
         spPincode = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Add Zone");
         setResizable(false);
 
         btnAdd.setText("Add");
