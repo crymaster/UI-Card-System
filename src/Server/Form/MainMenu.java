@@ -220,6 +220,7 @@ public class MainMenu extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("UICS Admin Menu");
         setResizable(false);
 
         jTabbedPane1.setName("Admin"); // NOI18N

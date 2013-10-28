@@ -25,7 +25,7 @@ public class EntryProcess extends javax.swing.JDialog {
     private static final String EMAIL_PATTERN =
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
             + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-    private Draft data;
+    private Draft data = null;
 
     /**
      * Creates new form EntryProcess
@@ -57,19 +57,21 @@ public class EntryProcess extends javax.swing.JDialog {
         ckPassport.setSelected(data.isPassport());
         ckVoter.setSelected(data.isVoter());
         ckLicense.setSelected(data.isDrivingLicense());
-        if(data.getHealth().equals("Normal")){
+        if (data.getHealth().equals("Normal")) {
             radioNormal.setSelected(true);
         } else {
             radioHandicapped.setSelected(true);
         }
-        if(data.getGender()==1){
+        if (data.getGender() == 1) {
             radioMale.setSelected(true);
         } else {
             radioFemale.setSelected(true);
         }
-        cbDay.setSelectedIndex(data.getDob().getDate()-1);
-        cbMonth.setSelectedIndex(data.getDob().getMonth());
-        txtYear.setText(data.getDob().getYear()+1900+"");
+        if (data.getDob() != null) {
+            cbDay.setSelectedIndex(data.getDob().getDate() - 1);
+            cbMonth.setSelectedIndex(data.getDob().getMonth());
+            txtYear.setText(data.getDob().getYear() + 1900 + "");
+        }
     }
 
     /**
@@ -451,114 +453,122 @@ public class EntryProcess extends javax.swing.JDialog {
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         // TODO add your handling code here:
-        String firstName = txtFirstName.getText();
-        if (firstName.isEmpty()) {
-            txtFirstName.requestFocus();
-            JOptionPane.showMessageDialog(this, "First name must not be empty", "Error", 0);
-            return;
-        }
-        String midName = txtMiddleName.getText();
-        String lastName = txtLastName.getText();
-        if (lastName.isEmpty()) {
-            txtLastName.requestFocus();
-            JOptionPane.showMessageDialog(this, "Last name must not be empty", "Error", 0);
-            return;
-        }
-        String year = txtYear.getText();
-        if (year.isEmpty()) {
-            txtYear.requestFocus();
-            JOptionPane.showMessageDialog(this, "Year must not be empty", "Error", 0);
-            return;
-        }
-        Date dob;
-        try {
-            String date = (String) cbDay.getSelectedItem() + '/' + (String) cbMonth.getSelectedItem() + '/' + Integer.parseInt(year);
-            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            df.setLenient(false);
+        int result = JOptionPane.showConfirmDialog(this, "Do you want to send?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (result == 0) {
+            String firstName = txtFirstName.getText();
+            if (firstName.isEmpty()) {
+                txtFirstName.requestFocus();
+                JOptionPane.showMessageDialog(this, "First name must not be empty", "Error", 0);
+                return;
+            }
+            String midName = txtMiddleName.getText();
+            String lastName = txtLastName.getText();
+            if (lastName.isEmpty()) {
+                txtLastName.requestFocus();
+                JOptionPane.showMessageDialog(this, "Last name must not be empty", "Error", 0);
+                return;
+            }
+            String year = txtYear.getText();
+            if (year.isEmpty()) {
+                txtYear.requestFocus();
+                JOptionPane.showMessageDialog(this, "Year must not be empty", "Error", 0);
+                return;
+            }
+            Date dob=null;
             try {
-                dob = df.parse(date);
-            } catch (ParseException ex) {
-                JOptionPane.showMessageDialog(this, "Day or Month is not correct (Ex: 31/2)", "Error", 0);
+                String date = (String) cbDay.getSelectedItem() + '/' + (String) cbMonth.getSelectedItem() + '/' + Integer.parseInt(year);
+                SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                df.setLenient(false);
+                try {
+                    dob = df.parse(date);
+                } catch (ParseException ex) {
+                    JOptionPane.showMessageDialog(this, "Day or Month is not correct (Ex: 31/2)", "Error", 0);
+                    return;
+                }
+            } catch (NumberFormatException ex) {
+                txtYear.requestFocus();
+                JOptionPane.showMessageDialog(this, "Year must be a number", "Error", 0);
                 return;
             }
-        } catch (NumberFormatException ex) {
-            txtYear.requestFocus();
-            JOptionPane.showMessageDialog(this, "Year must be a number", "Error", 0);
-            return;
-        }
-        String address = txtAddress.getText();
-        if (address.isEmpty()) {
-            txtAddress.requestFocus();
-            JOptionPane.showMessageDialog(this, "Address must not be empty", "Error", 0);
-            return;
-        }
-        String email = txtEmail.getText();
-        if (!email.isEmpty()) {
-            Pattern pattern = Pattern.compile(EntryProcess.EMAIL_PATTERN);
-            Matcher matcher = pattern.matcher(email);
-            if (!matcher.matches()) {
-                JOptionPane.showMessageDialog(this, "Email is not in valid form (Eg: abc@gmail.com)", "Error", 0);
-                txtEmail.requestFocus();
+            String address = txtAddress.getText();
+            if (address.isEmpty()) {
+                txtAddress.requestFocus();
+                JOptionPane.showMessageDialog(this, "Address must not be empty", "Error", 0);
                 return;
             }
+            String email = txtEmail.getText();
+            if (!email.isEmpty()) {
+                Pattern pattern = Pattern.compile(EntryProcess.EMAIL_PATTERN);
+                Matcher matcher = pattern.matcher(email);
+                if (!matcher.matches()) {
+                    JOptionPane.showMessageDialog(this, "Email is not in valid form (Eg: abc@gmail.com)", "Error", 0);
+                    txtEmail.requestFocus();
+                    return;
+                }
+            }
+            String contact = txtContact.getText();
+            int gender = 1;
+            if (radioMale.isSelected()) {
+                gender = 1;
+            } else {
+                gender = 0;
+            }
+            String education = txtEducation.getText();
+            String occupation = txtOccupation.getText();
+            int married = 0;
+            if (ckMarried.isSelected()) {
+                married = 1;
+            } else {
+                married = 0;
+            }
+            int passport;
+            if (ckPassport.isSelected()) {
+                passport = 1;
+            } else {
+                passport = 0;
+            }
+            int vote;
+            if (ckVoter.isSelected()) {
+                vote = 1;
+            } else {
+                vote = 0;
+            }
+            int license;
+            if (ckLicense.isSelected()) {
+                license = 1;
+            } else {
+                license = 0;
+            }
+            String health;
+            if (radioNormal.isSelected()) {
+                health = "Normal";
+            } else {
+                health = "Handicapped";
+            }
+            HashMap customer = new HashMap();
+            customer.put("firstName", firstName);
+            customer.put("midName", midName);
+            customer.put("lastName", lastName);
+            customer.put("dob", dob);
+            customer.put("address", address);
+            customer.put("gender", gender);
+            customer.put("contact", contact);
+            customer.put("email", email);
+            customer.put("education", education);
+            customer.put("occupation", occupation);
+            customer.put("married", married);
+            customer.put("passport", passport);
+            customer.put("vote", vote);
+            customer.put("license", license);
+            customer.put("health", health);
+            MainMenu menu = (MainMenu) this.getParent();
+            menu.getMainController().send(customer);
+
+            if (data != null) {
+                menu.getMainController().delete(data.getDraftId());
+                menu.refresh();
+            }
         }
-        String contact = txtContact.getText();
-        int gender = 1;
-        if (radioMale.isSelected()) {
-            gender = 1;
-        } else {
-            gender = 0;
-        }
-        String education = txtEducation.getText();
-        String occupation = txtOccupation.getText();
-        int married = 0;
-        if (ckMarried.isSelected()) {
-            married = 1;
-        } else {
-            married = 0;
-        }
-        int passport;
-        if (ckPassport.isSelected()) {
-            passport = 1;
-        } else {
-            passport = 0;
-        }
-        int vote;
-        if (ckVoter.isSelected()) {
-            vote = 1;
-        } else {
-            vote = 0;
-        }
-        int license;
-        if (ckLicense.isSelected()) {
-            license = 1;
-        } else {
-            license = 0;
-        }
-        String health;
-        if (radioNormal.isSelected()) {
-            health = "Normal";
-        } else {
-            health = "Handicapped";
-        }
-        HashMap customer = new HashMap();
-        customer.put("firstName", firstName);
-        customer.put("midName", midName);
-        customer.put("lastName", lastName);
-        customer.put("dob", dob);
-        customer.put("address", address);
-        customer.put("gender", gender);
-        customer.put("contact", contact);
-        customer.put("email", email);
-        customer.put("education", education);
-        customer.put("occupation", occupation);
-        customer.put("married", married);
-        customer.put("passport", passport);
-        customer.put("vote", vote);
-        customer.put("license", license);
-        customer.put("health", health);
-        MainMenu menu = (MainMenu) this.getParent();
-        menu.getMainController().send(customer);
     }//GEN-LAST:event_btnSendActionPerformed
 
     private void ckAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckAddressActionPerformed
@@ -567,6 +577,7 @@ public class EntryProcess extends javax.swing.JDialog {
             txtAddress.setEnabled(true);
         } else {
             txtAddress.setEnabled(false);
+            txtAddress.setText("");
         }
     }//GEN-LAST:event_ckAddressActionPerformed
 
@@ -607,6 +618,9 @@ public class EntryProcess extends javax.swing.JDialog {
             draft.setHealth("Normal");
         } else {
             draft.setHealth("Handicapped");
+        }
+        if (this.data != null) {
+            draft.setDraftId(data.getDraftId());
         }
         MainMenu menu = (MainMenu) this.getParent();
         menu.getMainController().saveDraft(draft);

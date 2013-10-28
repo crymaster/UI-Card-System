@@ -64,7 +64,7 @@ public class UIProcess extends javax.swing.JDialog {
         txtRetina = new javax.swing.JTextField();
         btnSend = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("UI Process");
         setResizable(false);
 
@@ -83,6 +83,11 @@ public class UIProcess extends javax.swing.JDialog {
         thumbGroup.add(ckThumbYes);
         ckThumbYes.setSelected(true);
         ckThumbYes.setText("Yes");
+        ckThumbYes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckThumbYesActionPerformed(evt);
+            }
+        });
 
         thumbGroup.add(ckThumbNo);
         ckThumbNo.setText("No");
@@ -104,6 +109,11 @@ public class UIProcess extends javax.swing.JDialog {
         fingerGroup.add(ckFingerYes);
         ckFingerYes.setSelected(true);
         ckFingerYes.setText("Yes");
+        ckFingerYes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckFingerYesActionPerformed(evt);
+            }
+        });
 
         fingerGroup.add(ckFingerNo);
         ckFingerNo.setText("No");
@@ -121,6 +131,11 @@ public class UIProcess extends javax.swing.JDialog {
         retinaGroup.add(ckRetinaYes);
         ckRetinaYes.setSelected(true);
         ckRetinaYes.setText("Yes");
+        ckRetinaYes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckRetinaYesActionPerformed(evt);
+            }
+        });
 
         retinaGroup.add(ckRetinaNo);
         ckRetinaNo.setText("No");
@@ -164,7 +179,7 @@ public class UIProcess extends javax.swing.JDialog {
                             .addComponent(lbCode)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(ckThumbYes)
-                                .addGap(84, 84, 84)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(ckThumbNo))
                             .addComponent(jScrollPane2)
                             .addComponent(txtThumb)
@@ -192,15 +207,11 @@ public class UIProcess extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(ckThumbYes)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(ckThumbNo)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(ckThumbYes)
+                    .addComponent(ckThumbNo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtThumb, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -229,8 +240,6 @@ public class UIProcess extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (ckThumbNo.isSelected()) {
             txtThumb.setEnabled(true);
-        } else {
-            txtThumb.setEnabled(false);
         }
     }//GEN-LAST:event_ckThumbNoActionPerformed
 
@@ -238,8 +247,6 @@ public class UIProcess extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (ckFingerNo.isSelected()) {
             txtFinger.setEnabled(true);
-        } else {
-            txtFinger.setEnabled(false);
         }
     }//GEN-LAST:event_ckFingerNoActionPerformed
 
@@ -247,8 +254,6 @@ public class UIProcess extends javax.swing.JDialog {
         // TODO add your handling code here:
         if (ckRetinaNo.isSelected()) {
             txtRetina.setEnabled(true);
-        } else {
-            txtRetina.setEnabled(false);
         }
     }//GEN-LAST:event_ckRetinaNoActionPerformed
 
@@ -284,6 +289,28 @@ public class UIProcess extends javax.swing.JDialog {
         MainMenu menu = (MainMenu)this.getParent();
         menu.getMainController().send(customer);
     }//GEN-LAST:event_btnSendActionPerformed
+
+    private void ckThumbYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckThumbYesActionPerformed
+        // TODO add your handling code here:
+        if (ckThumbYes.isSelected()) {
+            txtThumb.setEnabled(false);
+        }
+    }//GEN-LAST:event_ckThumbYesActionPerformed
+
+    private void ckFingerYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckFingerYesActionPerformed
+        // TODO add your handling code here:
+        if (ckFingerYes.isSelected()) {
+            txtFinger.setEnabled(false);
+        }
+    }//GEN-LAST:event_ckFingerYesActionPerformed
+
+    private void ckRetinaYesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckRetinaYesActionPerformed
+        // TODO add your handling code here:
+        if (ckRetinaYes.isSelected()) {
+            txtRetina.setEnabled(false);
+        }
+    }//GEN-LAST:event_ckRetinaYesActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSend;
     private javax.swing.JRadioButton ckFingerNo;

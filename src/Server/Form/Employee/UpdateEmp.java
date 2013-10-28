@@ -114,7 +114,7 @@ public class UpdateEmp extends javax.swing.JDialog {
             }
         });
 
-        jLabel7.setText("Centre Code:");
+        jLabel7.setText("Centre:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
