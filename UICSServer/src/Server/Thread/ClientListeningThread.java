@@ -17,30 +17,31 @@ import java.util.logging.Logger;
  *
  * @author Son
  */
-public class ClientListeningThread extends Thread{
+public class ClientListeningThread extends Thread {
+
     private static int port;
     ServerSocket serverSocket;
+
     @Override
     public void run() {
         Properties prop = new Properties();
         try {
+            //load serverport from Connection.properties
             prop.load(new FileReader("./config/Connection.properties"));
             port = Integer.parseInt(prop.getProperty("serverPort", "2222"));
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(ClientListeningThread.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex){
-            
+        } catch (IOException ex) {
         }
         try {
-            serverSocket= new ServerSocket(port);
-            while(true){
+            serverSocket = new ServerSocket(port);
+            while (true) {
+                //Listen for connection and create new thread if a client connects 
                 Socket socket = serverSocket.accept();
                 ClientHandlingThread t = new ClientHandlingThread(socket);
                 t.start();
             }
-            
+
         } catch (IOException ex) {
-            Logger.getLogger(ClientListeningThread.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

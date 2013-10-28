@@ -31,6 +31,7 @@ public class LogIn extends javax.swing.JFrame{
     }
 
     public void clear(){
+        //clear text field
         txtAccount.setText("");
         txtPassword.setText("");
     }

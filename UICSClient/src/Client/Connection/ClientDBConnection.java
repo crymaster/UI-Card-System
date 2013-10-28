@@ -25,24 +25,23 @@ public class ClientDBConnection {
 
     public ClientDBConnection() {
         try {
+            //load data to properties object
             prop = new Properties();
             prop.load(new FileReader("./config/Connection-client.properties"));
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(ClientDBConnection.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex){
-            
+        } catch (IOException ex) {
         }
     }
-    
+
     public void connect() {
         try {
+            //connect to db with data in property object
             if (connection == null || connection.isClosed()) {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                connection = DriverManager.getConnection("jdbc:sqlserver://localhost:"+prop.getProperty("databasePort","1433"),this.prop);
+                connection = DriverManager.getConnection("jdbc:sqlserver://localhost:" + prop.getProperty("databasePort", "1433"), this.prop);
             }
         } catch (ClassNotFoundException ex) {
         } catch (SQLException ex) {
-            Logger.getLogger(ClientDBConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -51,11 +50,11 @@ public class ClientDBConnection {
     }
 
     public void disconnect() {
+        //close connection
         if (connection != null) {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                Logger.getLogger(ClientDBConnection.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

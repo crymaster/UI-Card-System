@@ -34,6 +34,7 @@ public class AddCentre extends javax.swing.JDialog {
     }
 
     private void loadZone() {
+        //load centre name to combo box
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         for (int i = 0; i < zone.size(); i++) {
             model.addElement(zone.get(i).get(1));

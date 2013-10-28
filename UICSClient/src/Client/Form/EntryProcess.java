@@ -5,13 +5,10 @@
 package Client.Form;
 
 import Client.Entity.Draft;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -41,6 +38,7 @@ public class EntryProcess extends javax.swing.JDialog {
     }
 
     public void refresh() {
+        //refresh text field
         txtFirstName.setText(data.getFirstName());
         txtMiddleName.setText(data.getMiddleName());
         txtLastName.setText(data.getLastName());
@@ -452,9 +450,10 @@ public class EntryProcess extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
-        // TODO add your handling code here:
+        
         int result = JOptionPane.showConfirmDialog(this, "Do you want to send?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (result == 0) {
+            //Check that first name is not empty
             String firstName = txtFirstName.getText();
             if (firstName.isEmpty()) {
                 txtFirstName.requestFocus();
@@ -463,18 +462,21 @@ public class EntryProcess extends javax.swing.JDialog {
             }
             String midName = txtMiddleName.getText();
             String lastName = txtLastName.getText();
+            //Check that last name is not empty
             if (lastName.isEmpty()) {
                 txtLastName.requestFocus();
                 JOptionPane.showMessageDialog(this, "Last name must not be empty", "Error", 0);
                 return;
             }
             String year = txtYear.getText();
+            //Check that year is not empty
             if (year.isEmpty()) {
                 txtYear.requestFocus();
                 JOptionPane.showMessageDialog(this, "Year must not be empty", "Error", 0);
                 return;
             }
             Date dob=null;
+            //parse to check that date is in right date format
             try {
                 String date = (String) cbDay.getSelectedItem() + '/' + (String) cbMonth.getSelectedItem() + '/' + Integer.parseInt(year);
                 SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -491,6 +493,7 @@ public class EntryProcess extends javax.swing.JDialog {
                 return;
             }
             String address = txtAddress.getText();
+            //Check that address is not empty
             if (address.isEmpty()) {
                 txtAddress.requestFocus();
                 JOptionPane.showMessageDialog(this, "Address must not be empty", "Error", 0);
@@ -498,6 +501,7 @@ public class EntryProcess extends javax.swing.JDialog {
             }
             String email = txtEmail.getText();
             if (!email.isEmpty()) {
+                //Check email format
                 Pattern pattern = Pattern.compile(EntryProcess.EMAIL_PATTERN);
                 Matcher matcher = pattern.matcher(email);
                 if (!matcher.matches()) {
@@ -545,6 +549,7 @@ public class EntryProcess extends javax.swing.JDialog {
             } else {
                 health = "Handicapped";
             }
+            //copy all to HashMap object for sending
             HashMap customer = new HashMap();
             customer.put("firstName", firstName);
             customer.put("midName", midName);

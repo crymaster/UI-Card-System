@@ -12,10 +12,12 @@ import Server.Entity.Centre;
  */
 public class CentreController extends BaseController {
     public void load() {
+        //load all centre from database
         this.getFormManager().loadCentres(this.getServiceManager().getCentreManagerService().getAll());
     }
 
     public void add(Centre centre) {
+        //add a centre to database
         if (this.getServiceManager().getCentreManagerService().insert(centre)) {
             this.getFormManager().showMessageOnMainMenu("Add successfully !", 1);
         } else {
@@ -24,6 +26,7 @@ public class CentreController extends BaseController {
     }
     
     public void update(Centre centre){
+        //update a centre in database
         if (this.getServiceManager().getCentreManagerService().save(centre)) {
             this.getFormManager().showMessageOnMainMenu("Update successfully !", 1);
         } else {
@@ -32,6 +35,7 @@ public class CentreController extends BaseController {
     }
     
     public void delete(String centreCode){
+        //delete a centre in database
         if (this.getServiceManager().getCentreManagerService().delete(centreCode)){
             this.getFormManager().showMessageOnMainMenu("Delete completed !", 1);
         } else{

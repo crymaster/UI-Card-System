@@ -71,8 +71,10 @@ public class ListeningThread implements Runnable {
     public void run() {
         while (!ServerConnection.closed) {
             try {
+                //Listen to server
                 Object data = input.readObject();
                 switch (step) {
+                    //LOGGING_PHASE
                     case 0: {
                         if (data instanceof String) {
                             String msg = (String) data;
@@ -80,15 +82,18 @@ public class ListeningThread implements Runnable {
                                 this.getControllerManager().getLogInController().logIn(null);
                             }
                         } else{
+                            //set up for log in
                             HashMap employee = (HashMap) data;
                             this.getControllerManager().getLogInController().logIn(employee);
                             step = ENTRY_PHASE;
                         }
                         break;
                     }
+                    //ENTRY_PHASE
                     case 1: {
                         HashMap dataPackage = (HashMap)data;
                         String msg = (String)dataPackage.get("message");
+                        //Respond to server message
                         if(msg.equals("ENTRYSUCCESS")){
                             controllerManager.getMainController().entrySuccess(dataPackage);
                             step = UI_PHASE;
@@ -101,8 +106,10 @@ public class ListeningThread implements Runnable {
                         }
                         break;
                     }
+                    //UI_PHASE
                     case 2: {
                         String msg = (String) data;
+                        //Respond to server message
                         if(msg.equals("UISUCCESS")){
                             controllerManager.getMainController().uiSuccess();
                             step = ENTRY_PHASE;

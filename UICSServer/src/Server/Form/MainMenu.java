@@ -848,6 +848,7 @@ public class MainMenu extends javax.swing.JFrame {
         /*Add information to table model*/
         DefaultTableModel model = (DefaultTableModel) tblAdminList.getModel();
         Vector row;
+        //Copy data from ArrayList to table model
         for (int i = 0; i < admins.size(); i++) {
             row = new Vector();
             row.add(admins.get(i).getAdminName());
@@ -861,9 +862,9 @@ public class MainMenu extends javax.swing.JFrame {
         /*Add information to table model*/
         DefaultTableModel model = (DefaultTableModel) tblCentreList.getModel();
         Vector row;
+        //Copy data from ArrayList to table model
         for (int i = 0; i < centres.size(); i++) {
             row = new Vector();
-
             row.add(centres.get(i).getCentreCode());
             row.add(centres.get(i).getZoneName());
             row.add(centres.get(i).getCentreName());
@@ -878,6 +879,7 @@ public class MainMenu extends javax.swing.JFrame {
         /*Add information to table model*/
         DefaultTableModel model = (DefaultTableModel) tblEmpList.getModel();
         Vector row;
+        //Copy data from ArrayList to table model
         for (int i = 0; i < emps.size(); i++) {
             row = new Vector();
             row.add(emps.get(i).getEmpID());
@@ -893,6 +895,7 @@ public class MainMenu extends javax.swing.JFrame {
         /*Add information to table model*/
         DefaultTableModel model = (DefaultTableModel) tblZoneList.getModel();
         Vector row;
+        //Copy data from ArrayList to table model
         for (int i = 0; i < zones.size(); i++) {
             row = new Vector();
             row.add(zones.get(i).getPin_Code());
@@ -905,6 +908,7 @@ public class MainMenu extends javax.swing.JFrame {
     void renderCust(ArrayList<Customer> custs) {
         /*Add information to table model*/
         DefaultTableModel model = (DefaultTableModel) tblCustList.getModel();
+        //Copy data from ArrayList to table model
         Vector row;
         for (int i = 0; i < custs.size(); i++) {
             row = new Vector();
@@ -931,16 +935,19 @@ public class MainMenu extends javax.swing.JFrame {
         ArrayList empList;
         String empName;
         for (int i = 0; i < tree.size(); i++) {
+            //Copy zone name to tree node level 1
             zone = (ArrayList) tree.get(i);
             zoneNode = new DefaultMutableTreeNode(zone.get(0));
             rootNode.add(zoneNode);
             centreList = (ArrayList) zone.get(1);
             for (int j = 0; j < centreList.size(); j++) {
+                //Copy centre name to tree node level 2
                 centre = (ArrayList) centreList.get(j);
                 centreNode = new DefaultMutableTreeNode(centre.get(0));
                 zoneNode.add(centreNode);
                 empList = (ArrayList) centre.get(1);
                 for (int k = 0; k < empList.size(); k++) {
+                    //copy employee name to tree node level 3
                     empName = (String) empList.get(k);
                     empNode = new DefaultMutableTreeNode(empName);
                     centreNode.add(empNode);
@@ -951,6 +958,7 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     void renderCombobox(ArrayList<Centre> centres) {
+        //load centre name to combo box
         cbbCentreName.removeAllItems();
         cbbCentreName.addItem("Choose Centre");
         for (Centre c : centres) {
@@ -959,7 +967,7 @@ public class MainMenu extends javax.swing.JFrame {
     }
 
     public void refresh() {
-        /*Clear table model*/
+        /*refresh main menu*/
         lbAdmin.setText(BaseController.getSession().getCurrentAdmin().getAdminName());
         lbAdminEmail.setText(BaseController.getSession().getCurrentAdmin().getEmail());
         refreshCustomer();
@@ -976,6 +984,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     void refreshCustomer() {
         DefaultTableModel custModel = (DefaultTableModel) tblCustList.getModel();
+        //remove all table row
         while (custModel.getRowCount() > 0) {
             custModel.removeRow(0);
         }
@@ -985,6 +994,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     void refreshZone() {
         DefaultTableModel zoneModel = (DefaultTableModel) tblZoneList.getModel();
+        //remove all table row
         while (zoneModel.getRowCount() > 0) {
             zoneModel.removeRow(0);
         }
@@ -998,6 +1008,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     void refreshCentre() {
         DefaultTableModel centreModel = (DefaultTableModel) tblCentreList.getModel();
+        //remove all table row
         while (centreModel.getRowCount() > 0) {
             centreModel.removeRow(0);
         }
@@ -1011,6 +1022,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     void refreshAdmin() {
         DefaultTableModel model = (DefaultTableModel) tblAdminList.getModel();
+        //remove all table row
         while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
@@ -1023,6 +1035,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     void refreshEmp() {
         DefaultTableModel empModel = (DefaultTableModel) tblEmpList.getModel();
+        //remove all table row
         while (empModel.getRowCount() > 0) {
             empModel.removeRow(0);
         }
@@ -1038,7 +1051,7 @@ public class MainMenu extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, message, "Message", messageType);
     }
     private void btnEditProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProfileActionPerformed
-        // 
+        // init and load data to edit profile
         UpdateAdmin editProfile = new UpdateAdmin(this, true);
         editProfile.setAdmin(BaseController.getSession().getCurrentAdmin());
         editProfile.refresh();
@@ -1085,7 +1098,7 @@ public class MainMenu extends javax.swing.JFrame {
         int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm Message", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         //Admin choose "Yes" = 0
         if (result == 0) {
-            //Get amdinName from table to delete
+            //Get centreCode from table to delete
             DefaultTableModel model = (DefaultTableModel) tblCentreList.getModel();
             String centreCode = model.getValueAt(tblCentreList.getSelectedRow(), 0).toString();
             this.getCentreController().delete(centreCode);
@@ -1094,7 +1107,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteCentreActionPerformed
 
     private void btnAddCentreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCentreActionPerformed
-        // 
+        // init and load data to AddCentre
         DefaultTableModel model = (DefaultTableModel) tblZoneList.getModel();
         AddCentre add = new AddCentre(this, true, model.getDataVector());
         add.setVisible(true);
@@ -1112,7 +1125,7 @@ public class MainMenu extends javax.swing.JFrame {
         int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm Message", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         //Admin choose "Yes" = 0
         if (result == 0) {
-            //Get amdinName from table to delete
+            //Get empID from table to delete
             DefaultTableModel model = (DefaultTableModel) tblEmpList.getModel();
             int empID = (int) model.getValueAt(tblEmpList.getSelectedRow(), 0);
             this.getEmpController().delete(empID);
@@ -1121,7 +1134,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteEmpActionPerformed
 
     private void btnAddEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEmpActionPerformed
-        // 
+        // init and load data to AddEmp
         DefaultTableModel model = (DefaultTableModel) tblCentreList.getModel();
         AddEmp add = new AddEmp(this, true, model.getDataVector());
         add.setVisible(true);
@@ -1138,7 +1151,7 @@ public class MainMenu extends javax.swing.JFrame {
         int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm Message", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         //Admin choose "Yes" = 0
         if (result == 0) {
-            //Get amdinName from table to delete
+            //Get pincode from table to delete
             DefaultTableModel model = (DefaultTableModel) tblZoneList.getModel();
             String pin_Code = model.getValueAt(tblZoneList.getSelectedRow(), 0).toString();
             this.getZoneController().delete(pin_Code);
@@ -1152,7 +1165,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddZoneActionPerformed
 
     private void btnUpdateCentreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateCentreActionPerformed
-        // 
+        // init and load data to UpdateCentre
         UpdateCentre updateCentre = new UpdateCentre(this, true);
         String centreCode = tblCentreList.getValueAt(tblCentreList.getSelectedRow(), 0).toString();
         updateCentre.setCentre(centreController.getServiceManager().getCentreManagerService().get(centreCode));
@@ -1161,7 +1174,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUpdateCentreActionPerformed
 
     private void btnUpdateEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateEmpActionPerformed
-        // 
+        // init and load data to UpdateEmp
         DefaultTableModel model = (DefaultTableModel) tblCentreList.getModel();
         UpdateEmp updateEmp = new UpdateEmp(this, true, model.getDataVector());
         int empID = (int) tblEmpList.getValueAt(tblEmpList.getSelectedRow(), 0);
@@ -1171,7 +1184,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUpdateEmpActionPerformed
 
     private void btnUpdateZoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateZoneActionPerformed
-        // 
+        // init and load data to UpdateZone
         UpdateZone updateZone = new UpdateZone(this, true);
         String pinCode = tblZoneList.getValueAt(tblZoneList.getSelectedRow(), 0).toString();
         updateZone.setZone(zoneController.getServiceManager().getZoneManagerService().get(pinCode));
@@ -1185,7 +1198,7 @@ public class MainMenu extends javax.swing.JFrame {
             int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this?", "Confirm Message", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             //Admin choose "Yes" = 0
             if (result == 0) {
-                //Get amdinName from table to delete
+                //Get cusID from table to delete
                 DefaultTableModel model = (DefaultTableModel) tblCustList.getModel();
                 int cusID = (int) model.getValueAt(tblCustList.getSelectedRow(), 0);
                 this.getCustController().delete(cusID);
@@ -1195,7 +1208,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteCustActionPerformed
 
     private void btnClearCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearCustActionPerformed
-        // TODO add your handling code here:
+        // Clear search box
         txtFirstName.setText("");
         txtMiddleName.setText("");
         txtLastName.setText("");
@@ -1216,24 +1229,29 @@ public class MainMenu extends javax.swing.JFrame {
         String date = null;
         int status = 2;
         String centreName = null;
-
+        
+        //Get text from text field
         firstName = txtFirstName.getText().trim();
         middleName = txtMiddleName.getText().trim();
         lastName = txtLastName.getText().trim();
         uicode = txtUICode.getText().trim();
 
         int i = 0;
+        //set centre name accoriding to selected item
         if (!cbbCentreName.getSelectedItem().equals("Choose Centre")) {
             centreName = cbbCentreName.getSelectedItem().toString();
             i = cbbCentreName.getSelectedIndex();
         }
+        //Set status according to selected item
         if (cbbStatus.getSelectedItem().equals("Sent")) {
             status = 1;
         }
         if (cbbStatus.getSelectedItem().equals("Not Sent")) {
             status = 0;
         }
+        
         String year = txtYear.getText().trim();
+        //Check if day, month and year is empty, year is valid
         if (!(cbbDay.getSelectedItem().equals("--") || cbbMonth.getSelectedItem().equals("--"))) {
             if (year.isEmpty()) {
                 txtYear.requestFocus();
@@ -1247,6 +1265,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
 
             Date d;
+            //Parse to check for right date format
             try {
                 date = Integer.parseInt(year) + "-" + cbbMonth.getSelectedItem() + "-" + cbbDay.getSelectedItem();
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -1265,25 +1284,29 @@ public class MainMenu extends javax.swing.JFrame {
         }
 
         this.refresh();
+        //remove all row from table
         DefaultTableModel custModel = (DefaultTableModel) tblCustList.getModel();
         while (custModel.getRowCount() > 0) {
             custModel.removeRow(0);
         }
+        //search
         this.getCustController().search(firstName, middleName, lastName, uicode, date, status, centreName);
         cbbCentreName.setSelectedIndex(i);
     }//GEN-LAST:event_btnResultActionPerformed
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
-        // 
+        // only work when at least 1 row is selected
         if (tblCustList.getSelectedRowCount() != 0) {
             int[] rows = tblCustList.getSelectedRows();
             ArrayList custIDs = new ArrayList();
+            //Copy all custID which have statues Waiting to ArrayList
             for (int i = 0, j = 0; i < rows.length; i++) {
                 if (tblCustList.getValueAt(rows[i], 5).toString().equals("Waiting")) {
                     custIDs.add(tblCustList.getValueAt(rows[i], 0));
 
                 }
             }
+            //If more than zero id is in the arraylist, update all
             if (!custIDs.isEmpty()) {
                 this.getCustController().updateStatus(custIDs);
                 this.refresh();

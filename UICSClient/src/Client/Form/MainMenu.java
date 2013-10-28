@@ -58,6 +58,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     public void refresh() {
         DefaultTableModel model = (DefaultTableModel) draftTable.getModel();
+        //remove all rows from table
         while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
@@ -67,6 +68,7 @@ public class MainMenu extends javax.swing.JFrame {
             btnDelete.setEnabled(false);
             btnLoad.setEnabled(false);
         }
+        //Set label according to current employee
         HashMap data = BaseController.getSession().getCurrentEmployee();
         lbName.setText((String) data.get("empName"));
         lbCentreName.setText((String) data.get("centreName") + " Centre");
@@ -118,6 +120,7 @@ public class MainMenu extends javax.swing.JFrame {
 
     void updateProfile() {
         if (!(boolean) BaseController.getSession().getCurrentEmployee().get("state")) {
+            //init and load data to UpdateProfile
             UpdateProfile updateProfile = new UpdateProfile(this, true);
             updateProfile.setData(BaseController.getSession().getCurrentEmployee());
             updateProfile.refresh();
@@ -420,7 +423,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadActionPerformed
-        // TODO add your handling code here:
+        // get selected row on table and load a new entry process with saved info
         entryProcess = new EntryProcess(this, true);
         int id = Integer.parseInt(draftTable.getValueAt(draftTable.getSelectedRow(), 0).toString());
         entryProcess.setData(mainController.getServiceManager().getDraftManagerService().get(id));
@@ -434,7 +437,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReloadActionPerformed
 
     private void btnProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileActionPerformed
-        // TODO add your handling code here:
+        // init anad load data to UpdateProfile
         UpdateProfile updateProfile = new UpdateProfile(this, true);
         updateProfile.setData(BaseController.getSession().getCurrentEmployee());
         updateProfile.refresh();

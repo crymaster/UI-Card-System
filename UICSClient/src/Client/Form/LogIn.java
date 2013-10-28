@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  *
  * @author Son
  */
-public class LogIn extends javax.swing.JFrame implements Runnable{
+public class LogIn extends javax.swing.JFrame implements Runnable {
 
     /**
      * Creates new form SignIn
@@ -22,15 +22,16 @@ public class LogIn extends javax.swing.JFrame implements Runnable{
         this.setLocationRelativeTo(this);
     }
 
-    public void connected(){
+    public void connected() {
         lbConnect.setText("Server connected");
         btnLogIn.setEnabled(true);
     }
-    
-    public void clear(){
+
+    public void clear() {
         txtUsername.setText("");
         txtPassword.setText("");
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -136,19 +137,22 @@ public class LogIn extends javax.swing.JFrame implements Runnable{
         // TODO add your handling code here:
         String userName = txtUsername.getText();
         String password = new String(txtPassword.getPassword());
-        if(userName.isEmpty()){
-            JOptionPane.showMessageDialog(this,"Username must not be empty","Error", 0);
+        //Check that username is not empty
+        if (userName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Username must not be empty", "Error", 0);
             txtUsername.requestFocus();
             return;
         }
-        if(password.isEmpty()){
+        //Check that password is not empty
+        if (password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Password must not be empty", "Error", 0);
             txtPassword.requestFocus();
             return;
         }
+        //copy to Hashmap for sending
         HashMap employee = new HashMap();
-        employee.put("empName",userName);
-        employee.put("password",password);
+        employee.put("empName", userName);
+        employee.put("password", password);
         this.controller.requestLogIn(employee);
     }//GEN-LAST:event_btnLogInActionPerformed
 
@@ -165,13 +169,10 @@ public class LogIn extends javax.swing.JFrame implements Runnable{
         this.controller = controller;
     }
 
-    
     @Override
     public void run() {
         this.setVisible(true);
     }
-
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnLogIn;

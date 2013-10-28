@@ -61,25 +61,24 @@ public class ServerConnection {
         Properties prop = new Properties();
         InetAddress address = null;
         try {
+            //load serverip and serverport from .properties file
             prop.load(new FileReader("./config/Connection-client.properties"));
             address = Inet4Address.getByName(prop.getProperty("serverip", "127.0.0.1"));
-            portNumber = Integer.parseInt(prop.getProperty("serverPort","2222"));
+            portNumber = Integer.parseInt(prop.getProperty("serverPort", "2222"));
         } catch (FileNotFoundException ex) {
         } catch (IOException ex) {
         }
         while (true) {
             try {
+                //try to connect to server
                 clientSocket = new Socket(address, portNumber);
                 listen.setInput(new ObjectInputStream(clientSocket.getInputStream()));
                 send.setOutput(new ObjectOutputStream(clientSocket.getOutputStream()));
                 break;
             } catch (UnknownHostException ex) {
-                Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ConnectException ex) {
-                Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
                 continue;
             } catch (IOException ex) {
-                Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         if (clientSocket != null) {
@@ -97,7 +96,6 @@ public class ServerConnection {
                 clientSocket.close();
             }
         } catch (IOException ex) {
-            Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
         closed = true;
     }

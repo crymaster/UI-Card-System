@@ -12,10 +12,12 @@ import Server.Entity.Admin;
 public class AdminController extends BaseController {
 
     public void load() {
+        //load all admin from database
         this.getFormManager().loadAdmins(this.getServiceManager().getAdminManagerService().getAll());
     }
 
     public void add(Admin admin) {
+        //insert an admin to database
         if (this.getServiceManager().getAdminManagerService().insert(admin)) {
             this.getFormManager().showMessageOnMainMenu("Add successfully !", 1);
         } else {
@@ -24,6 +26,7 @@ public class AdminController extends BaseController {
     }
     
     public void update(Admin admin){
+        //update an admin in database
         if (this.getServiceManager().getAdminManagerService().save(admin)) {
             this.getFormManager().showMessageOnMainMenu("Update successfully !", 1);
         } else {
@@ -32,6 +35,7 @@ public class AdminController extends BaseController {
     }
     
     public void delete(String adminName){
+        //delete an admin in database
         if (this.getServiceManager().getAdminManagerService().delete(adminName)){
             this.getFormManager().showMessageOnMainMenu("Delete completed !", 1);
         } else{

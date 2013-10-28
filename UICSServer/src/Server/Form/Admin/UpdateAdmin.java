@@ -213,7 +213,7 @@ public class UpdateAdmin extends javax.swing.JDialog {
             }
         }
         
-        /*Add new admin*/
+        /*Update admin*/
         admin.setEmail(tempEmail);
         MainMenu mainMenu = (MainMenu) this.getParent();
         mainMenu.getAdminController().update(admin);

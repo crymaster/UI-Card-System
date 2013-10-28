@@ -41,11 +41,12 @@ public class FormManager implements Runnable {
     public void setMainMenu(MainMenu mainMenu) {
         this.mainMenu = mainMenu;
     }
-
+    
+    //show message on main menu with a message type
     public void showMessageOnMainMenu(String message, int messageType){
         JOptionPane.showMessageDialog(this.mainMenu, message,"Message",messageType);
     }
-    
+    //show message on log in with a message type
     public void showMessageOnLogIn(String message, int messageType){
         JOptionPane.showMessageDialog(this.logIn, message,"Message",messageType);
     }

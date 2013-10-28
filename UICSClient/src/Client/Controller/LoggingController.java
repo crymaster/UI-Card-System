@@ -42,6 +42,7 @@ public class LoggingController extends BaseController {
         }
     }
     
+    //Log out
     public void logOut(){
         this.getServiceManager().getServerCommunicationService().send("LOGOUT");
         ListeningThread.setStep(ListeningThread.LOGGING_PHASE);

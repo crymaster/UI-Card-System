@@ -13,9 +13,12 @@ import Server.Entity.Admin;
 public class LoggingController extends BaseController {
 
     public void logIn(Admin account) {
+        //authenticate an account for logging in
         Admin admin = this.getServiceManager().getAdminManagerService().authenticate(account);
         if (admin!=null) {
+            //set valid account to current sesstion
             BaseController.getSession().setCurrentAdmin(admin);
+            //transform view
             this.getFormManager().showMessageOnLogIn("Log in successfully!", 1);
             this.getFormManager().disposeLogIn();
             this.getFormManager().showMainMenu();
@@ -26,6 +29,7 @@ public class LoggingController extends BaseController {
     }
     
     public void logOut(){
+        //clear session to log out
         BaseController.getSession().setCurrentAdmin(null);
         this.getFormManager().disposeMainMenu();
         this.getFormManager().showLogIn();

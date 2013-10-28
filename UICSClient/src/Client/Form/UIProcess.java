@@ -258,7 +258,7 @@ public class UIProcess extends javax.swing.JDialog {
     }//GEN-LAST:event_ckRetinaNoActionPerformed
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
-        // TODO add your handling code here:
+        //Take all information in the form
         customer.put("personal", txtPersonal.getText());
         String health = (String)customer.get("health");
         boolean thumb;
@@ -286,6 +286,7 @@ public class UIProcess extends javax.swing.JDialog {
         }
         customer.put("retina", retina);
         customer.put("health", health);
+        //Send to server
         MainMenu menu = (MainMenu)this.getParent();
         menu.getMainController().send(customer);
     }//GEN-LAST:event_btnSendActionPerformed

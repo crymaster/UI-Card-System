@@ -49,6 +49,7 @@ public class UpdateEmp extends javax.swing.JDialog {
     }
 
     void loadCentres() {
+        //load centre name to combobox
         DefaultComboBoxModel model = new DefaultComboBoxModel();
         for (int i = 0; i < centres.size(); i++) {
             if (emp.getCentreCode().equals(centres.get(i).get(0).toString())) {
