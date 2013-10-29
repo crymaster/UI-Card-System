@@ -42,4 +42,12 @@ public class AdminController extends BaseController {
             this.getFormManager().showMessageOnMainMenu("An error has occured while deleting !", 0);
         }
     }
+    
+//    public void export(JTable tblCustList, String date, File file) {
+//        if(this.getServiceManager().getAdminManagerService().export(tblCustList, date, file)){
+//            this.getFormManager().showMessageOnMainMenu("Done !", 1);
+//        } else{
+//            this.getFormManager().showMessageOnMainMenu("An error has occured !", 0);
+//        }
+//    }
 }

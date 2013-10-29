@@ -87,22 +87,22 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane3" alignment="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="jScrollPane3" alignment="0" pref="489" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
-                      <Component id="btnAddAdmin" min="-2" pref="80" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                      <Component id="btnDeleteAdmin" min="-2" pref="80" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                      <Component id="btnReloadAdmin" min="-2" pref="80" max="-2" attributes="0"/>
-                      <EmptySpace pref="107" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                      <Component id="btnAddAdmin" min="-2" pref="86" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="btnDeleteAdmin" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="btnReloadAdmin" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jScrollPane3" pref="392" max="32767" attributes="0"/>
+                      <Component id="jScrollPane3" pref="386" max="32767" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnAddAdmin" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -156,6 +156,9 @@
             </Container>
             <Component class="javax.swing.JButton" name="btnDeleteAdmin">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Server/image/delete.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Delete"/>
               </Properties>
               <Events>
@@ -164,6 +167,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnAddAdmin">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Server/image/add1-20.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Add"/>
               </Properties>
               <Events>
@@ -172,6 +178,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnReloadAdmin">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Server/image/refresh_20x20.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Reload"/>
               </Properties>
               <Events>
@@ -192,16 +201,16 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane6" alignment="0" pref="478" max="32767" attributes="0"/>
+                  <Component id="jScrollPane6" alignment="0" pref="489" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnAddCentre" min="-2" pref="80" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Component id="btnUpdateCentre" min="-2" pref="80" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnDeleteCentre" min="-2" pref="80" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnReloadCentre" min="-2" pref="80" max="-2" attributes="0"/>
+                      <Component id="btnDeleteCentre" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                      <Component id="btnReloadCentre" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -209,7 +218,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jScrollPane6" pref="392" max="32767" attributes="0"/>
+                      <Component id="jScrollPane6" pref="386" max="32767" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnAddCentre" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -282,6 +291,9 @@
             </Container>
             <Component class="javax.swing.JButton" name="btnDeleteCentre">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Server/image/delete.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Delete"/>
               </Properties>
               <Events>
@@ -290,6 +302,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnAddCentre">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Server/image/add1-20.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Add"/>
               </Properties>
               <Events>
@@ -298,6 +313,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnReloadCentre">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Server/image/refresh_20x20.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Reload"/>
               </Properties>
               <Events>
@@ -306,6 +324,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnUpdateCentre">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Server/image/Edit.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Edit"/>
               </Properties>
               <Events>
@@ -326,24 +347,24 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane7" alignment="0" pref="478" max="32767" attributes="0"/>
+                  <Component id="jScrollPane7" alignment="0" pref="489" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnAddEmp" min="-2" pref="80" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Component id="btnUpdateEmp" min="-2" pref="80" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnDeleteEmp" min="-2" pref="80" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnReloadEmp" min="-2" pref="80" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnDeleteEmp" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnReloadEmp" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jScrollPane7" pref="392" max="32767" attributes="0"/>
+                      <Component id="jScrollPane7" pref="386" max="32767" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnAddEmp" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -410,6 +431,9 @@
             </Container>
             <Component class="javax.swing.JButton" name="btnDeleteEmp">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Server/image/delete.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Delete"/>
               </Properties>
               <Events>
@@ -418,6 +442,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnAddEmp">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Server/image/add1-20.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Add"/>
               </Properties>
               <Events>
@@ -426,6 +453,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnReloadEmp">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Server/image/refresh_20x20.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Reload"/>
               </Properties>
               <Events>
@@ -434,6 +464,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnUpdateEmp">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Server/image/Edit.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Edit"/>
               </Properties>
               <Events>
@@ -454,24 +487,24 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane4" alignment="0" pref="478" max="32767" attributes="0"/>
+                  <Component id="jScrollPane4" alignment="0" pref="489" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnAddZone" min="-2" pref="80" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                       <Component id="btnUpdateZone" min="-2" pref="80" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnDeleteZone" min="-2" pref="80" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnReloadZone" min="-2" pref="80" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnDeleteZone" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnReloadZone" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jScrollPane4" pref="392" max="32767" attributes="0"/>
+                      <Component id="jScrollPane4" pref="386" max="32767" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnAddZone" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -526,6 +559,9 @@
             </Container>
             <Component class="javax.swing.JButton" name="btnDeleteZone">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Server/image/delete.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Delete"/>
               </Properties>
               <Events>
@@ -534,6 +570,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnAddZone">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Server/image/add1-20.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Add"/>
               </Properties>
               <Events>
@@ -542,6 +581,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnReloadZone">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Server/image/refresh_20x20.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Reload"/>
               </Properties>
               <Events>
@@ -550,6 +592,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnUpdateZone">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Server/image/Edit.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Edit"/>
               </Properties>
               <Events>
@@ -570,15 +615,15 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane8" alignment="0" pref="478" max="32767" attributes="0"/>
+                  <Component id="jScrollPane8" alignment="0" pref="489" max="32767" attributes="0"/>
                   <Component id="pnlSearch" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                      <Component id="btnSend" min="-2" pref="75" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnSend" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                       <Component id="btnView" min="-2" pref="87" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
-                      <Component id="btnDeleteCust" min="-2" pref="80" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="btnDeleteCust" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -586,7 +631,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jScrollPane8" pref="223" max="32767" attributes="0"/>
+                      <Component id="jScrollPane8" pref="217" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="pnlSearch" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -658,11 +703,17 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblCustListMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
             <Component class="javax.swing.JButton" name="btnDeleteCust">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Server/image/delete.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Delete"/>
               </Properties>
               <Events>
@@ -699,7 +750,7 @@
                                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txtYear" min="-2" pref="49" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="11" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
@@ -741,8 +792,8 @@
                               <Component id="cbbCentreName" alignment="0" max="32767" attributes="0"/>
                               <Component id="cbbStatus" min="-2" pref="80" max="-2" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="btnResult" min="-2" pref="71" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btnResult" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnClearCust" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -822,6 +873,9 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnResult">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/Server/image/search.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Result"/>
                   </Properties>
                   <Events>
@@ -936,6 +990,9 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnClearCust">
                   <Properties>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                      <Image iconType="3" name="/Server/image/clear.png"/>
+                    </Property>
                     <Property name="text" type="java.lang.String" value="Clear"/>
                   </Properties>
                   <Events>
@@ -951,6 +1008,9 @@
             </Container>
             <Component class="javax.swing.JButton" name="btnView">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Server/image/Preview.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="View"/>
               </Properties>
               <Events>
@@ -959,6 +1019,9 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnSend">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/Server/image/Update.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Send"/>
               </Properties>
               <Events>
@@ -1025,6 +1088,7 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="btnEditProfile" max="32767" attributes="0"/>
                       <Component id="btnLogOut" max="32767" attributes="0"/>
+                      <Component id="btnReport" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
@@ -1043,6 +1107,8 @@
                   <Component id="btnEditProfile" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnLogOut" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="btnReport" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -1051,6 +1117,9 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btnLogOut">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Server/image/logout.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Log Out"/>
           </Properties>
           <Events>
@@ -1059,6 +1128,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnEditProfile">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Server/image/form_edit.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Edit Profile"/>
           </Properties>
           <Events>
@@ -1083,6 +1155,17 @@
               <Image iconType="3" name="/Server/image/admin.png"/>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnReport">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Server/image/All_reports.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Make Report"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReportActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

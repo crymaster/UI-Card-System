@@ -21,6 +21,7 @@ import Server.Entity.Employee;
 import Server.Entity.Zone;
 import Server.Form.Centre.AddCentre;
 import Server.Form.Centre.UpdateCentre;
+import Server.Form.Customer.CustomerDetails;
 import Server.Form.Employee.AddEmp;
 import Server.Form.Employee.UpdateEmp;
 import Server.Form.Zone.AddZone;
@@ -29,12 +30,8 @@ import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -68,6 +65,8 @@ public class MainMenu extends javax.swing.JFrame {
         btnUpdateCentre.setEnabled(false);
         btnUpdateEmp.setEnabled(false);
         btnUpdateZone.setEnabled(false);
+        btnReport.setEnabled(false);
+        btnView.setEnabled(false);
         setLocationRelativeTo(this);
     }
 
@@ -202,6 +201,7 @@ public class MainMenu extends javax.swing.JFrame {
         lbAdmin = new javax.swing.JLabel();
         lbAdminEmail = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        btnReport = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -245,6 +245,7 @@ public class MainMenu extends javax.swing.JFrame {
         });
         jScrollPane3.setViewportView(tblAdminList);
 
+        btnDeleteAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/delete.png"))); // NOI18N
         btnDeleteAdmin.setText("Delete");
         btnDeleteAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -252,6 +253,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        btnAddAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/add1-20.png"))); // NOI18N
         btnAddAdmin.setText("Add");
         btnAddAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -259,6 +261,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        btnReloadAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/refresh_20x20.png"))); // NOI18N
         btnReloadAdmin.setText("Reload");
         btnReloadAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,20 +273,20 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addComponent(btnAddAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(btnDeleteAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(btnReloadAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addGap(57, 57, 57)
+                .addComponent(btnAddAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(btnDeleteAdmin)
+                .addGap(30, 30, 30)
+                .addComponent(btnReloadAdmin)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddAdmin)
@@ -317,6 +320,7 @@ public class MainMenu extends javax.swing.JFrame {
         });
         jScrollPane6.setViewportView(tblCentreList);
 
+        btnDeleteCentre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/delete.png"))); // NOI18N
         btnDeleteCentre.setText("Delete");
         btnDeleteCentre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -324,6 +328,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        btnAddCentre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/add1-20.png"))); // NOI18N
         btnAddCentre.setText("Add");
         btnAddCentre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -331,6 +336,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        btnReloadCentre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/refresh_20x20.png"))); // NOI18N
         btnReloadCentre.setText("Reload");
         btnReloadCentre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -338,6 +344,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        btnUpdateCentre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/Edit.png"))); // NOI18N
         btnUpdateCentre.setText("Edit");
         btnUpdateCentre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -349,22 +356,22 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+            .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAddCentre, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(19, 19, 19)
                 .addComponent(btnUpdateCentre, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnDeleteCentre, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnReloadCentre, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDeleteCentre)
+                .addGap(17, 17, 17)
+                .addComponent(btnReloadCentre)
                 .addGap(34, 34, 34))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddCentre)
@@ -399,6 +406,7 @@ public class MainMenu extends javax.swing.JFrame {
         });
         jScrollPane7.setViewportView(tblEmpList);
 
+        btnDeleteEmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/delete.png"))); // NOI18N
         btnDeleteEmp.setText("Delete");
         btnDeleteEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -406,6 +414,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        btnAddEmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/add1-20.png"))); // NOI18N
         btnAddEmp.setText("Add");
         btnAddEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -413,6 +422,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        btnReloadEmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/refresh_20x20.png"))); // NOI18N
         btnReloadEmp.setText("Reload");
         btnReloadEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -420,6 +430,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        btnUpdateEmp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/Edit.png"))); // NOI18N
         btnUpdateEmp.setText("Edit");
         btnUpdateEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -431,22 +442,22 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAddEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(11, 11, 11)
                 .addComponent(btnUpdateEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnDeleteEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnReloadEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDeleteEmp)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnReloadEmp)
+                .addGap(40, 40, 40))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddEmp)
@@ -481,6 +492,7 @@ public class MainMenu extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(tblZoneList);
 
+        btnDeleteZone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/delete.png"))); // NOI18N
         btnDeleteZone.setText("Delete");
         btnDeleteZone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -488,6 +500,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        btnAddZone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/add1-20.png"))); // NOI18N
         btnAddZone.setText("Add");
         btnAddZone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -495,6 +508,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        btnReloadZone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/refresh_20x20.png"))); // NOI18N
         btnReloadZone.setText("Reload");
         btnReloadZone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -502,6 +516,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        btnUpdateZone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/Edit.png"))); // NOI18N
         btnUpdateZone.setText("Edit");
         btnUpdateZone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -513,22 +528,22 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAddZone, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(11, 11, 11)
                 .addComponent(btnUpdateZone, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnDeleteZone, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnReloadZone, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDeleteZone)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnReloadZone)
+                .addGap(41, 41, 41))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddZone)
@@ -563,8 +578,14 @@ public class MainMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblCustList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCustListMouseClicked(evt);
+            }
+        });
         jScrollPane8.setViewportView(tblCustList);
 
+        btnDeleteCust.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/delete.png"))); // NOI18N
         btnDeleteCust.setText("Delete");
         btnDeleteCust.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -582,6 +603,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         jLabel5.setText("Last Name:");
 
+        btnResult.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/search.png"))); // NOI18N
         btnResult.setText("Result");
         btnResult.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -605,6 +627,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         cbbMonth.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
 
+        btnClearCust.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/clear.png"))); // NOI18N
         btnClearCust.setText("Clear");
         btnClearCust.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -633,7 +656,7 @@ public class MainMenu extends javax.swing.JFrame {
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE))
                     .addGroup(pnlSearchLayout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(pnlSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -664,8 +687,8 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(cbbCentreName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cbbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSearchLayout.createSequentialGroup()
-                        .addComponent(btnResult, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnResult)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnClearCust)))
                 .addContainerGap())
         );
@@ -704,6 +727,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        btnView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/Preview.png"))); // NOI18N
         btnView.setText("View");
         btnView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -711,6 +735,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        btnSend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/Update.png"))); // NOI18N
         btnSend.setText("Send");
         btnSend.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -722,21 +747,21 @@ public class MainMenu extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
             .addComponent(pnlSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addComponent(btnSend, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSend)
+                .addGap(58, 58, 58)
                 .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62)
-                .addComponent(btnDeleteCust, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDeleteCust)
                 .addGap(60, 60, 60))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -763,6 +788,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btnLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/logout.png"))); // NOI18N
         btnLogOut.setText("Log Out");
         btnLogOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -770,6 +796,7 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
+        btnEditProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/form_edit.png"))); // NOI18N
         btnEditProfile.setText("Edit Profile");
         btnEditProfile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -784,6 +811,14 @@ public class MainMenu extends javax.swing.JFrame {
         lbAdminEmail.setText("AdminEmail");
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/admin.png"))); // NOI18N
+
+        btnReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Server/image/All_reports.png"))); // NOI18N
+        btnReport.setText("Make Report");
+        btnReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -802,7 +837,8 @@ public class MainMenu extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnEditProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLogOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnLogOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(30, 30, 30))
         );
         jPanel2Layout.setVerticalGroup(
@@ -818,6 +854,8 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(btnEditProfile)
                 .addGap(18, 18, 18)
                 .addComponent(btnLogOut)
+                .addGap(18, 18, 18)
+                .addComponent(btnReport)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -990,6 +1028,7 @@ public class MainMenu extends javax.swing.JFrame {
         }
         /*Load data to model*/
         this.custController.load();
+        btnView.setEnabled(false);
     }
 
     void refreshZone() {
@@ -1276,6 +1315,7 @@ public class MainMenu extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Day or Month is incorrect (Ex: 31/2)", "Error", 0);
                     return;
                 }
+                btnReport.setEnabled(true);
             } catch (NumberFormatException ex) {
                 txtYear.requestFocus();
                 JOptionPane.showMessageDialog(this, "Year must be a number", "Error", 0);
@@ -1342,8 +1382,31 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_treeMouseClicked
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
-        // TODO add your handling code here:
+        // 
+        CustomerDetails cd = new CustomerDetails(this, true);
+        int id = (int) tblCustList.getValueAt(tblCustList.getSelectedRow(), 0);
+        cd.setCus(custController.getServiceManager().getCustManagerService().get(id));
+        cd.init();
+        cd.setVisible(true);
     }//GEN-LAST:event_btnViewActionPerformed
+
+    private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
+        // 
+//        JFileChooser fileChooser=new JFileChooser();
+//        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+//        fileChooser.showOpenDialog(this);
+//        File file = fileChooser.getSelectedFile();
+//        if(!(file == null)) {
+//            String date = Integer.parseInt(txtYear.getText()) + "-" + cbbMonth.getSelectedItem() + "-" + cbbDay.getSelectedItem();
+//            this.getAdminController().export(tblCustList, date, file);
+//            btnReport.setEnabled(false);
+//        }
+    }//GEN-LAST:event_btnReportActionPerformed
+
+    private void tblCustListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustListMouseClicked
+        // 
+        btnView.setEnabled(true);
+    }//GEN-LAST:event_tblCustListMouseClicked
 //////////////////////////////////////////////////////////////////////////////////
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddAdmin;
@@ -1362,6 +1425,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton btnReloadCentre;
     private javax.swing.JButton btnReloadEmp;
     private javax.swing.JButton btnReloadZone;
+    private javax.swing.JButton btnReport;
     private javax.swing.JButton btnResult;
     private javax.swing.JButton btnSend;
     private javax.swing.JButton btnUpdateCentre;

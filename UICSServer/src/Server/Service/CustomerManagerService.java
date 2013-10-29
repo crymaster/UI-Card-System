@@ -38,7 +38,8 @@ public class CustomerManagerService {
         ResultSet rs;
         Customer cust = new Customer();
         try {
-            String query = "SELECT * FROM Customer WHERE cusID = ?";
+            String query = "SELECT Customer.*, Centre.centreName FROM Customer inner join Centre "
+                    + "on Customer.centreCode = Centre.centreCode WHERE cusID = ?";
             stm = connection.prepareStatement(query);
             stm.setInt(1, custID);
             rs = stm.executeQuery();
@@ -69,6 +70,7 @@ public class CustomerManagerService {
             cust.setStatus(rs.getInt(22));
             cust.setPersonalDetail(rs.getString(23));
             cust.setDateCreated(new java.util.Date(rs.getDate(24).getTime()));
+            cust.setCentreName(rs.getString(25));
         } catch (SQLException ex) {
             return null;
         }
