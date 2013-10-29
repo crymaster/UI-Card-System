@@ -148,6 +148,7 @@ public class UIProcess extends javax.swing.JDialog {
         txtRetina.setText("Reason");
         txtRetina.setEnabled(false);
 
+        btnSend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Client/image/Update.png"))); // NOI18N
         btnSend.setText("Send");
         btnSend.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -230,7 +231,7 @@ public class UIProcess extends javax.swing.JDialog {
                 .addComponent(txtRetina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSend)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();

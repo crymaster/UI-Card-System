@@ -86,6 +86,7 @@ public class UpdateProfile extends javax.swing.JDialog {
         lbCentreName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbCentreName.setText("Centre name here");
 
+        btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Client/image/check.png"))); // NOI18N
         btnUpdate.setText("Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,6 +94,7 @@ public class UpdateProfile extends javax.swing.JDialog {
             }
         });
 
+        btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Client/image/No.png"))); // NOI18N
         btnCancel.setText("Cancel");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

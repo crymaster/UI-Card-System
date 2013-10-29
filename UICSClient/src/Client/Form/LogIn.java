@@ -58,6 +58,7 @@ public class LogIn extends javax.swing.JFrame implements Runnable {
 
         jLabel2.setText("Password");
 
+        btnLogIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Client/image/Login_Icon_20x20.png"))); // NOI18N
         btnLogIn.setText("Log In");
         btnLogIn.setEnabled(false);
         btnLogIn.addActionListener(new java.awt.event.ActionListener() {
@@ -66,6 +67,7 @@ public class LogIn extends javax.swing.JFrame implements Runnable {
             }
         });
 
+        btnClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Client/image/No.png"))); // NOI18N
         btnClose.setText("Close");
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,7 +108,7 @@ public class LogIn extends javax.swing.JFrame implements Runnable {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(107, 107, 107)
                         .addComponent(lbConnect)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,7 +127,7 @@ public class LogIn extends javax.swing.JFrame implements Runnable {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLogIn)
                     .addComponent(btnClose))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(lbConnect)
                 .addContainerGap())
         );
