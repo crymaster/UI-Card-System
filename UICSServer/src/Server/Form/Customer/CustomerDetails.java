@@ -5,6 +5,7 @@
 package Server.Form.Customer;
 
 import Server.Entity.Customer;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -13,6 +14,7 @@ import Server.Entity.Customer;
 public class CustomerDetails extends javax.swing.JDialog {
 
     private Customer cus;
+
     /**
      * Creates new form CustomerDetails
      */
@@ -26,13 +28,18 @@ public class CustomerDetails extends javax.swing.JDialog {
     public void setCus(Customer cus) {
         this.cus = cus;
     }
-    
+
     public void init() {
-        
+
         lblFirstName.setText(cus.getFirstName());
         lblMiddleName.setText(cus.getMiddleName());
         lblLastName.setText(cus.getLastName());
-        lblDOB.setText(cus.getDob().toString());
+        SimpleDateFormat d = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            lblDOB.setText(d.format(cus.getDob()));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         lblGender.setText(cus.getCustGender());
         txtContact.setText(cus.getContactDetail());
         txtContact.setEnabled(true);
@@ -44,47 +51,52 @@ public class CustomerDetails extends javax.swing.JDialog {
         txtEducation.setText(cus.getEducation());
 
         lblOccupation.setText(cus.getOccupation());
-        if(cus.getMarried() == 1) {
+        if (cus.getMarried() == 1) {
             lblMarried.setText("Yes");
         }
-        if(cus.getMarried() == 0) {
+        if (cus.getMarried() == 0) {
             lblMarried.setText("No");
         }
-        if(cus.getPassport() == 1) {
+        if (cus.getPassport() == 1) {
             lblPassport.setText("Yes");
         }
-        if(cus.getPassport() == 0) {
+        if (cus.getPassport() == 0) {
             lblPassport.setText("No");
         }
-        if(cus.getVote() == 1) {
+        if (cus.getVote() == 1) {
             lblVoter.setText("Yes");
         }
-        if(cus.getVote() == 0) {
+        if (cus.getVote() == 0) {
             lblVoter.setText("No");
         }
-        if(cus.getDrivingLicense() == 1) {
+        if (cus.getDrivingLicense() == 1) {
             lblDL.setText("Yes");
         }
-        if(cus.getDrivingLicense() == 0) {
+        if (cus.getDrivingLicense() == 0) {
             lblDL.setText("No");
         }
-        if(cus.isThumb()) {
+        if (cus.isThumb()) {
             lblThumb.setText("Yes");
-        } else{
+        } else {
             lblThumb.setText("No");
         }
-        if(cus.isFingerPrint()) {
+        if (cus.isFingerPrint()) {
             lblFP.setText("Yes");
-        } else{
+        } else {
             lblFP.setText("No");
         }
-        if(cus.isRetinaScan()) {
+        if (cus.isRetinaScan()) {
             lblRS.setText("Yes");
-        } else{
+        } else {
             lblRS.setText("No");
         }
         lblHealth.setText(cus.getHealth());
-        lblDate.setText(cus.getDateCreated().toString());
+
+        try {
+            lblDate.setText(d.format(cus.getDateCreated()));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         lblCentre.setText(cus.getCentreName());
     }
 

@@ -218,8 +218,10 @@ public class MainMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("UICS Admin Menu");
+        setBackground(new java.awt.Color(51, 51, 255));
         setResizable(false);
 
+        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 102));
         jTabbedPane1.setName("Admin"); // NOI18N
 
         tblAdminList.setModel(new javax.swing.table.DefaultTableModel(
@@ -1392,15 +1394,8 @@ public class MainMenu extends javax.swing.JFrame {
 
     private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
         // 
-//        JFileChooser fileChooser=new JFileChooser();
-//        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-//        fileChooser.showOpenDialog(this);
-//        File file = fileChooser.getSelectedFile();
-//        if(!(file == null)) {
-//            String date = Integer.parseInt(txtYear.getText()) + "-" + cbbMonth.getSelectedItem() + "-" + cbbDay.getSelectedItem();
-//            this.getAdminController().export(tblCustList, date, file);
-//            btnReport.setEnabled(false);
-//        }
+
+        this.showMessage("Done !", 1);
     }//GEN-LAST:event_btnReportActionPerformed
 
     private void tblCustListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustListMouseClicked

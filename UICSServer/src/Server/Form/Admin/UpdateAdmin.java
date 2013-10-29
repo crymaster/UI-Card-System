@@ -58,7 +58,7 @@ public class UpdateAdmin extends javax.swing.JDialog {
         lbAdminName = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Update Admin");
+        setTitle("Edit Profile");
         setResizable(false);
 
         jLabel1.setText("Admin Name:");
@@ -88,7 +88,7 @@ public class UpdateAdmin extends javax.swing.JDialog {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 153, 0));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Update Admin");
+        jLabel5.setText("Edit Profile");
 
         jLabel6.setText("Password Confirmation:");
 

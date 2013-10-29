@@ -81,6 +81,18 @@ public class LogIn extends javax.swing.JFrame{
             }
         });
 
+        txtAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAccountActionPerformed(evt);
+            }
+        });
+
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,6 +161,38 @@ public class LogIn extends javax.swing.JFrame{
         account.setPassword(tempPassword);
         this.controller.logIn(account);
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void txtAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAccountActionPerformed
+        /*
+         * retrieve entry values
+         */
+        String tempAccount = txtAccount.getText();
+        String tempPassword =new String(txtPassword.getPassword());
+        
+        /*
+         * Authenticate
+         */
+        Admin account = new Admin();
+        account.setAdminName(tempAccount);
+        account.setPassword(tempPassword);
+        this.controller.logIn(account);
+    }//GEN-LAST:event_txtAccountActionPerformed
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        /*
+         * retrieve entry values
+         */
+        String tempAccount = txtAccount.getText();
+        String tempPassword =new String(txtPassword.getPassword());
+        
+        /*
+         * Authenticate
+         */
+        Admin account = new Admin();
+        account.setAdminName(tempAccount);
+        account.setPassword(tempPassword);
+        this.controller.logIn(account);
+    }//GEN-LAST:event_txtPasswordActionPerformed
 
     void showMessage(String message,int messageType){
         JOptionPane.showMessageDialog(this,message,"Message", messageType);
